@@ -4,7 +4,8 @@ import { ScrollView } from 'react-navigation';
 import EventTile from './EventTile';
 import EventList from './EventList';
 import { eventLabels, eventTypes } from './constants';
-const Events = () => {
+
+const Events = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {

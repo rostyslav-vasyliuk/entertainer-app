@@ -11,102 +11,100 @@ type Props = {
   navigation: any;
 }
 
-class AppIntroOverlay extends React.Component<Props> {
-  private _onContinue = () => {
-    this.props.navigation.navigate('GreetingsScreen');
+const AppIntroOverlay = (props: Props) => {
+  const _onContinue = () => {
+    props.navigation.navigate('GreetingsScreen');
   }
 
-  render() {
-    return (
-      <View style={styles.wrapper}>
-        <StatusBar barStyle="dark-content" />
-        <Swiper
-          showsButtons={true}
-          nextButton={<NextButton />}
-          loop={false}
-          prevButton={<View />}
-          buttonWrapperStyle={styles.buttonWrapperStyle}
-          dot={<Dot />}
-          activeDot={<ActiveDot />}
-        >
-          <View style={styles.slideContainer}>
-            <LottieView
-              style={{
-                width: 400,
-                height: 250,
-                backgroundColor: 'transparent',
-              }}
-              source={require('../../assets/welcome-animation.json')}
-              autoPlay
-              loop={true}
-            />
-            <Text style={styles.slideHeader}>Welcome!</Text>
-            <Text style={styles.slideDescription}>
-              We are so excited you are joining our community! There are only few steps to start using our app
+  return (
+    <View style={styles.wrapper}>
+      <StatusBar barStyle="dark-content" />
+      <Swiper
+        showsButtons={true}
+        nextButton={<NextButton />}
+        loop={false}
+        prevButton={<View />}
+        buttonWrapperStyle={styles.buttonWrapperStyle}
+        dot={<Dot />}
+        activeDot={<ActiveDot />}
+      >
+        <View style={styles.slideContainer}>
+          <LottieView
+            style={{
+              width: 400,
+              height: 250,
+              backgroundColor: 'transparent',
+            }}
+            source={require('../../assets/welcome-animation.json')}
+            autoPlay
+            loop={true}
+          />
+          <Text style={styles.slideHeader}>Welcome!</Text>
+          <Text style={styles.slideDescription}>
+            We are so excited you are joining our community! There are only few steps to start using our app
             </Text>
-          </View>
+        </View>
 
-          <View style={[styles.slideContainer]}>
-            <LottieView
-              style={{
-                width: 400,
-                height: 250,
-                backgroundColor: 'transparent',
-              }}
-              source={require('../../assets/world.json')}
-              autoPlay
-              loop={true}
-            />
-            <Text style={styles.slideHeader}>Find new friends!</Text>
-            <Text style={styles.slideDescription}>
-              Easily find people from all around the world and improve your language skills together
+        <View style={[styles.slideContainer]}>
+          <LottieView
+            style={{
+              width: 400,
+              height: 250,
+              backgroundColor: 'transparent',
+            }}
+            source={require('../../assets/world.json')}
+            autoPlay
+            loop={true}
+          />
+          <Text style={styles.slideHeader}>Find new friends!</Text>
+          <Text style={styles.slideDescription}>
+            Easily find people from all around the world and improve your language skills together
             </Text>
-          </View>
+        </View>
 
-          <View style={[styles.slideContainer]}>
-            <LottieView
-              style={{
-                width: 400,
-                height: 250,
-                backgroundColor: 'transparent',
-              }}
-              source={require('../../assets/location-animation.json')}
-              autoPlay
-              loop={true}
-            />
-            <Text style={styles.slideHeader}>Discover your town!</Text>
-            <Text style={styles.slideDescription}>
-              Find nearby peoples with the same interests and spend time with them
+        <View style={[styles.slideContainer]}>
+          <LottieView
+            style={{
+              width: 400,
+              height: 250,
+              backgroundColor: 'transparent',
+            }}
+            source={require('../../assets/location-animation.json')}
+            autoPlay
+            loop={true}
+          />
+          <Text style={styles.slideHeader}>Discover your town!</Text>
+          <Text style={styles.slideDescription}>
+            Find nearby peoples with the same interests and spend time with them
             </Text>
-          </View>
+        </View>
 
-          <View style={[styles.slideContainer]}>
-            <LottieView
-              style={{
-                width: 400,
-                height: 250,
-                backgroundColor: 'transparent',
-              }}
-              source={require('../../assets/books.json')}
-              autoPlay
-              loop={true}
-            />
-            <Text style={styles.slideHeader}>Learn from people!</Text>
-            <Text style={styles.slideDescription}>
-              With our app you may forget about books. Prefer conversations with real people!
+        <View style={[styles.slideContainer]}>
+          <LottieView
+            style={{
+              width: 400,
+              height: 250,
+              backgroundColor: 'transparent',
+            }}
+            source={require('../../assets/books.json')}
+            autoPlay
+            loop={true}
+          />
+          <Text style={styles.slideHeader}>Learn from people!</Text>
+          <Text style={styles.slideDescription}>
+            With our app you may forget about books. Prefer conversations with real people!
             </Text>
-            <Button iconLeft style={{ padding: 15, marginTop: 35, borderRadius: 10, backgroundColor: '#fe4b66' }} onPress={this._onContinue}>
-              <Text style={{ color: '#fff', fontSize: 18 }}>
-                LET'S START
+          <Button iconLeft style={{ padding: 15, marginTop: 35, borderRadius: 10, backgroundColor: '#fe4b66' }} onPress={_onContinue}>
+            <Text style={{ color: '#fff', fontSize: 18 }}>
+              LET'S START
               </Text>
-              <Icon name='arrow-forward' />
-            </Button>
-          </View>
+            <Icon name='arrow-forward' />
+          </Button>
+        </View>
 
-        </Swiper>
-      </View>
-    )
-  }
+      </Swiper>
+    </View>
+  )
 }
 
 export default AppIntroOverlay;

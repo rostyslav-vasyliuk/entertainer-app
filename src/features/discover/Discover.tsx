@@ -6,8 +6,11 @@ import { Modalize } from 'react-native-modalize';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
 import Events from '../events/Events';
+import MovieDetails from '../movies/MovieDetails/MovieDetails';
+import Movies from '../movies/Movies';
+import Series from '../series/Series';
 
-const Discover = () => {
+const Discover = (props) => {
   const [activeCategory, setActiveCategory] = React.useState('events');
 
   const modalRef = useRef(null);
@@ -43,7 +46,7 @@ const Discover = () => {
     </>
   );
 
-  const category = ['events', 'cinema', 'movies', 'tv_series', 'books', 'food'];
+  const category = ['events', 'cinema', 'movies', 'tv_series', 'education'];
   const categoryLabels = {
     events: {
       label: 'Events',
@@ -65,8 +68,8 @@ const Discover = () => {
       label: 'Books',
       description: 'Like books? Our recommendations will be useful for you!'
     },
-    food: {
-      label: 'Food',
+    education: {
+      label: 'Education',
       description: 'Real Japan rolls? Or a huge Cheesburger? Order to door? Yeah, just click here!'
     },
   }
@@ -117,12 +120,15 @@ const Discover = () => {
         ref={modalRef}
         handlePosition="inside"
         modalTopOffset={0}
-        snapPoint={550}
+        snapPoint={500}
       >
         {renderModalContent()}
       </Modalize>
 
-      {activeCategory === 'events' && <Events />}
+      {activeCategory === 'events' && <Events navigation={props.navigation}/>}
+      {activeCategory === 'movies' && <Movies navigation={props.navigation}/>}
+      {activeCategory === 'tv_series' && <Series navigation={props.navigation}/>}
+
     </>
   )
 }
@@ -154,14 +160,15 @@ const modalStyles = StyleSheet.create({
     paddingLeft: 25
   },
   labelStyle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '500',
     paddingBottom: 2
   },
   descriptionStyle: {
     color: '#7a7a7a',
-    textAlign: 'justify',
-    paddingRight: 25
+    fontSize: 13,
+    paddingRight: 25,
+    // marginBottom: 4
   },
   touchable: {
     // height: 80

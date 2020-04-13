@@ -1,11 +1,9 @@
 export const eventTypes = [
-  'cinema',
   'concert',
   'theatre',
   'for_child',
   'festival',
   'stand_up',
-  'circus',
   'seminars',
   'exhibition',
   'bussiness',

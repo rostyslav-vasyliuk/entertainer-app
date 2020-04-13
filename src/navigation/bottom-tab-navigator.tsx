@@ -4,6 +4,7 @@ import Discover from '../features/discover/Discover';
 import Profile from '../features/profile/Profile';
 import * as React from 'react';
 import { Entypo, AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import MovieDetails from '../features/movies/MovieDetails/MovieDetails';
 
 const HomeStack = createStackNavigator(
   {
@@ -25,6 +26,9 @@ const DiscoverStack = createStackNavigator(
   {
     Events: {
       screen: Discover
+    },
+    MovieDetails: {
+      screen: MovieDetails
     }
   },
   {
