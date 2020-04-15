@@ -11,7 +11,7 @@ import Movies from '../movies/Movies';
 import Series from '../series/Series';
 
 const Discover = (props) => {
-  const [activeCategory, setActiveCategory] = React.useState('events');
+  const [activeCategory, setActiveCategory] = React.useState('tv_series');
 
   const modalRef = useRef(null);
 

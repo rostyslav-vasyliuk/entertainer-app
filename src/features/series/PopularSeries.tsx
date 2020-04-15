@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, ImageBackground, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native-elements';
-import { Entypo } from '@expo/vector-icons';
 import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
 
@@ -54,7 +53,7 @@ const PopularSeries = (props) => {
         <Image
           placeholderStyle={{ backgroundColor: '#3a3d42' }}
           PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
-          source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item[0].backdrop_path }}
+          source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item[0].poster_path }}
           style={styles.movieImageStyle}
         />
         <View style={styles.textContainer}>
@@ -68,7 +67,7 @@ const PopularSeries = (props) => {
         <Image
           placeholderStyle={{ backgroundColor: '#3a3d42' }}
           PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
-          source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item[1].backdrop_path }}
+          source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item[1].poster_path }}
           style={styles.movieImageStyle}
         />
         <Text style={styles.movieTitle}>{item[1].name}</Text>
@@ -93,8 +92,8 @@ const PopularSeries = (props) => {
   }
 
   const navigate = (current_id) => {
-    props.navigation.push('MovieDetails', {
-      movie_id: current_id
+    props.navigation.push('SeriesDetails', {
+      series_id: current_id
     })
   }
 
@@ -102,18 +101,9 @@ const PopularSeries = (props) => {
     <View>
       {loading ?
         <ActivityIndicator size="large" color="#fff" /> :
-        // <ScrollView
-        //   onScroll={({ nativeEvent }) => {
-        //     console.log(this.isCloseToBottom(nativeEvent))
-        //     if (this.isCloseToBottom(nativeEvent)) {
-        //       console.log('boom')
-        //     }
-        //   }}
-        // >
         <>
           {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
         </>
-        // </ScrollView>
       }
     </View>
   );
