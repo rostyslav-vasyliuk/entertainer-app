@@ -5,18 +5,24 @@ import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
 import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
+import { seriesGenres } from '../constants';
 
 const SeriesDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [seriesData, setseriesData]: any = useState({});
   const [seasonsData, setSeasonsData]: any = useState({});
   const [seasonIsLoading, setSeasonIsLoading] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
     const series_id = props.navigation.getParam('series_id', null);
     Axios.get(`/tv-series/details/${series_id}`).then((response: AxiosResponse) => {
       setseriesData(response.data);
       setIsLoading(false);
+    });
+
+    Axios.get(`/tv-series/recommendations?id=${series_id}`).then((response: AxiosResponse) => {
+      setRecommendations(response.data.results);
     });
   }, []);
 
@@ -29,7 +35,6 @@ const SeriesDetails = (props) => {
   }
 
   const getVideoBackground = () => {
-    // console.log(`https://i3.ytimg.com/vi/${seriesData.videos.results[0].key}/maxresdefault.jpg`)
     return `https://i3.ytimg.com/vi/${seriesData.videos.results[0].key}/maxresdefault.jpg`;
   }
 
@@ -42,6 +47,12 @@ const SeriesDetails = (props) => {
     genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
     finalString = finalString.slice(0, finalString.length - 2);
     return finalString;
+  }
+
+  const getGenre = (genre_id) => {
+    if (seriesGenres.find((item) => item.movieDB_id === genre_id)) {
+      return seriesGenres.find((item) => item.movieDB_id === genre_id).genre;
+    }
   }
 
   const percent2color = (perc) => {
@@ -66,6 +77,12 @@ const SeriesDetails = (props) => {
         setSeasonsData(seasonsDataCopy);
         setSeasonIsLoading(null);
       });
+  }
+
+  const navigate = (current_id) => {
+    props.navigation.push('SeriesDetails', {
+      series_id: current_id
+    })
   }
 
   return (
@@ -258,25 +275,26 @@ const SeriesDetails = (props) => {
           </View>
         </View>
 
-        {/* <View style={styles.overviewBlock}>
-        <Text style={styles.overviewTitle}>Similar movies</Text>
-        <ScrollView horizontal>
-          {state.similarMoviesData.map((elem) =>
-            <View key={elem.id}>
-              <TouchableOpacity style={styles.similarMovieContainer} onPress={() => updateView(elem.id)}>
-                <ImageBackground source={{ uri: 'https://image.tmdb.org/t/p/w500/' + elem.backdrop_path }} style={styles.movieImageStyle} imageStyle={{ borderRadius: 15 }}>
-                </ImageBackground>
-                <View style={styles.textContainer}>
-                  <Text style={styles.country}>{elem.title}</Text>
-                  <Text style={styles.country}>
-                    {`${getYear(elem.release_date)}, ${getGenre(elem.genre_ids[0])}`}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-        </ScrollView>
-      </View> */}
+        <View style={styles.overviewBlock}>
+          <Text style={styles.overviewTitle}>You may like</Text>
+          <ScrollView horizontal>
+            {recommendations.map((elem) =>
+              <View key={elem.id}>
+                <TouchableOpacity style={styles.similarMovieContainer} onPress={() => navigate(elem.id)}>
+                  <ImageBackground source={{ uri: 'https://image.tmdb.org/t/p/w500/' + elem.poster_path }} style={styles.movieImageStyle} imageStyle={{ borderRadius: 8 }} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.country}>
+                      {elem.name}
+                    </Text>
+                    <Text style={styles.country}>
+                      {`${getYear(elem.first_air_date)}, ${getGenre(elem.genre_ids[0])}`}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+          </ScrollView>
+        </View>
       </ScrollView>
     </>
   );
@@ -348,11 +366,12 @@ const styles = StyleSheet.create({
   },
   movieImageStyle: {
     width: 150,
-    height: 180,
+    height: 225
   },
   similarMovieContainer: {
     width: 150,
     marginRight: 10,
+    paddingBottom: 15
   },
   castBlock: {
     width: 150,

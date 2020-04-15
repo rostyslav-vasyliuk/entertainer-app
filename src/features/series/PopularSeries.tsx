@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'rea
 import { Image } from 'react-native-elements';
 import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
+import { screenWidth } from '../../constants/screen-contants';
 
 const PopularSeries = (props) => {
   // const [moviesData, setMoviesData] = useState(null);
@@ -124,17 +125,18 @@ const styles = StyleSheet.create({
   },
   movieImageStyle: {
     flex: 1,
-    height: 100,
+    height: 225,
+    width: 150,
     borderRadius: 15,
   },
   twoMovieContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     margin: 5,
   },
   movieContainer: {
-    flex: 1,
+    width: screenWidth/2 - 20,
     marginLeft: 4,
     marginRight: 4,
   },
