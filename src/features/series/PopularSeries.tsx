@@ -3,7 +3,6 @@ import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'rea
 import { Image } from 'react-native-elements';
 import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
-import { screenWidth } from '../../constants/screen-contants';
 
 const PopularSeries = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -46,36 +45,29 @@ const PopularSeries = (props) => {
     }
   }, [props.endReached])
 
-  const renderMovieRow = (item) => (
-    <View key={item[0].id} style={styles.twoMovieContainer}>
-      <TouchableOpacity style={styles.movieContainer} onPress={() => navigate(item[0].id)}>
-        <Image
-          placeholderStyle={{ backgroundColor: '#3a3d42' }}
-          PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
-          source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item[0].poster_path }}
-          style={styles.movieImageStyle}
-        />
-        <View style={styles.textContainer}>
-          <Text style={styles.movieTitle}>{item[0].name}</Text>
-          <Text style={styles.movieInfo}>
-            {`${getYear(item[0].first_air_date)}, ${getGenre(item[0].genre_ids[0])}`}
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.movieContainer} onPress={() => navigate(item[1].id)}>
-        <Image
-          placeholderStyle={{ backgroundColor: '#3a3d42' }}
-          PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
-          source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item[1].poster_path }}
-          style={styles.movieImageStyle}
-        />
-        <View style={styles.textContainer}>
-          <Text style={styles.movieTitle}>{item[1].name}</Text>
-          <Text style={styles.movieInfo}>
-            {`${getYear(item[1].first_air_date)}, ${getGenre(item[1].genre_ids[0])}`}
-          </Text>
-        </View>
-      </TouchableOpacity>
+  const renderMovieRow = (paired_items) => (
+    <View key={paired_items[0].id} style={styles.twoMovieContainer}>
+      {paired_items.map((item) => (
+        <TouchableOpacity
+          style={styles.movieContainer}
+          onPress={() => navigate(item.id)}
+          key={item.id}
+        >
+          <Image
+            placeholderStyle={{ backgroundColor: '#3a3d42' }}
+            PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
+            source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item.poster_path }}
+            style={styles.movieImageStyle}
+            borderRadius={5}
+          />
+          <View style={styles.textContainer}>
+            <Text style={styles.movieTitle}>{item.name}</Text>
+            <Text style={styles.movieInfo}>
+              {`${getYear(item.first_air_date)}, ${getGenre(item.genre_ids[0])}`}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   )
 
@@ -108,7 +100,7 @@ const PopularSeries = (props) => {
 
             {paginationLoading && (
               <View style={styles.paginationLoaderWrapper}>
-                <ActivityIndicator size='small' color='#000'/>
+                <ActivityIndicator size='small' color='#000' />
               </View>
             )}
           </>
@@ -132,7 +124,7 @@ const styles = StyleSheet.create({
   movieImageStyle: {
     height: 250,
     width: 170,
-    borderRadius: 15,
+    borderRadius: 5
   },
   twoMovieContainer: {
     flex: 1,
@@ -141,7 +133,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   movieContainer: {
-    width: screenWidth / 2 - 20,
+    width: 170,
     alignItems: 'center',
     marginLeft: 4,
     marginRight: 4,

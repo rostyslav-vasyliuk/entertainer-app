@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native-elements';
-import { movieGenres } from './constants';
+import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Header, Left, Body, Right } from 'native-base';
 
-const PopularMovies = (props) => {
+const SeriesByGenre = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [paginationLoading, setPaginationLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [genreID, setGenreID] = useState(null);
 
   useEffect(() => {
-    Axios.get(`/movies/get-top-ten?page=${currentPage}`).then(res => {
+    const genre_id = props.navigation.getParam('genre_id', null);
+    setGenreID(genre_id);
+    Axios.get(`/tv-series/get-top-by-genre/${genre_id}?page=${currentPage}`).then(res => {
       const moviesData = res.data.results;
       let dividedArray = [];
 
@@ -22,14 +27,15 @@ const PopularMovies = (props) => {
       setDividedArray(dividedArray);
       setLoading(false);
     }
-    )
+    ).catch((err) => {
+      console.log(err)
+    })
   }, []);
 
   useEffect(() => {
     setPaginationLoading(true);
     if (props.endReached) {
-      console.log(currentPage)
-      Axios.get(`/movies/get-top-ten?page=${currentPage + 1}`).then(res => {
+      Axios.get(`/tv-series/get-top-by-genre/${genreID}?page=${currentPage}`).then(res => {
         const moviesData = res.data.results;
         let newarr = [];
 
@@ -47,7 +53,11 @@ const PopularMovies = (props) => {
   const renderMovieRow = (paired_items) => (
     <View key={paired_items[0].id} style={styles.twoMovieContainer}>
       {paired_items.map((item) => (
-        <TouchableOpacity style={styles.movieContainer} onPress={() => navigate(item.id)}>
+        <TouchableOpacity
+          style={styles.movieContainer}
+          onPress={() => navigate(item.id)}
+          key={item.id}
+        >
           <Image
             placeholderStyle={{ backgroundColor: '#3a3d42' }}
             PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
@@ -56,11 +66,9 @@ const PopularMovies = (props) => {
             borderRadius={5}
           />
           <View style={styles.textContainer}>
-            <Text style={styles.movieTitle}>
-              {item.title}
-            </Text>
+            <Text style={styles.movieTitle}>{item.name}</Text>
             <Text style={styles.movieInfo}>
-              {`${getYear(item.release_date)}, ${getGenre(item.genre_ids)}`}
+              {`${getYear(item.first_air_date)}, ${getGenre(item.genre_ids[0])}`}
             </Text>
           </View>
         </TouchableOpacity>
@@ -76,35 +84,48 @@ const PopularMovies = (props) => {
   }
 
   const getGenre = (genre_id) => {
-    if (movieGenres.find((item) => item.movieDB_id === genre_id)) {
-      return movieGenres.find((item) => item.movieDB_id === genre_id).genre;
+    if (seriesGenres.find((item) => item.movieDB_id === genre_id)) {
+      return seriesGenres.find((item) => item.movieDB_id === genre_id).genre;
     }
   }
 
   const navigate = (current_id) => {
-    props.navigation.push('MovieDetails', {
-      movie_id: current_id
+    props.navigation.push('SeriesDetails', {
+      series_id: current_id
     })
   }
-
   if (loading) {
-    return <ActivityIndicator size="large" color="#fff" />;
+    return <ActivityIndicator size='large' color='#fff' />
   }
 
   return (
-    <View>
-      {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
-      
-      {paginationLoading && (
-              <View style={styles.paginationLoaderWrapper}>
-                <ActivityIndicator size='small' color='#000' />
-              </View>
-            )}
-    </View>
+    <>
+      <Header>
+        <Left />
+        <Body>
+          <Text>
+            {getGenre(genreID)}
+          </Text>
+        </Body>
+        <Right />
+      </Header>
+      <ScrollView>
+        <View>
+          {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
+
+          {paginationLoading && (
+            <View style={styles.paginationLoaderWrapper}>
+              <ActivityIndicator size='small' color='#000' />
+            </View>
+          )}
+
+        </View>
+      </ScrollView>
+    </>
   );
 }
 
-export default PopularMovies;
+export default SeriesByGenre;
 
 const styles = StyleSheet.create({
   container: {

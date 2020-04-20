@@ -7,6 +7,7 @@ import { Entypo, AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/ve
 import MovieDetails from '../features/movies/MovieDetails/MovieDetails';
 import SeriesDetails from '../features/series/SeriesDetails/SeriesDetails';
 import ActorDetails from '../features/actor/ActorDetails';
+import SeriesByGenre from '../features/series/SeriesByGenre';
 
 const HomeStack = createStackNavigator(
   {
@@ -37,6 +38,9 @@ const DiscoverStack = createStackNavigator(
     },
     ActorDetails: {
       screen: ActorDetails
+    },
+    SeriesByGenre: {
+      screen: SeriesByGenre
     }
   },
   {

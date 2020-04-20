@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, Image, ImageBackground, Linking } from 'react-native';
+import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, ImageBackground, Linking } from 'react-native';
+import { Image } from 'react-native-elements';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
@@ -81,7 +82,7 @@ const SeriesDetails = (props) => {
     var h = r * 0x10000 + g * 0x100 + b * 0x1;
     return '#' + ('000000' + h.toString(16)).slice(-6);
   }
-  // const seasonsLoading = {};
+
   const getSeasonInfo = (season_number: number) => {
     Axios.get(`/tv-series/season/details?id=${seriesData.id}&season_number=${season_number}`)
       .then((response: AxiosResponse) => {
@@ -107,20 +108,12 @@ const SeriesDetails = (props) => {
   return (
     <>
       <ScrollView style={styles.container}>
-        {seriesData.backdrop_path ?
           <Image
+            placeholderStyle={{ backgroundColor: '#000000' }}
+            PlaceholderContent={<ActivityIndicator size='large' color="#fff" />}
             source={{ uri: `https://image.tmdb.org/t/p/w1280/${seriesData.poster_path}` }}
             style={styles.image}
-            PlaceholderStyle={{ backgroundColor: '#000000' }}
-            PlaceholderContent={<ActivityIndicator size='large' color="#fff" />}
           />
-          :
-          <Image
-            PlaceholderContent={<Entypo name='image' size={60} color='#8c939e' />}
-            placeholderStyle={{ backgroundColor: '#000000' }}
-            style={styles.image}
-          />
-        }
         <Text style={styles.title}>{seriesData.name}</Text>
         <View style={styles.infoMovieMain}>
           <View>
@@ -128,9 +121,6 @@ const SeriesDetails = (props) => {
               {`${getYear(seriesData.first_air_date)}`}
             </Text>
             <Text style={styles.country}>{getGenres(seriesData.genres)}</Text>
-            {/* {seriesData.production_countries.length > 0 &&
-							<Text style={styles.country}>Country: {seriesData.production_countries[0].name}</Text>
-						} */}
             <Text style={styles.duration}>
               {'Seasons: ' + seriesData.number_of_seasons}
             </Text>
@@ -147,7 +137,6 @@ const SeriesDetails = (props) => {
               color={percent2color(seriesData.vote_average * 10)}
               shadowColor="#999"
               bgColor='#030405'
-              style={styles.voteCircle}
             >
               <Text style={{ fontSize: 12, color: '#fff' }}>{seriesData.vote_average}</Text>
             </ProgressCircle>
@@ -371,9 +360,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     fontSize: 14,
-  },
-  voteCircle: {
-    marginRight: 40,
   },
   overviewBlock: {
     paddingLeft: 15,

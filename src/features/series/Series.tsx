@@ -3,7 +3,6 @@ import { View, Text, ScrollView, StyleSheet, RefreshControl } from 'react-native
 import SeriesTile from './SeriesTile';
 import { seriesGenres } from './constants';
 import PopularSeries from './PopularSeries';
-// import PopularMovies from './PopularMovies'
 
 const Series = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -46,7 +45,13 @@ const Series = (props: any) => {
         <View style={styles.movieTilesWrapper}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {seriesGenres.map((movie: any) => (
-              <SeriesTile label={movie.genre} image={movie.genre_key} key={movie.movieDB_id} />
+              <SeriesTile
+                label={movie.genre}
+                image={movie.genre_key}
+                id={movie.movieDB_id}
+                key={movie.movieDB_id}
+                navigation={props.navigation}
+              />
             ))}
           </ScrollView>
         </View>

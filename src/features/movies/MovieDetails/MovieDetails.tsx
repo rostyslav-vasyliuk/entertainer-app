@@ -5,7 +5,6 @@ import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
 import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
-import GenresData from './Genres';
 
 const MovieDetails = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -100,13 +99,6 @@ const MovieDetails = (props) => {
 						<Text style={styles.duration}>Duration: {movieData.runtime} min</Text>
 					</View>
 					<View style={{ alignItems: 'center' }}>
-						{/* <TouchableOpacity onPress={() => changeMyList(movieData)} style={{ paddingBottom: 5 }}>
-            {state.addedToFavourite ?
-              <AntDesign name='star' color='#1ecaff' size={32} />
-              :
-              <AntDesign name='staro' color='#1ecaff' size={32} />
-            }
-          </TouchableOpacity> */}
 						<ProgressCircle
 							percent={movieData.vote_average * 10}
 							radius={20}
@@ -114,7 +106,6 @@ const MovieDetails = (props) => {
 							color={percent2color(movieData.vote_average * 10)}
 							shadowColor="#999"
 							bgColor='#030405'
-							style={styles.voteCircle}
 						>
 							<Text style={{ fontSize: 12, color: '#fff' }}>{movieData.vote_average}</Text>
 						</ProgressCircle>
@@ -230,9 +221,6 @@ const styles = StyleSheet.create({
 		paddingLeft: 15,
 		paddingRight: 15,
 		fontSize: 14,
-	},
-	voteCircle: {
-		marginRight: 40,
 	},
 	overviewBlock: {
 		paddingLeft: 15,

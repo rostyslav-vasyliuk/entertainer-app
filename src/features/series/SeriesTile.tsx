@@ -18,9 +18,15 @@ const MovieTile = (props) => {
     war: require('../../assets/images/series/war.jpg'),
     western: require('../../assets/images/series/western.jpg')
   }
+  const onGenreNavigate = (current_id) => {
+    console.log('boom')
+    props.navigation.push('SeriesByGenre', {
+      genre_id: current_id
+    })
+  }
 
   return (
-    <TouchableOpacity activeOpacity={0.6}>
+    <TouchableOpacity activeOpacity={0.6} onPress={() => onGenreNavigate(props.id)}>
       <View style={styles.tileWrapper}>
         <ImageBackground source={images[props.image]} style={styles.image} imageStyle={{ borderRadius: 10 }}>
           <Text style={styles.label}>
