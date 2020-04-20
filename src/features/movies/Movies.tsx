@@ -45,7 +45,13 @@ const Movies = (props: any) => {
         <View style={styles.movieTilesWrapper}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {movieGenres.map((movie: any) => (
-              <MovieTile label={movie.genre} image={movie.genre_key} key={movie.movieDB_id} />
+              <MovieTile
+                label={movie.genre}
+                image={movie.genre_key}
+                id={movie.movieDB_id}
+                key={movie.movieDB_id}
+                navigation={props.navigation}
+              />
             ))}
           </ScrollView>
         </View>

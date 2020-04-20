@@ -3,15 +3,22 @@ import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'rea
 import { Image } from 'react-native-elements';
 import { movieGenres } from './constants';
 import { Axios } from '../../api/instance';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Header, Left, Body, Right } from 'native-base';
 
-const PopularMovies = (props) => {
+const MoviesByGenre = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [paginationLoading, setPaginationLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [genreID, setGenreID] = useState(null);
+  const [endReached, setEndReached] = React.useState(false);
+
 
   useEffect(() => {
-    Axios.get(`/movies/get-top-ten?page=${currentPage}`).then(res => {
+    const genre_id = props.navigation.getParam('genre_id', null);
+    setGenreID(genre_id);
+    Axios.get(`/movies/get-top-by-genre/${genre_id}?page=${currentPage}`).then(res => {
       const moviesData = res.data.results;
       let dividedArray = [];
 
@@ -22,32 +29,35 @@ const PopularMovies = (props) => {
       setDividedArray(dividedArray);
       setLoading(false);
     }
-    )
+    ).catch((err) => {
+      console.log(err)
+    })
   }, []);
 
-  useEffect(() => {
+  const fetchNewPage = () => {
     setPaginationLoading(true);
-    if (props.endReached) {
-      console.log(currentPage)
-      Axios.get(`/movies/get-top-ten?page=${currentPage + 1}`).then(res => {
-        const moviesData = res.data.results;
-        let newarr = [];
+    Axios.get(`/movies/get-top-by-genre/${genreID}?page=${currentPage}`).then(res => {
+      const moviesData = res.data.results;
+      let newarr = [];
 
-        for (let i = 0, j = 0; i < moviesData.length / 2; i++, j += 2) {
-          newarr.push([moviesData[j], moviesData[j + 1]]);
-        }
+      for (let i = 0, j = 0; i < moviesData.length / 2; i++, j += 2) {
+        newarr.push([moviesData[j], moviesData[j + 1]]);
+      }
 
-        setDividedArray([...dividedArray, ...newarr]);
-        setPaginationLoading(false);
-        setCurrentPage(currentPage + 1);
-      })
-    }
-  }, [props.endReached])
+      setDividedArray([...dividedArray, ...newarr]);
+      setPaginationLoading(false);
+      setCurrentPage(currentPage + 1);
+    })
+  }
 
   const renderMovieRow = (paired_items) => (
     <View key={paired_items[0].id} style={styles.twoMovieContainer}>
       {paired_items.map((item) => (
-        <TouchableOpacity style={styles.movieContainer} onPress={() => navigate(item.id)}>
+        <TouchableOpacity
+          style={styles.movieContainer}
+          onPress={() => navigate(item.id)}
+          key={item.id}
+        >
           <Image
             placeholderStyle={{ backgroundColor: '#3a3d42' }}
             PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
@@ -56,9 +66,7 @@ const PopularMovies = (props) => {
             borderRadius={5}
           />
           <View style={styles.textContainer}>
-            <Text style={styles.movieTitle}>
-              {item.title}
-            </Text>
+            <Text style={styles.movieTitle}>{item.title}</Text>
             <Text style={styles.movieInfo}>
               {`${getYear(item.release_date)}, ${getGenre(item.genre_ids[0])}`}
             </Text>
@@ -87,24 +95,58 @@ const PopularMovies = (props) => {
     })
   }
 
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - 40;
+  }
+
+  const onEndDetect = (nativeEvent) => {
+    if (isCloseToBottom(nativeEvent)) {
+      setEndReached(true);
+    }
+
+    if (endReached) {
+      setTimeout(() => {
+        setEndReached(false);
+        fetchNewPage();
+      }, 200)
+    }
+  }
+
   if (loading) {
-    return <ActivityIndicator size="large" color="#fff" />;
+    return <ActivityIndicator size='large' color='#fff' />
   }
 
   return (
-    <View>
-      {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
-      
-      {paginationLoading && (
-              <View style={styles.paginationLoaderWrapper}>
-                <ActivityIndicator size='small' color='#000' />
-              </View>
-            )}
-    </View>
+    <>
+      <Header>
+        <Left />
+        <Body>
+          <Text>
+            {getGenre(genreID)}
+          </Text>
+        </Body>
+        <Right />
+      </Header>
+
+      <ScrollView
+        onScroll={({ nativeEvent }) => onEndDetect(nativeEvent)}
+      >
+        <View>
+          {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
+
+          {paginationLoading && (
+            <View style={styles.paginationLoaderWrapper}>
+              <ActivityIndicator size='small' color='#000' />
+            </View>
+          )}
+
+        </View>
+      </ScrollView>
+    </>
   );
 }
 
-export default PopularMovies;
+export default MoviesByGenre;
 
 const styles = StyleSheet.create({
   container: {

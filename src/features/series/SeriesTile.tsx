@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, ScrollView, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 
 const MovieTile = (props) => {
   const images = {
@@ -18,8 +18,8 @@ const MovieTile = (props) => {
     war: require('../../assets/images/series/war.jpg'),
     western: require('../../assets/images/series/western.jpg')
   }
+
   const onGenreNavigate = (current_id) => {
-    console.log('boom')
     props.navigation.push('SeriesByGenre', {
       genre_id: current_id
     })

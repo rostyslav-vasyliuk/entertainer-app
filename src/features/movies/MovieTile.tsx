@@ -1,81 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, ScrollView, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
-
-export const movieGenres = [
-  {
-    genre: 'Action',
-    movieDB_id: 28
-  },
-  {
-    genre: 'Adventure',
-    movieDB_id: 12,
-  },
-  {
-    genre: 'Animation',
-    movieDB_id: 16,
-  },
-  {
-    genre: 'Comedy',
-    movieDB_id: 35,
-  },
-  {
-    genre: 'Crime',
-    movieDB_id: 80,
-  },
-  {
-    genre: 'Documentary',
-    movieDB_id: 99,
-  },
-  {
-    genre: 'Drama',
-    movieDB_id: 18,
-  },
-  {
-    genre: 'Family',
-    movieDB_id: 10751,
-  },
-  {
-    genre: 'Fantasy',
-    movieDB_id: 14,
-  },
-  {
-    genre: 'History',
-    movieDB_id: 36,
-  },
-  {
-    genre: 'Horror',
-    movieDB_id: 27,
-  },
-  {
-    genre: 'Music',
-    movieDB_id: 10402,
-  },
-  {
-    genre: 'Mystery',
-    movieDB_id: 9648,
-  },
-  {
-    genre: 'Romance',
-    movieDB_id: 10749,
-  },
-  {
-    genre: 'Science Fiction',
-    movieDB_id: 878,
-  },
-  {
-    genre: 'Thriller',
-    movieDB_id: 53,
-  },
-  {
-    genre: 'War',
-    movieDB_id: 10752,
-  },
-  {
-    genre: 'Western',
-    movieDB_id: 37,
-  },
-];
-
+import React from 'react';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 
 const MovieTile = (props) => {
   const images = {
@@ -99,8 +23,14 @@ const MovieTile = (props) => {
     western: require('../../assets/images/movies/western.jpg')
   }
 
+  const onGenreNavigate = (current_id) => {
+    props.navigation.push('MoviesByGenre', {
+      genre_id: current_id
+    })
+  }
+
   return (
-    <TouchableOpacity activeOpacity={0.6}>
+    <TouchableOpacity activeOpacity={0.6} onPress={() => onGenreNavigate(props.id)}>
       <View style={styles.tileWrapper}>
         <ImageBackground source={images[props.image]} style={styles.image} imageStyle={{ borderRadius: 10 }}>
           <Text style={styles.label}>
