@@ -293,7 +293,7 @@ const SeriesDetails = (props) => {
               <View key={elem.id}>
                 <TouchableOpacity style={styles.similarMovieContainer} onPress={() => navigate(elem.id)}>
                   <ImageBackground source={{ uri: 'https://image.tmdb.org/t/p/w500/' + elem.poster_path }} style={styles.movieImageStyle} imageStyle={{ borderRadius: 8 }} />
-                  <View style={styles.textContainer}>
+                  <View>
                     <Text style={styles.country}>
                       {elem.name}
                     </Text>
@@ -440,7 +440,6 @@ const styles = StyleSheet.create({
   seasonBlock: {
     flexDirection: 'row',
     paddingTop: 15
-    // marginBottom: 25
   },
   seasonInfo: {
     marginLeft: 15,

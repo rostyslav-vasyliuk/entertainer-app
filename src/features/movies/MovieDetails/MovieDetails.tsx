@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, Image, ImageBackground } from 'react-native';
+import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, Image, ImageBackground, Linking } from 'react-native';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
 import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
+import { movieGenres } from '../constants';
 
 const MovieDetails = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [movieData, setMovieData]: any = useState({});
+	const [recommendations, setRecommendations] = useState([]);
 
 	useEffect(() => {
 		const movie_id = props.navigation.getParam('movie_id', null);
 		Axios.get(`/movies/details/${movie_id}`).then((response: AxiosResponse) => {
 			setMovieData(response.data);
 			setIsLoading(false);
+		});
+
+		Axios.get(`/movies/recommendations?id=${movie_id}`).then((response: AxiosResponse) => {
+			setRecommendations(response.data.results);
 		});
 	}, []);
 
@@ -35,6 +41,12 @@ const MovieDetails = (props) => {
 		genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
 		finalString = finalString.slice(0, finalString.length - 2);
 		return finalString;
+	}
+
+	const getGenre = (genre_id) => {
+		if (movieGenres.find((item) => item.movieDB_id === genre_id)) {
+			return movieGenres.find((item) => item.movieDB_id === genre_id).genre;
+		}
 	}
 
 	const getMoneyUserFriendly = (current) => {
@@ -62,6 +74,23 @@ const MovieDetails = (props) => {
 		var h = r * 0x10000 + g * 0x100 + b * 0x1;
 		return '#' + ('000000' + h.toString(16)).slice(-6);
 	}
+
+	const onTrailerClick = () => {
+		Linking.openURL(`https://youtube.com/watch?v=${movieData.videos.results[0].key}`);
+	}
+
+	const navigate = (current_id) => {
+		props.navigation.push('MovieDetails', {
+			movie_id: current_id
+		})
+	}
+
+	const onActorNavigate = (current_id) => {
+		props.navigation.push('ActorDetails', {
+			actor_id: current_id
+		})
+	}
+
 
 	return (
 		<>
@@ -132,13 +161,15 @@ const MovieDetails = (props) => {
 					<Text style={styles.overviewTitle}>Cast</Text>
 					<ScrollView horizontal>
 						{movieData.credits.cast.map((elem, index) => {
-							if (index <= 10) {
+							if (index <= 20) {
 								return (
-									<View style={styles.castBlock} key={elem.id}>
-										<Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} style={styles.imageCast} />
-										<Text style={styles.realName}>{elem.name}</Text>
-										<Text style={styles.characterName}>{elem.character}</Text>
-									</View>
+									<TouchableOpacity onPress={() => onActorNavigate(elem.id)}>
+										<View style={styles.castBlock} key={elem.id}>
+											<Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} style={styles.imageCast} />
+											<Text style={styles.realName}>{elem.name}</Text>
+											<Text style={styles.characterName}>{elem.character}</Text>
+										</View>
+									</TouchableOpacity>
 								)
 							}
 						})}
@@ -147,27 +178,41 @@ const MovieDetails = (props) => {
 
 				<Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
 
-				<ImageBackground source={{uri: getVideoBackground()}} style={{height: 200, width: '100%'}} imageStyle={{borderRadius: 10, height: 200, width: 300}}/>
-				
-				{/* <View style={styles.overviewBlock}>
-        <Text style={styles.overviewTitle}>Similar movies</Text>
-        <ScrollView horizontal>
-          {state.similarMoviesData.map((elem) =>
-            <View key={elem.id}>
-              <TouchableOpacity style={styles.similarMovieContainer} onPress={() => updateView(elem.id)}>
-                <ImageBackground source={{ uri: 'https://image.tmdb.org/t/p/w500/' + elem.backdrop_path }} style={styles.movieImageStyle} imageStyle={{ borderRadius: 15 }}>
-                </ImageBackground>
-                <View style={styles.textContainer}>
-                  <Text style={styles.country}>{elem.title}</Text>
-                  <Text style={styles.country}>
-                    {`${getYear(elem.release_date)}, ${getGenre(elem.genre_ids[0])}`}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-        </ScrollView>
-      </View> */}
+				<View style={styles.overviewBlock}>
+					<Text style={styles.overviewTitle}>
+						{'Trailer'}
+					</Text>
+					<TouchableOpacity onPress={onTrailerClick}>
+						<View style={styles.trailerBlock}>
+							<ImageBackground source={{ uri: getVideoBackground() }} style={{ height: 170, width: 320, display: 'flex', justifyContent: 'center', alignItems: 'center' }} imageStyle={{ height: 170, width: 320, borderRadius: 2 }}>
+								<Image source={require('../../../assets/youtube-play.png')} style={styles.playButton} />
+							</ImageBackground>
+						</View>
+					</TouchableOpacity>
+				</View>
+
+				<Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
+
+				<View style={styles.overviewBlock}>
+					<Text style={styles.overviewTitle}>You may like</Text>
+					<ScrollView horizontal>
+						{recommendations.map((elem) =>
+							<View key={elem.id}>
+								<TouchableOpacity style={styles.similarMovieContainer} onPress={() => navigate(elem.id)}>
+									<ImageBackground source={{ uri: 'https://image.tmdb.org/t/p/w500/' + elem.poster_path }} style={styles.movieImageStyle} imageStyle={{ borderRadius: 8 }} />
+									<View>
+										<Text style={styles.country}>
+											{elem.title}
+										</Text>
+										<Text style={styles.country}>
+											{`${getYear(elem.release_date)}, ${getGenre(elem.genre_ids[0])}`}
+										</Text>
+									</View>
+								</TouchableOpacity>
+							</View>
+						)}
+					</ScrollView>
+				</View>
 			</ScrollView>
 		</>
 	);
@@ -235,7 +280,7 @@ const styles = StyleSheet.create({
 	},
 	movieImageStyle: {
 		width: 150,
-		height: 180,
+		height: 225
 	},
 	similarMovieContainer: {
 		width: 150,
@@ -273,5 +318,16 @@ const styles = StyleSheet.create({
 		paddingTop: 10,
 		justifyContent: 'center',
 		alignItems: 'center'
-	}
+	},
+	playButton: {
+		width: 70,
+		height: 50,
+		opacity: 0.9
+	},
+	trailerBlock: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 10,
+		marginBottom: 10
+	},
 });
