@@ -21,7 +21,7 @@ const Series = (props: any) => {
   const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />;
 
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    return layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - 40;
   }
 
   const onEndDetect = (nativeEvent) => {

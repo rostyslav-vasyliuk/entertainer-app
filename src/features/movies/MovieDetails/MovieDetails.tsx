@@ -3,10 +3,9 @@ import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 import GenresData from './Genres';
-import { Header } from 'native-base';
 
 const MovieDetails = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -26,10 +25,6 @@ const MovieDetails = (props) => {
 
 	const getYear = (releaseDate) => {
 		return releaseDate.slice(0, 4);
-	}
-
-	const getGenre = (genre_id) => {
-		return GenresData.find((item) => item.movieDB_id === genre_id).name;
 	}
 
 	const getVideoBackground = () => {

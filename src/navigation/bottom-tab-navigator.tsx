@@ -6,6 +6,7 @@ import * as React from 'react';
 import { Entypo, AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import MovieDetails from '../features/movies/MovieDetails/MovieDetails';
 import SeriesDetails from '../features/series/SeriesDetails/SeriesDetails';
+import ActorDetails from '../features/actor/ActorDetails';
 
 const HomeStack = createStackNavigator(
   {
@@ -33,6 +34,9 @@ const DiscoverStack = createStackNavigator(
     },
     SeriesDetails: {
       screen: SeriesDetails
+    },
+    ActorDetails: {
+      screen: ActorDetails
     }
   },
   {

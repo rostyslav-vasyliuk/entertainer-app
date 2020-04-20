@@ -6,6 +6,7 @@ import ProgressCircle from 'react-native-progress-circle'
 import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 import { seriesGenres } from '../constants';
+import { monthLabel } from '../../../constants/date-constants';
 
 const SeriesDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +32,19 @@ const SeriesDetails = (props) => {
   }
 
   const getYear = (releaseDate) => {
+    if (!releaseDate) {
+      return '';
+    }
     return releaseDate.slice(0, 4);
+  }
+
+  const getDateString = (releaseDate: string) => {
+    if (!releaseDate) {
+      return '';
+    }
+    const date = new Date(releaseDate);
+    const dateString = `${monthLabel[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    return dateString;
   }
 
   const getVideoBackground = () => {
@@ -82,6 +95,12 @@ const SeriesDetails = (props) => {
   const navigate = (current_id) => {
     props.navigation.push('SeriesDetails', {
       series_id: current_id
+    })
+  }
+
+  const onActorNavigate = (current_id) => {
+    props.navigation.push('ActorDetails', {
+      actor_id: current_id
     })
   }
 
@@ -155,13 +174,15 @@ const SeriesDetails = (props) => {
           <Text style={styles.overviewTitle}>Cast</Text>
           <ScrollView horizontal>
             {seriesData.credits.cast.map((elem, index) => {
-              if (index <= 10) {
+              if (index <= 20) {
                 return (
-                  <View style={styles.castBlock} key={elem.id}>
-                    <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} style={styles.imageCast} />
-                    <Text style={styles.realName}>{elem.name}</Text>
-                    <Text style={styles.characterName}>{elem.character}</Text>
-                  </View>
+                  <TouchableOpacity onPress={() => onActorNavigate(elem.id)}>
+                    <View style={styles.castBlock} key={elem.id}>
+                      <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} style={styles.imageCast} />
+                      <Text style={styles.realName}>{elem.name}</Text>
+                      <Text style={styles.characterName}>{elem.character}</Text>
+                    </View>
+                  </TouchableOpacity>
                 )
               }
             })}
@@ -171,10 +192,14 @@ const SeriesDetails = (props) => {
         <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
 
         <View style={styles.overviewBlock}>
-          <Text style={styles.overviewTitle}>Trailer</Text>
+          <Text style={styles.overviewTitle}>
+            {'Trailer'}
+          </Text>
           <TouchableOpacity onPress={onTrailerClick}>
             <View style={styles.trailerBlock}>
-              <ImageBackground source={{ uri: getVideoBackground() }} style={{ height: 170, width: 320 }} imageStyle={{ height: 170, width: 320 }} />
+              <ImageBackground source={{ uri: getVideoBackground() }} style={{ height: 170, width: 320, display: 'flex', justifyContent: 'center', alignItems: 'center' }} imageStyle={{ height: 170, width: 320, borderRadius: 2 }}>
+                <Image source={require('../../../assets/youtube-play.png')} style={styles.playButton} />
+              </ImageBackground>
             </View>
           </TouchableOpacity>
         </View>
@@ -234,11 +259,8 @@ const SeriesDetails = (props) => {
                                 {`${episode.episode_number}. ${episode.name}`}
                               </Text>
                               <Text style={styles.episodeDate}>
-                                {`Release: ${episode.air_date}`}
+                                {`${getDateString(episode.air_date)}`}
                               </Text>
-                              {/* <Text style={styles.episodeDate}>
-                                {'Overview: '}
-                              </Text> */}
                               <Text style={styles.episodeOverview}>
                                 {episode.overview}
                               </Text>
@@ -475,13 +497,13 @@ const styles = StyleSheet.create({
   },
   episodeBlock: {
     flexDirection: 'column',
-    // justifyContent: 'center',
     alignItems: 'center'
   },
   episodeInfoWrapper: {
     flexDirection: 'column',
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    width: '100%'
   },
   episodeTitle: {
     color: '#fff',
@@ -504,5 +526,10 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     paddingRight: 3,
     overflow: 'hidden',
+  },
+  playButton: {
+    width: 70,
+    height: 50,
+    opacity: 0.9
   }
 })

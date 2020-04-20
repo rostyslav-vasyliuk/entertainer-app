@@ -6,9 +6,9 @@ import { Axios } from '../../api/instance';
 import { screenWidth } from '../../constants/screen-contants';
 
 const PopularSeries = (props) => {
-  // const [moviesData, setMoviesData] = useState(null);
   const [dividedArray, setDividedArray] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [paginationLoading, setPaginationLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -20,30 +20,28 @@ const PopularSeries = (props) => {
         dividedArray.push([moviesData[j], moviesData[j + 1]]);
       }
 
-      // setMoviesData(moviesData);
       setDividedArray(dividedArray);
       setLoading(false);
     }
-    )
+    ).catch((err) => {
+      console.log(err)
+    })
   }, []);
 
   useEffect(() => {
-    // console.log(props.endReached)
+    setPaginationLoading(true);
     if (props.endReached) {
-      setCurrentPage(currentPage + 1);
-      console.log(currentPage)
-      Axios.get(`/tv-series/get-top-ten?page=${currentPage}`).then(res => {
+      Axios.get(`/tv-series/get-top-ten?page=${currentPage + 1}`).then(res => {
         const moviesData = res.data.results;
         let newarr = [];
 
         for (let i = 0, j = 0; i < moviesData.length / 2; i++, j += 2) {
           newarr.push([moviesData[j], moviesData[j + 1]]);
         }
-        // console.log(newarr)
-        // setMoviesData(moviesData);
+
         setDividedArray([...dividedArray, ...newarr]);
-        setLoading(false);
-        // console.log(dividedArray.length);
+        setPaginationLoading(false);
+        setCurrentPage(currentPage + 1);
       })
     }
   }, [props.endReached])
@@ -71,10 +69,12 @@ const PopularSeries = (props) => {
           source={{ uri: 'https://image.tmdb.org/t/p/w500/' + item[1].poster_path }}
           style={styles.movieImageStyle}
         />
-        <Text style={styles.movieTitle}>{item[1].name}</Text>
-        <Text style={styles.movieInfo}>
-          {`${getYear(item[1].first_air_date)}, ${getGenre(item[1].genre_ids[0])}`}
-        </Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.movieTitle}>{item[1].name}</Text>
+          <Text style={styles.movieInfo}>
+            {`${getYear(item[1].first_air_date)}, ${getGenre(item[1].genre_ids[0])}`}
+          </Text>
+        </View>
       </TouchableOpacity>
     </View>
   )
@@ -100,11 +100,19 @@ const PopularSeries = (props) => {
 
   return (
     <View>
-      {loading ?
-        <ActivityIndicator size="large" color="#fff" /> :
-        <>
-          {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
-        </>
+      {loading ? (
+        <ActivityIndicator size='large' color='#fff' />
+      ) : (
+          <>
+            {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
+
+            {paginationLoading && (
+              <View style={styles.paginationLoaderWrapper}>
+                <ActivityIndicator size='small' color='#000'/>
+              </View>
+            )}
+          </>
+        )
       }
     </View>
   );
@@ -114,9 +122,7 @@ export default PopularSeries;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // backgroundColor: '#000000',
-    // color: '#fff',
+    flex: 1
   },
   trendingHeader: {
     color: '#000',
@@ -124,19 +130,19 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   movieImageStyle: {
-    flex: 1,
-    height: 225,
-    width: 150,
+    height: 250,
+    width: 170,
     borderRadius: 15,
   },
   twoMovieContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 5,
+    padding: 5,
   },
   movieContainer: {
-    width: screenWidth/2 - 20,
+    width: screenWidth / 2 - 20,
+    alignItems: 'center',
     marginLeft: 4,
     marginRight: 4,
   },
@@ -152,6 +158,11 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'column',
+    width: '100%',
     justifyContent: 'flex-start',
+  },
+  paginationLoaderWrapper: {
+    minHeight: 50,
+    paddingTop: 10
   }
 });
