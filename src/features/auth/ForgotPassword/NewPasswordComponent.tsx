@@ -7,7 +7,7 @@ import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter
 import { screenWidth } from '../../../constants/screen-contants';
 import Stepper from '../../../ui-components/stepper/Stepper';
 
-const PasswordScreen = (props) => {
+const NewPasswordComponent = (props) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
 
@@ -16,8 +16,8 @@ const PasswordScreen = (props) => {
   }
 
   const toNextScreen = () => {
-    props.setPassword(newPassword);
-    props.navigation.push('SignUpSuccessScreen');
+    // props.setPassword(newPassword);
+    props.navigation.navigate('GreetingsScreen');
   }
 
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
@@ -87,7 +87,7 @@ const PasswordScreen = (props) => {
   );
 }
 
-export default PasswordScreen;
+export default NewPasswordComponent;
 
 const styles = StyleSheet.create({
   contentWrapper: {

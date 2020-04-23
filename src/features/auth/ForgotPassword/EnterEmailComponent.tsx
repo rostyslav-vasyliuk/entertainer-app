@@ -5,7 +5,7 @@ import { Button, Header, Left, Body, Right, Text } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 // import Stepper from '../../../ui-components/stepper/Stepper';
 
-const EmailScreen = (props) => {
+const EnterEmail = (props) => {
   const [email, setEmail] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -14,8 +14,9 @@ const EmailScreen = (props) => {
   }
 
   const toNextScreen = () => {
-    props.setEmail(email);
-    props.navigation.push('FirstLastNameScreen');
+    props.navigation.push('VerificationComponent', {
+      email
+    });
   }
 
   const validateEmail = (email) => {
@@ -34,6 +35,7 @@ const EmailScreen = (props) => {
       setIsButtonDisabled(true);
     }
   }
+
   return (
     <View>
       <Header transparent>
@@ -49,13 +51,12 @@ const EmailScreen = (props) => {
       </Header>
       <View style={styles.contentWrapper}>
         <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-          {/* <Stepper amount={4} activeIndex={1} /> */}
           <View>
             <Text style={styles.viewHeader}>
-              {'Please provide your email!'}
+              {'Please provide your email'}
             </Text>
             <Text style={styles.viewDescription}>
-              {'In case of forgotting password or any danger of your account with your email we can easily provide you our service.'}
+              {'For recovering of your account put down address you\'ve used for registration'}
             </Text>
           </View>
           <View>
@@ -71,9 +72,8 @@ const EmailScreen = (props) => {
               />
             </View>
             <Button
-              disabled={isButtonDisabled}
               full
-              style={[styles.button, isButtonDisabled && styles.buttonDisabled]}
+              style={styles.button}
               onPress={toNextScreen}
             >
               <Text>
@@ -88,7 +88,7 @@ const EmailScreen = (props) => {
 }
 
 
-export default EmailScreen;
+export default EnterEmail;
 
 const styles = StyleSheet.create({
   contentWrapper: {

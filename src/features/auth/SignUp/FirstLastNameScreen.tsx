@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
 import { Button, Header, Left, Body, Right, Text } from 'native-base';
 import { AntDesign } from 'react-native-vector-icons';
@@ -7,11 +7,15 @@ import { screenWidth } from '../../../constants/screen-contants';
 import Stepper from '../../../ui-components/stepper/Stepper';
 
 const FirstLastNameScreen = (props) => {
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+
   const goBack = () => {
     props.navigation.goBack();
   }
   const toNextScreen = () => {
-    props.navigation.navigate('CountryScreen');
+    props.setFirstLastName(firstname, lastname);
+    props.navigation.push('CountryScreen');
   }
 
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
@@ -30,7 +34,7 @@ const FirstLastNameScreen = (props) => {
       </Header>
       <View style={styles.container}>
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={keyboardVerticalOffset}>
-        <Stepper amount={4} activeIndex={0}/>
+          <Stepper amount={4} activeIndex={0} />
           <View>
             <Text style={styles.viewHeader}>
               {'Create your account!'}
@@ -41,6 +45,8 @@ const FirstLastNameScreen = (props) => {
           </View>
           <View style={styles.inputWrapper}>
             <TextField
+              value={firstname}
+              onChangeText={(firstname) => setFirstname(firstname)}
               label='Firstname'
               returnKeyType='next'
               autoCompleteType={'email'}
@@ -51,6 +57,8 @@ const FirstLastNameScreen = (props) => {
           </View>
           <View style={styles.inputWrapper}>
             <TextField
+              value={lastname}
+              onChangeText={(lastname) => setLastname(lastname)}
               label='Lastname'
               returnKeyType='next'
               autoCapitalize='sentences'

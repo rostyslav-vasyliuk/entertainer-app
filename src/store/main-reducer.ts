@@ -1,12 +1,6 @@
 import { combineReducers } from "redux";
-
-function reducer(state = {}, action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
+import authReducer from '../features/auth/reducer';
 
 export default combineReducers({
-  mainReducer: reducer
+  auth: authReducer
 });

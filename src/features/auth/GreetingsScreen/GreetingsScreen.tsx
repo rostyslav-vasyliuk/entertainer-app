@@ -6,11 +6,11 @@ import { screenWidth } from '../../../constants/screen-contants';
 
 const GreetingsScreen = (props) => {
   const toLoginPage = () => {
-    props.navigation.navigate('Login');
+    props.navigation.push('Login');
   }
 
   const toSignUpPage = () => {
-    props.navigation.navigate('SignUp');
+    props.navigation.push('SignUp');
   }
 
   return (
@@ -42,7 +42,12 @@ const GreetingsScreen = (props) => {
                 Sign Up
               </Text>
             </Button>
-            <View style={styles.additionalLink}>
+            <Button full style={styles.button} onPress={toLoginPage}>
+              <Text>
+                Log In
+              </Text>
+            </Button>
+            {/* <View style={styles.additionalLink}>
               <Text style={styles.basicText}>
                 Already have an account?
               </Text>
@@ -51,7 +56,7 @@ const GreetingsScreen = (props) => {
                   Log In
                 </Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         </View>
       </View>

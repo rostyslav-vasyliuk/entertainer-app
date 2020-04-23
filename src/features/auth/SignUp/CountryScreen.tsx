@@ -9,7 +9,8 @@ import Stepper from '../../../ui-components/stepper/Stepper';
 
 const ContryScreen = (props) => {
   const [countryCode, setCountryCode] = useState<CountryCode>(null);
-  const [sex, setSex] = useState(null);
+  const [countryName, setCountryName] = useState<any>('');
+  const [gender, setGender] = useState(null);
   const [date, setDate] = useState(new Date(1598051730000));
   const [displayDate, setDisplayDate] = useState(null);
   const [show, setShow] = useState(false);
@@ -19,7 +20,8 @@ const ContryScreen = (props) => {
   }
 
   const toNextScreen = () => {
-    props.navigation.navigate('PasswordScreen')
+    props.setCountryBirthGender(countryName, date, gender);
+    props.navigation.push('PasswordScreen')
   }
 
   const onDateChange = (event, selectedDate) => {
@@ -33,11 +35,13 @@ const ContryScreen = (props) => {
   };
 
   const onCountryPickerSelect = (country: Country) => {
+    console.log(country)
+    setCountryName(country.name);
     setCountryCode(country.cca2)
   }
 
-  const setSexProperty = (sexIndex: number) => {
-    setSex(sexIndex ? 'Female' : 'Male');
+  const setSexProperty = (genderIndex: number) => {
+    setGender(genderIndex ? 'Female' : 'Male');
   }
 
   const onDataPickerClose = () => {
@@ -76,7 +80,7 @@ const ContryScreen = (props) => {
         <View style={styles.sexWrapper}>
           <TouchableOpacity onPress={() => setSexProperty(0)}>
             <Image
-              style={[styles.sexImage, sex === 'Male' && styles.activeSexImage]}
+              style={[styles.sexImage, gender === 'Male' && styles.activeSexImage]}
               source={require('../../../assets/male.png')}
             />
             <Text style={styles.sexText}>
@@ -85,7 +89,7 @@ const ContryScreen = (props) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setSexProperty(1)}>
             <Image
-              style={[styles.sexImage, sex === 'Female' && styles.activeSexImage]}
+              style={[styles.sexImage, gender === 'Female' && styles.activeSexImage]}
               source={require('../../../assets/female.png')}
             />
             <Text style={styles.sexText}>

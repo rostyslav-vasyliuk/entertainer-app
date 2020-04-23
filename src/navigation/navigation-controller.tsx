@@ -20,9 +20,9 @@ const NavigationController = (props) => {
         if (hasUserSeenIntro) {
           props.navigation.navigate('GreetingsScreen');
         } else {
-          props.navigation.navigate('SignUp');
+          // props.navigation.navigate('SignUp');
 
-          // props.navigation.navigate('Intro');
+          props.navigation.navigate('Intro');
         }
       }
     } catch (e) {

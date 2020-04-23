@@ -1,12 +1,69 @@
-import React from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, StatusBar, AsyncStorage } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Button, Text } from 'native-base';
 import { screenWidth } from '../../../constants/screen-contants';
+import { Axios } from '../../../api/instance';
+import { AxiosResponse } from 'axios';
 
 const GreetingsScreen = (props) => {
+  const [isUserRegistered, setIsUserRegistered] = useState(false);
+  // const [timeEllapsed, setTimeEllapsed] = useState(false);
+
   const goToApp = () => {
     props.navigation.navigate('App');
+  }
+
+  useEffect(() => {
+    console.log(props);
+    const { firstname, lastname, email, password, gender, birthdate, country } = props;
+
+    const body = {
+      firstname,
+      lastname,
+      email,
+      password,
+      gender,
+      birthdate,
+      country
+    }
+
+    Axios.post('/auth/sign-up', body).then((response: AxiosResponse) => {
+      console.log(response.data);
+      const token = response.headers['access-token'];
+      setIsUserRegistered(true);
+      AsyncStorage.setItem('access-token', token);
+    })
+  }, [])
+
+  if (!isUserRegistered) {
+    return (
+      <>
+        <StatusBar barStyle="dark-content" />
+        <View style={styles.wrapper}>
+          <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
+            <LottieView
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'transparent',
+              }}
+              source={require('../../../assets/gears.json')}
+              autoPlay
+              loop={true}
+            />
+          </View>
+          <View style={{ height: '50%', display: 'flex', justifyContent: 'center' }}>
+            <Text style={styles.labelHeader}>
+              {`Loading...`}
+            </Text>
+            <Text style={styles.labelDescription}>
+              {'Please wait until we configure your account and setup everything for you!'}
+            </Text>
+          </View>
+        </View>
+      </>
+    )
   }
 
   return (
@@ -27,7 +84,7 @@ const GreetingsScreen = (props) => {
         </View>
         <View style={{ height: '50%', display: 'flex', justifyContent: 'center' }}>
           <Text style={styles.labelHeader}>
-            Congratulations, Name!
+            {`Congratulations, ${props.firstname}!`}
           </Text>
           <Text style={styles.labelDescription}>
             {'You\'ve succesfully created an account in Linguameet. Click button below to explore our world!'}

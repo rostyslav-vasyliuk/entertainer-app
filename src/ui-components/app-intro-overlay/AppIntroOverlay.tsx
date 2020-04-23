@@ -56,7 +56,7 @@ const AppIntroOverlay = (props: Props) => {
             autoPlay
             loop={true}
           />
-          <Text style={styles.slideHeader}>Find new friends!</Text>
+          <Text style={styles.slideHeader}>Choose language!</Text>
           <Text style={styles.slideDescription}>
             Easily find people from all around the world and improve your language skills together
             </Text>
@@ -69,13 +69,13 @@ const AppIntroOverlay = (props: Props) => {
               height: 250,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/location-animation.json')}
+            source={require('../../assets/town.json')}
             autoPlay
-            loop={true}
+            loop={false}
           />
-          <Text style={styles.slideHeader}>Discover your town!</Text>
+          <Text style={styles.slideHeader}>Explore your town!</Text>
           <Text style={styles.slideDescription}>
-            Find nearby peoples with the same interests and spend time with them
+            We will help you to not miss the most exciting entertaiments in your town
             </Text>
         </View>
 
@@ -86,11 +86,28 @@ const AppIntroOverlay = (props: Props) => {
               height: 250,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/books.json')}
+            source={require('../../assets/analysis.json')}
             autoPlay
             loop={true}
           />
-          <Text style={styles.slideHeader}>Learn from people!</Text>
+          <Text style={styles.slideHeader}>Get best recomendations!</Text>
+          <Text style={styles.slideDescription}>
+            We will analyse your preferences so that you will recieve only the most belowed recomendations!
+            </Text>
+        </View>
+
+        <View style={[styles.slideContainer]}>
+          <LottieView
+            style={{
+              width: 350,
+              height: 200,
+              backgroundColor: 'transparent',
+            }}
+            source={require('../../assets/mobile-app.json')}
+            autoPlay
+            loop={true}
+          />
+          <Text style={styles.slideHeader}>Discover now!</Text>
           <Text style={styles.slideDescription}>
             With our app you may forget about books. Prefer conversations with real people!
             </Text>
@@ -135,7 +152,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     paddingBottom: 0,
-    fontSize: 30,
+    fontSize: 24,
     fontWeight: '600',
     textAlign: 'center'
   },
@@ -143,7 +160,7 @@ const styles = StyleSheet.create({
     padding: 35,
     paddingTop: 20,
     paddingBottom: 0,
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
     color: '#595959'
   },

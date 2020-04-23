@@ -1,10 +1,10 @@
 
-import FirstLastNameScreen from '../features/auth/SignUp/FirstLastNameScreen';
 import { createStackNavigator } from 'react-navigation-stack';
-import EmailScreen from '../features/auth/SignUp/EmailScreen';
-import ContryScreen from '../features/auth/SignUp/CountryScreen';
-import PasswordScreen from '../features/auth/SignUp/PasswordScreen';
-import SignUpSuccessScreen from '../features/auth/SignUp/SignUpSuccessScreen';
+import FirstLastNameScreen from '../features/auth/SignUp/FirstLastNameScreen.container';
+import EmailScreen from '../features/auth/SignUp/EmailScreen.container';
+import ContryScreen from '../features/auth/SignUp/CountryScreen.container';
+import PasswordScreen from '../features/auth/SignUp/PasswordScreen.container';
+import SignUpSuccessScreen from '../features/auth/SignUp/SignUpSuccessScreen.container';
 
 const SignUpNavigator = createStackNavigator({
   EmailScreen: {

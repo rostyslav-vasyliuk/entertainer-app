@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { screenHeight, screenWidth } from '../../../constants/screen-contants';
 import { Button, Text, Header, Left, Body, Title, Right } from 'native-base';
 import { AntDesign } from 'react-native-vector-icons';
-import { OutlinedTextField } from 'react-native-material-textfield';
+import { TextField } from 'react-native-material-textfield';
+import { Axios } from '../../../api/instance';
+import { AxiosResponse } from 'axios';
 
 const LoginScreen = (props) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const goBack = () => {
-    props.navigation.navigate('GreetingsScreen');
+    props.navigation.push('GreetingsScreen');
   }
 
   const onLogin = () => {
+    const body = {
+      email,
+      password
+    };
 
+    Axios.post('/auth/sign-in', body).then((response: AxiosResponse) => {
+      console.log(response);
+    })
   }
 
   const toSignUpPage = () => {
-    props.navigation.navigate('SignUp');
+    props.navigation.push('SignUp');
+  }
+
+  const onForgotPassword = () => {
+    props.navigation.push('ForgotPassword');
   }
 
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
@@ -35,11 +51,11 @@ const LoginScreen = (props) => {
       </Header>
       <View>
         <View style={styles.loginFormWrapper}>
-          <OutlinedTextField
+          <TextField
             label='Email'
-            value={''}
+            value={email}
+            onChangeText={(email) => setEmail(email)}
             autoCompleteType={'email'}
-            onChangeText={(phone) => console.log(phone)}
             tintColor={'#fe4b66'}
             keyboardType='email-address'
             autoCapitalize='none'
@@ -47,19 +63,24 @@ const LoginScreen = (props) => {
             returnKeyType='next'
             style={{ width: 200 }}
           />
-          <View style={{ paddingTop: 5 }}>
-            <OutlinedTextField
+          <View style={{ paddingTop: 0 }}>
+            <TextField
               label='Password'
               autoCompleteType={'password'}
               secureTextEntry={true}
               returnKeyType='done'
               autoCapitalize='none'
-              value={''}
-              onChangeText={(phone) => console.log(phone)}
+              value={password}
+              onChangeText={(password) => setPassword(password)}
               tintColor={'#fe4b66'}
               style={{ width: 200 }}
             />
           </View>
+          <Button onPress={onForgotPassword}>
+            <Text>
+              Forgot password?
+              </Text>
+          </Button>
         </View>
       </View>
       <View style={styles.buttonsWrapper}>
