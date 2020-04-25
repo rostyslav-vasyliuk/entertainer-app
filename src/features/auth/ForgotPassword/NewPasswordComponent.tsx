@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Button, Header, Left, Body, Right, Text } from 'native-base';
+import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
 import { AntDesign } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { screenWidth } from '../../../constants/screen-contants';
 import Stepper from '../../../ui-components/stepper/Stepper';
+import { Axios } from '../../../api/instance';
 
 const NewPasswordComponent = (props) => {
   const [newPassword, setNewPassword] = useState('');
@@ -17,7 +18,18 @@ const NewPasswordComponent = (props) => {
 
   const toNextScreen = () => {
     // props.setPassword(newPassword);
-    props.navigation.navigate('GreetingsScreen');
+    const token = props.navigation.getParam('reset-password-token', null);
+    const email = props.navigation.getParam('email', null);
+    Axios.post('/auth/reset-password', { email, password: newPassword }, { headers: { 'reset-password-token': token } })
+      .then(() => {
+        props.navigation.navigate('Login');
+        Toast.show({
+          text: 'Password was succesfully changed',
+          buttonText: 'Okay'
+        })
+      }).catch(() => {
+
+      })
   }
 
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
@@ -36,7 +48,7 @@ const NewPasswordComponent = (props) => {
         <Right />
       </Header>
       <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-      <Stepper amount={4} activeIndex={3}/>
+        <Stepper amount={4} activeIndex={3} />
         <View>
           <Text style={styles.viewHeader}>
             {'Create your password!'}

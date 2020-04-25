@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { screenHeight, screenWidth } from '../../../constants/screen-contants';
 import { Button, Text, Header, Left, Body, Title, Right } from 'native-base';
-import { AntDesign } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
@@ -11,9 +10,9 @@ const LoginScreen = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const goBack = () => {
-    props.navigation.push('GreetingsScreen');
-  }
+  // const goBack = () => {
+  //   props.navigation.push('GreetingsScreen');
+  // }
 
   const onLogin = () => {
     const body = {
@@ -23,6 +22,7 @@ const LoginScreen = (props) => {
 
     Axios.post('/auth/sign-in', body).then((response: AxiosResponse) => {
       console.log(response);
+      props.navigation.navigate('App');
     })
   }
 
@@ -40,9 +40,6 @@ const LoginScreen = (props) => {
     <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
       <Header transparent>
         <Left>
-          <Button transparent onPress={goBack}>
-            <AntDesign name='arrowleft' size={30} />
-          </Button>
         </Left>
         <Body>
           <Title>Login</Title>
@@ -76,26 +73,28 @@ const LoginScreen = (props) => {
               style={{ width: 200 }}
             />
           </View>
-          <Button onPress={onForgotPassword}>
-            <Text>
-              Forgot password?
+          <View style={{ width: screenWidth , alignItems: 'flex-end'}}>
+            <Button transparent onPress={onForgotPassword} style={styles.forgotPasswordButton}>
+              <Text style={styles.forgotPasswordButtonLabel}>
+                {'Forgot password?'}
               </Text>
-          </Button>
+            </Button>
+          </View>
         </View>
       </View>
       <View style={styles.buttonsWrapper}>
         <Button full style={styles.button} onPress={onLogin}>
           <Text>
-            Login
+            {'Login'}
           </Text>
         </Button>
         <View style={styles.additionalLink}>
           <Text style={styles.basicText}>
-            Dont have an account?
-              </Text>
+            {'Dont have an account?'}
+          </Text>
           <TouchableOpacity onPress={toSignUpPage}>
             <Text style={styles.linkText}>
-              Sing Up
+              {'Sing Up'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -147,5 +146,12 @@ const styles = StyleSheet.create({
     width: '90%',
     paddingTop: '50%',
     marginLeft: '5%'
+  },
+  forgotPasswordButton: {
+    paddingRight: '5%',
+  },
+  forgotPasswordButtonLabel: {
+    color: '#fe4b66',
+    fontSize: 14
   }
 })

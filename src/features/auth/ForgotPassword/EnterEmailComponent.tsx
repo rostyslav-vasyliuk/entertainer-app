@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
-import { Button, Header, Left, Body, Right, Text } from 'native-base';
+import { View, StyleSheet, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
 // import { AntDesign } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
+import { Axios } from '../../../api/instance';
+import { AxiosResponse, AxiosError } from 'axios';
 // import Stepper from '../../../ui-components/stepper/Stepper';
 
 const EnterEmail = (props) => {
   const [email, setEmail] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
   const goBack = () => {
     props.navigation.goBack();
   }
 
   const toNextScreen = () => {
-    props.navigation.push('VerificationComponent', {
-      email
-    });
+    setIsLoading(true);
+    Axios.post('/auth/forgot-password-pending', { email })
+      .then((response: AxiosResponse) => {
+        props.navigation.push('VerificationComponent', {
+          email,
+          'forgot-password-token': response.headers['forgot-password-token']
+        });
+        setIsLoading(false);
+      })
+      .catch((err: AxiosError) => {
+        Toast.show({
+          text: "User doesnt exist!",
+          buttonText: "Okay",
+          position: "bottom"
+        });
+        setIsLoading(false);
+      })
   }
 
   const validateEmail = (email) => {
@@ -34,6 +50,19 @@ const EnterEmail = (props) => {
     } else {
       setIsButtonDisabled(true);
     }
+  }
+
+  const renderButtonInner = () => {
+    if (isLoading) {
+      return (
+        <ActivityIndicator color={'#fff'} />
+      )
+    }
+    return (
+      <Text>
+        {'Next'}
+      </Text>
+    )
   }
 
   return (
@@ -76,9 +105,7 @@ const EnterEmail = (props) => {
               style={styles.button}
               onPress={toNextScreen}
             >
-              <Text>
-                {'Next'}
-              </Text>
+              {renderButtonInner()}
             </Button>
           </View>
         </KeyboardAvoidingView>

@@ -1,167 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { View, StyleSheet, Platform, SafeAreaView } from 'react-native';
-// import { Button, Header, Left, Body, Right, Text } from 'native-base';
-// import {
-//   CodeField,
-//   Cursor,
-//   useBlurOnFulfill,
-//   useClearByFocusCell,
-// } from 'react-native-confirmation-code-field';
-
-// const CELL_COUNT = 6;
-
-// const VerificationComponent = (props) => {
-//   const [email, setEmail] = useState('');
-//   // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-//   const [value, setValue] = useState('');
-//   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-//   const [properties, getCellOnLayoutHandler] = useClearByFocusCell({
-//     value,
-//     setValue,
-//   });
-
-//   const goBack = () => {
-//     props.navigation.goBack();
-//   }
-
-//   useEffect(() => {
-//     const email = props.navigation.getParam('email', null);
-//     setEmail(email);
-//   }, [])
-
-//   const toNextScreen = () => {
-//     props.navigation.push('GreetingsScreen');
-//   }
-
-//   return (
-//     <View>
-//       <Header transparent>
-//         <Left>
-//           <Button transparent onPress={goBack}>
-//             {/* <AntDesign name='arrowleft' size={30} /> */}
-//           </Button>
-//         </Left>
-//         <Body>
-//           {/* <Title>Sign Up</Title> */}
-//         </Body>
-//         <Right />
-//       </Header>
-//       <View style={styles.contentWrapper}>
-//         <Text>
-//           Recover
-//         </Text>
-//       </View>
-//       <SafeAreaView style={styles.root}>
-//       <Text style={styles.title}>Verification</Text>
-//       <CodeField
-//         ref={ref}
-//         {...props}
-//         value={value}
-//         onChangeText={setValue}
-//         cellCount={CELL_COUNT}
-//         rootStyle={styles.codeFiledRoot}
-//         keyboardType="number-pad"
-//         renderCell={({index, symbol, isFocused}) => (
-//           <Text
-//             key={index}
-//             style={[styles.cell, isFocused && styles.focusCell]}
-//             onLayout={getCellOnLayoutHandler(index)}>
-//             {symbol || (isFocused ? <Cursor /> : null)}
-//           </Text>
-//         )}
-//       />
-//     </SafeAreaView>
-//     </View>
-//   );
-// }
-
-
-// export default VerificationComponent;
-
-// const styles = StyleSheet.create({
-//   contentWrapper: {
-//     height: '100%'
-//   },
-//   button: {
-//     width: '90%',
-//     marginLeft: '5%',
-//     marginRight: '5%',
-//     height: 50,
-//     borderRadius: 5,
-//     backgroundColor: '#fe4b66'
-//   },
-//   buttonDisabled: {
-//     backgroundColor: '#ccc'
-//   },
-//   inputWrapper: {
-//     width: '90%',
-//     marginLeft: '5%',
-//     marginRight: '5%',
-//     paddingBottom: 10
-//   },
-//   viewTitle: {
-//     padding: 20,
-//     paddingTop: 10,
-//     paddingBottom: 0,
-//     fontSize: 23,
-//     fontWeight: '600',
-//     textAlign: 'center'
-//   },
-//   viewHeader: {
-//     padding: 20,
-//     paddingTop: 10,
-//     paddingBottom: 0,
-//     fontSize: 22,
-//     fontWeight: '500',
-//     textAlign: 'center'
-//   },
-//   viewDescription: {
-//     padding: 35,
-//     paddingTop: 10,
-//     paddingBottom: 20,
-//     fontSize: 14,
-//     textAlign: 'center',
-//     color: '#595959'
-//   },
-//   borderStyleBase: {
-//     width: 30,
-//     height: 45
-//   },
-
-//   borderStyleHighLighted: {
-//     borderColor: "#03DAC6",
-//   },
-
-//   underlineStyleBase: {
-//     width: 30,
-//     height: 45,
-//     borderWidth: 0,
-//     borderBottomWidth: 1,
-//   },
-
-//   underlineStyleHighLighted: {
-//     borderColor: "#03DAC6",
-//   },
-//   root: {flex: 1, padding: 20},
-//   title: {textAlign: 'center', fontSize: 30},
-//   codeFiledRoot: {marginTop: 20},
-//   cell: {
-//     width: 40,
-//     height: 40,
-//     lineHeight: 38,
-//     fontSize: 24,
-//     borderWidth: 2,
-//     borderColor: '#00000030',
-//     textAlign: 'center',
-//   },
-//   focusCell: {
-//     borderColor: '#000',
-//   },
-// })
-
-/*
-Concept: https://dribbble.com/shots/5476562-Forgot-Password-Verification/attachments
-*/
 import { Animated, Image, SafeAreaView, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Button } from 'native-base';
@@ -182,6 +18,8 @@ import styles, {
   NOT_EMPTY_CELL_BG_COLOR,
 } from './styles';
 import { screenWidth } from '../../../constants/screen-contants';
+import { Axios } from '../../../api/instance';
+import { AxiosResponse } from 'axios';
 
 const { Value, Text: AnimatedText } = Animated;
 
@@ -222,7 +60,22 @@ const AnimatedExample = (props) => {
   }, [timeRemaining]);
 
   const toNextScreen = () => {
-    props.navigation.push('NewPasswordComponent');
+    const token = props.navigation.getParam('forgot-password-token', null);
+    const email = props.navigation.getParam('email', null);
+    Axios.post('/auth/confirm-code', { email, code: value }, { headers: { 'forgot-password-token': token } })
+      .then((response: AxiosResponse) => {
+        const resetToken = response.headers['reset-password-token']
+        props.navigation.push('NewPasswordComponent', {
+          email,
+          'reset-password-token': resetToken
+        });
+      }).catch(() => {
+
+      })
+  }
+
+  const startAgain = () => {
+    props.navigation.navigate('Login');
   }
 
   const renderCell = ({ index, symbol, isFocused }) => {
@@ -251,8 +104,6 @@ const AnimatedExample = (props) => {
       ],
     };
 
-    // Run animation on next event loop tik
-    // Because we need first return new style prop and then animate this value
     setTimeout(() => {
       animateCell({ hasValue, index, isFocused });
     }, 0);
@@ -267,9 +118,47 @@ const AnimatedExample = (props) => {
     );
   };
 
+  if (!timeRemaining) {
+    return (
+      <View style={styles.root}>
+        <View style={{ height: '20%', width: screenWidth, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 60 }}>
+          <LottieView
+            style={{
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'transparent',
+            }}
+            source={require('../../../assets/timer.json')}
+            autoPlay
+            loop={true}
+          />
+        </View>
+
+        <Text style={styles.subTitle}>
+          {'Time is out!'}
+        </Text>
+
+        <Text style={styles.timerHeader}>
+          {'Seems like you havent entered code in needed time. Be aware your code is available only for 60 seconds. You can start again, we will send you another confirmation code to your email address.'}
+        </Text>
+
+        <Button
+          // disabled={isButtonDisabled}
+          full
+          style={styles.button}
+          onPress={startAgain}
+        // onPress={() => setValue('')}
+        >
+          <Text style={styles.buttonsLabel}>
+            {'Start again'}
+          </Text>
+        </Button>
+      </View>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.root}>
-      {/* <Text style={styles.title}>Check your email</Text> */}
       <View style={{ height: '20%', width: screenWidth, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 60 }}>
         <LottieView
           style={{
@@ -303,18 +192,15 @@ const AnimatedExample = (props) => {
         keyboardType="number-pad"
         renderCell={renderCell}
       />
-      {/* <View style={styles.nextButton}>
-        <Text style={styles.nextButtonText}>Verify</Text>
-      </View> */}
       <Button
         // disabled={isButtonDisabled}
         full
         style={styles.button}
         onPress={toNextScreen}
-        // onPress={() => setValue('')}
+      // onPress={() => setValue('')}
       >
         <Text style={styles.buttonsLabel}>
-          {'Next'}
+          {'Continue'}
         </Text>
       </Button>
     </SafeAreaView>

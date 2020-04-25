@@ -42,7 +42,7 @@ const GreetingsScreen = (props) => {
                 Sign Up
               </Text>
             </Button>
-            <Button full style={styles.button} onPress={toLoginPage}>
+            <Button full transparent bordered danger style={styles.loginButton} onPress={toLoginPage}>
               <Text>
                 Log In
               </Text>
@@ -77,8 +77,20 @@ const styles = StyleSheet.create({
   button: {
     margin: 10,
     height: 50,
+    marginRight: 30,
+    marginLeft: 30,
     borderRadius: 5,
     backgroundColor: '#fe4b66'
+  },
+  loginButton: {
+    margin: 10,
+    marginTop: 0,
+    marginRight: 30,
+    marginLeft: 30,
+    height: 50,
+    borderRadius: 5,
+    color: '#fe4b66'
+    // backgroundColor: '#fe4b66'
   },
   additionalLink: {
     display: 'flex',

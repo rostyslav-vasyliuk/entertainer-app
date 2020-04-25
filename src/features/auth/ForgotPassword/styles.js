@@ -42,8 +42,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
-    // justifyContent: 'space-between',
+    alignItems: 'center'
   },
   title: {
     padding: 20,
