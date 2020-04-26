@@ -116,13 +116,14 @@ const Discover = (props) => {
         handlePosition="inside"
         modalTopOffset={0}
         snapPoint={500}
+        scrollViewProps={{ scrollEnabled: false }}
       >
         {renderModalContent()}
       </Modalize>
 
-      {activeCategory === 'events' && <Events navigation={props.navigation}/>}
-      {activeCategory === 'movies' && <Movies navigation={props.navigation}/>}
-      {activeCategory === 'tv_series' && <Series navigation={props.navigation}/>}
+      {activeCategory === 'events' && <Events navigation={props.navigation} />}
+      {activeCategory === 'movies' && <Movies navigation={props.navigation} />}
+      {activeCategory === 'tv_series' && <Series navigation={props.navigation} />}
 
     </>
   )

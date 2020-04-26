@@ -101,7 +101,7 @@ ProfileStack.navigationOptions = {
 const BottomTabNavigator = createBottomTabNavigator({
   HomeStack,
   DiscoverStack,
-  ExploreStack,
+  // ExploreStack,
   ProfileStack
 }, {
   initialRouteName: 'DiscoverStack'
