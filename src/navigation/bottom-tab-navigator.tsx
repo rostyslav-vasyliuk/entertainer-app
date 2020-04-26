@@ -9,6 +9,8 @@ import SeriesDetails from '../features/series/SeriesDetails/SeriesDetails';
 import ActorDetails from '../features/actor/ActorDetails';
 import SeriesByGenre from '../features/series/SeriesByGenre';
 import MoviesByGenre from '../features/movies/MoviesByGenre';
+import EventDetails from '../features/events/EventDetails/EventDetails';
+import EventByCategories from '../features/events/EventByCategories';
 
 const HomeStack = createStackNavigator(
   {
@@ -23,13 +25,16 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
-  tabBarIcon: () => <Entypo name="grid" size={32} color="black" />,
+tabBarIcon: (props) => <Entypo name="grid" size={32} color={props.focused ? 'black' : 'gray'} />,
 };
 
 const DiscoverStack = createStackNavigator(
   {
     Events: {
       screen: Discover
+    },
+    EventDetails: {
+      screen: EventDetails
     },
     MovieDetails: {
       screen: MovieDetails
@@ -45,6 +50,9 @@ const DiscoverStack = createStackNavigator(
     },
     MoviesByGenre: {
       screen: MoviesByGenre
+    },
+    EventByCategories: {
+      screen: EventByCategories
     }
   },
   {
@@ -54,7 +62,7 @@ const DiscoverStack = createStackNavigator(
 
 DiscoverStack.navigationOptions = {
   tabBarLabel: 'Events',
-  tabBarIcon: () => <AntDesign name="calendar" size={26} color="black" />
+  tabBarIcon: (props) => <AntDesign name="calendar" size={26} color={props.focused ? 'black' : 'gray'} />
 };
 
 
@@ -71,7 +79,7 @@ const ExploreStack = createStackNavigator(
 
 ExploreStack.navigationOptions = {
   tabBarLabel: 'Events',
-  tabBarIcon: () => <MaterialCommunityIcons name="theater" size={26} color="black" />
+  tabBarIcon: (props) => <MaterialCommunityIcons name="theater" size={26} color={props.focused ? 'black' : 'gray'} />
 };
 
 const ProfileStack = createStackNavigator(
@@ -87,7 +95,7 @@ const ProfileStack = createStackNavigator(
 
 ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
-  tabBarIcon: () => <FontAwesome name="user-o" size={26} color="black" />
+  tabBarIcon: (props) => <FontAwesome name="user-o" size={26} color={props.focused ? 'black' : 'gray'} />
 };
 
 const BottomTabNavigator = createBottomTabNavigator({

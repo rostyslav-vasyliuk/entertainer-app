@@ -6,12 +6,11 @@ import { Modalize } from 'react-native-modalize';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
 import Events from '../events/Events';
-import MovieDetails from '../movies/MovieDetails/MovieDetails';
 import Movies from '../movies/Movies';
 import Series from '../series/Series';
 
 const Discover = (props) => {
-  const [activeCategory, setActiveCategory] = React.useState('tv_series');
+  const [activeCategory, setActiveCategory] = React.useState('events');
 
   const modalRef = useRef(null);
 
@@ -63,10 +62,6 @@ const Discover = (props) => {
     tv_series: {
       label: 'TV Series',
       description: 'Find your favourite TV series with our recommendations'
-    },
-    books: {
-      label: 'Books',
-      description: 'Like books? Our recommendations will be useful for you!'
     },
     education: {
       label: 'Education',

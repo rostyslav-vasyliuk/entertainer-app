@@ -7,20 +7,25 @@ import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
 import LottieView from 'lottie-react-native';
 import { screenWidth } from '../../constants/screen-contants';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { Left, Button, Body, Right, Header } from 'native-base';
 
-const EventList = (props) => {
+const EventByCategories = (props) => {
   const [events, setEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [paginationLoading, setPaginationLoading] = useState(false);
   const [pagination, setPagination] = useState({});
   const [allDataFetched, setAllDataFetched] = useState(false);
 
+
   useEffect(() => {
-    Axios.get(`/events/list?page=${currentPage}`)
+    const category = props.navigation.getParam('category', null);
+    Axios.get(`/events/list?page=${currentPage}&category=${category}`)
       .then((response: AxiosResponse) => {
         setEvents(response.data.events);
         setPagination(response.data.pagination);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err)
@@ -35,7 +40,8 @@ const EventList = (props) => {
 
     setPaginationLoading(true);
     if (props.endReached) {
-      Axios.get(`/events/list?page=${currentPage + 1}`).then((response: AxiosResponse) => {
+      const category = props.navigation.getParam('category', null);
+      Axios.get(`/events/list?page=${currentPage + 1}&category=${category}`).then((response: AxiosResponse) => {
         const newData = [...events, ...response.data.events];
         setEvents(newData);
 
@@ -72,6 +78,10 @@ const EventList = (props) => {
     props.navigation.push('EventDetails', {
       event_id
     });
+  }
+
+  if (loading) {
+    return <ActivityIndicator size='large' color='#fff' />
   }
 
   const renderDivider = (dateString: string) => {
@@ -164,47 +174,63 @@ const EventList = (props) => {
       </TouchableOpacity>
     )
   }
+  const category = props.navigation.getParam('category', null);
 
   return (
-    <View style={styles.listWrapper}>
-      {events.map((elem, index) => (
-        <View key={elem._id}>
-          {(index === 0 || elem.date !== events[index - 1].date) && renderDivider(elem.date)}
-          {renderItem(elem)}
-        </View>
-      ))}
+    <>
+      <Header transparent>
+        <Left>
+          <Button transparent>
+            {/* <AntDesign name='arrowleft' size={30} /> */}
+          </Button>
+        </Left>
+        <Body>
+          <Text>{eventLabels[category]}</Text>
+        </Body>
+        <Right />
+      </Header>
+      <ScrollView>
+        <View style={styles.listWrapper}>
+          {events.map((elem, index) => (
+            <View key={elem._id}>
+              {(index === 0 || elem.date !== events[index - 1].date) && renderDivider(elem.date)}
+              {renderItem(elem)}
+            </View>
+          ))}
 
-      {paginationLoading && (
-        <View style={styles.paginationLoaderWrapper}>
-          <ActivityIndicator size='small' color='#000' />
-        </View>
-      )}
+          {paginationLoading && (
+            <View style={styles.paginationLoaderWrapper}>
+              <ActivityIndicator size='small' color='#000' />
+            </View>
+          )}
 
-      {allDataFetched && (
-        <View style={styles.paginationEndReached}>
-          <LottieView
-            style={{
-              width: '100%',
-              height: '100%',
-              backgroundColor: 'transparent',
-            }}
-            source={require('../../assets/empty-box.json')}
-            autoPlay
-            loop={true}
-          />
-          <Text style={styles.dateText}>
-            {'You\'ve reached the end!'}
-          </Text>
-          <Text style={styles.bottomReachedDesc}>
-            {'Seems like we\'ve showed you everything we have. Change category or come back later to find something new!'}
-          </Text>
+          {allDataFetched && (
+            <View style={styles.paginationEndReached}>
+              <LottieView
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'transparent',
+                }}
+                source={require('../../assets/empty-box.json')}
+                autoPlay
+                loop={true}
+              />
+              <Text style={styles.dateText}>
+                {'You\'ve reached the end!'}
+              </Text>
+              <Text style={styles.bottomReachedDesc}>
+                {'Seems like we\'ve showed you everything we have. Change category or come back later to find something new!'}
+              </Text>
+            </View>
+          )}
         </View>
-      )}
-    </View>
+      </ScrollView>
+    </>
   )
 }
 
-export default EventList;
+export default EventByCategories;
 
 const styles = StyleSheet.create({
   listWrapper: {

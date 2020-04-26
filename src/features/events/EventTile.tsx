@@ -3,30 +3,34 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react
 
 const EventTile = (props) => {
   const images = {
-    cinema: require('../../assets/images/cinema.jpg'),
-    concert: require('../../assets/images/concert.jpg'),
-    theatre: require('../../assets/images/theatre.jpg'),
-    for_child: require('../../assets/images/for_child.jpg'),
-    festival: require('../../assets/images/festival.jpg'),
-    stand_up: require('../../assets/images/stand_up.jpg'),
-    circus: require('../../assets/images/circus.jpg'),
+    concerts: require('../../assets/images/concert.jpg'),
+    theatres: require('../../assets/images/theatre.jpg'),
+    children: require('../../assets/images/for_child.jpg'),
+    festivals: require('../../assets/images/festival.jpg'),
+    'stand-up': require('../../assets/images/stand_up.jpg'),
     seminars: require('../../assets/images/seminar.jpg'),
-    exhibition: require('../../assets/images/exhibition.jpg'),
-    bussiness: require('../../assets/images/bussiness.jpg'),
-    quest: require('../../assets/images/quest.jpg'),
-    sport: require('../../assets/images/sport.jpg'),
+    exhibitions: require('../../assets/images/exhibition.jpg'),
+    business: require('../../assets/images/bussiness.jpg'),
+    quests: require('../../assets/images/quest.jpg'),
+    sports: require('../../assets/images/sport.jpg'),
     poetry: require('../../assets/images/poetry.jpg'),
   }
 
+  const onEventTypeNavigate = () => {
+    props.navigation.push('EventByCategories', {
+      category: props.type
+    })
+  }
+
   return (
-    <TouchableOpacity activeOpacity={0.6}>
-    <View style={styles.tileWrapper}>
-      <ImageBackground source={images[props.type]} style={styles.image} imageStyle={{ borderRadius: 10 }}>
-        <Text style={styles.label}>
-          {props.label}
-        </Text>
-      </ImageBackground>
-    </View>
+    <TouchableOpacity activeOpacity={0.6} onPress={() => onEventTypeNavigate()}>
+      <View style={styles.tileWrapper}>
+        <ImageBackground source={images[props.type]} style={styles.image} imageStyle={{ borderRadius: 10 }}>
+          <Text style={styles.label}>
+            {props.label}
+          </Text>
+        </ImageBackground>
+      </View>
     </TouchableOpacity>
   )
 }
