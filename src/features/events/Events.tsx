@@ -4,6 +4,7 @@ import { ScrollView } from 'react-navigation';
 import EventTile from './EventTile';
 import EventList from './EventList';
 import { eventLabels, eventTypes } from './constants';
+import { Picker } from 'native-base';
 
 const Events = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -46,7 +47,7 @@ const Events = (props: any) => {
         <View style={styles.eventTilesWrapper}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {eventTypes.map((event: string) => (
-              <EventTile type={event} label={eventLabels[event]} key={event} navigation={props.navigation}/>
+              <EventTile type={event} label={eventLabels[event]} key={event} navigation={props.navigation} />
             ))}
           </ScrollView>
         </View>

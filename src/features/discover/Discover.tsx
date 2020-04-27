@@ -8,9 +8,12 @@ import { Divider } from 'react-native-elements';
 import Events from '../events/Events';
 import Movies from '../movies/Movies';
 import Series from '../series/Series';
+import Modal from 'react-native-modal';
+import { screenWidth, screenHeight } from '../../constants/screen-contants';
 
 const Discover = (props) => {
   const [activeCategory, setActiveCategory] = React.useState('events');
+  const [isEventCityModalVisible, setIsEventCityModalVisible] = React.useState(false);
 
   const modalRef = useRef(null);
 
@@ -45,7 +48,7 @@ const Discover = (props) => {
     </>
   );
 
-  const category = ['events', 'cinema', 'movies', 'tv_series', 'education'];
+  const category = ['events', 'movies', 'tv_series', 'education'];
   const categoryLabels = {
     events: {
       label: 'Events',
@@ -108,14 +111,16 @@ const Discover = (props) => {
             />
           </TouchableOpacity>
         </Body>
-        <Right />
+        <Right>
+          <Text onPress={() => setIsEventCityModalVisible(true)}>s</Text>
+        </Right>
       </Header>
 
       <Modalize
         ref={modalRef}
         handlePosition="inside"
         modalTopOffset={0}
-        snapPoint={500}
+        snapPoint={450}
         scrollViewProps={{ scrollEnabled: false }}
       >
         {renderModalContent()}
@@ -125,6 +130,16 @@ const Discover = (props) => {
       {activeCategory === 'movies' && <Movies navigation={props.navigation} />}
       {activeCategory === 'tv_series' && <Series navigation={props.navigation} />}
 
+      <Modal
+        deviceWidth={screenWidth}
+        deviceHeight={screenHeight}
+        isVisible={isEventCityModalVisible}
+        backdropOpacity={0.3}
+      >
+        <View style={{ height: 100, width: 100, backgroundColor: 'white' }}>
+          <Text onPress={() => setIsEventCityModalVisible(false)}>Hello!</Text>
+        </View>
+      </Modal>
     </>
   )
 }

@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { Avatar, Divider } from 'react-native-elements';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import * as Progress from 'react-native-progress';
 import { screenWidth } from '../../constants/screen-contants';
 import AvatarComponent from './AvatarComponent';
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { favouriteButtons, accountButtons } from './constants';
+import { Header, Body, Left, Right } from 'native-base';
+import LogoutModal from '../modals/LogoutModal';
 
 const BASE_SIZE = 16;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
@@ -16,24 +19,39 @@ const COLOR_GREY = '#9FA5AA';
 const gradientColors = true ? GRADIENT_BLUE : GRADIENT_PINK;
 
 const Profile = (props) => {
-  const percent2color = (perc) => {
-    let r, g, b = 0;
-    if (perc < 50) {
-      r = 255;
-      g = Math.round(5.1 * perc);
+  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
+
+  const onProfileNavigate = (component: string) => {
+    if (!component) {
+      return;
     }
-    else {
-      g = 255;
-      r = Math.round(510 - 5.10 * perc);
-    }
-    var h = r * 0x10000 + g * 0x100 + b * 0x1;
-    return '#' + ('000000' + h.toString(16)).slice(-6);
+    props.navigation.push(component);
   }
 
-  const renderMenuButton = () => {
+  const renderMenuButton = (button, isLastButton) => {
+    const iconProps: any = {
+      size: BASE_SIZE + 12,
+      name: button.icon,
+      color: COLOR_WHITE
+    }
+
+    let icon: JSX.Element = null;
+
+    if (button.fontFamily === 'Ionicons') {
+      icon = <Ionicons {...iconProps} />;
+    } else if (button.fontFamily === 'MaterialIcons') {
+      icon = <MaterialIcons {...iconProps} />;
+    } else if (button.fontFamily === 'FontAwesome5') {
+      icon = <FontAwesome5 {...iconProps} />;
+    } else if (button.fontFamily === 'MaterialCommunityIcons') {
+      icon = <MaterialCommunityIcons {...iconProps} />;
+    } else if (button.fontFamily === 'FontAwesome') {
+      icon = <FontAwesome {...iconProps} />;
+    }
+
     return (
       <>
-        <TouchableOpacity activeOpacity={0.6}>
+        <TouchableOpacity activeOpacity={0.6} onPress={() => onProfileNavigate(button.link)}>
           <View style={styles.menuButtonWrapper}>
             <View style={styles.menuIcon}>
               <Gradient
@@ -42,19 +60,15 @@ const Profile = (props) => {
                 colors={gradientColors}
                 style={[styles.gradient, styles.left]}
               >
-                <Ionicons
-                  size={BASE_SIZE + 10}
-                  name={'md-happy'}
-                  color={COLOR_WHITE}
-                />
+                {icon}
               </Gradient>
             </View>
             <View style={styles.menuText}>
               <Text style={styles.menuTextLabel}>
-                {'Preferences'}
+                {button.buttonLabel}
               </Text>
               <Text style={styles.menuTextDesc}>
-                {'Control your preferences and orders of categories'}
+                {button.buttonDescription}
               </Text>
             </View>
             <View style={styles.menuArrow}>
@@ -62,32 +76,33 @@ const Profile = (props) => {
             </View>
           </View>
         </TouchableOpacity>
-        <Divider />
+        {!isLastButton && <Divider />}
       </>
     )
   }
 
   return (
-    <ScrollView>
-      <View style={styles.wrapper}>
-        {/* 
-        <Avatar
-          rounded
-          size='xlarge'
-          icon={{ name: 'user', type: 'font-awesome' }}
-          source={{ uri: 'https://pmcvariety.files.wordpress.com/2020/03/kylie-jenner.jpg?w=1000' }}
-        /> */}
+    <>
+      <Header>
+        <Left />
+        <Body>
+          <Text>Profile</Text>
+        </Body>
+        <Right>
+          <TouchableOpacity onPress={() => setIsLogoutModalVisible(true)}>
+            <Ionicons name='md-happy' size={30} />
+          </TouchableOpacity>
+        </Right>
+      </Header>
+      <ScrollView>
+        <View style={styles.wrapper}>
 
-        <AvatarComponent user={{}} />
-        <Text style={styles.textStyle}>
-          {`Name Surname`}
-        </Text>
+          <AvatarComponent user={{}} />
+          <Text style={styles.textStyle}>
+            {`Name Surname`}
+          </Text>
 
-        {/* <Text style={styles.descriptionText}>
-          {`@nickname_here`}
-        </Text> */}
-
-        {/* <View style={styles.profileCompleteWrapper}>
+          {/* <View style={styles.profileCompleteWrapper}>
           <Text style={styles.profileCompleteHeader}>
             {'Complete your profile'}
           </Text>
@@ -96,31 +111,28 @@ const Profile = (props) => {
             <Progress.Bar progress={0.9} color={percent2color(43)} height={10} width={screenWidth - 50} />
           </View>
         </View> */}
-        <Text style={styles.profileHeader}>
-          {'Favourites'}
-        </Text>
-        <View style={styles.profileCompleteWrapper}>
-          {renderMenuButton()}
-          {renderMenuButton()}
-          {renderMenuButton()}
-          {renderMenuButton()}
-        </View>
+          <Text style={styles.profileHeader}>
+            {'Favourites'}
+          </Text>
+          <View style={styles.profileCompleteWrapper}>
+            {favouriteButtons.map((button, index) => (
+              renderMenuButton(button, Boolean(index === favouriteButtons.length - 1))
+            ))}
+          </View>
 
-        <Text style={styles.profileHeader}>
-          {'Account'}
-        </Text>
-        <View style={styles.profileCompleteWrapper}>
-          {renderMenuButton()}
-          {renderMenuButton()}
-          {renderMenuButton()}
-          {renderMenuButton()}
-          {renderMenuButton()}
-          {renderMenuButton()}
-          {renderMenuButton()}
-
+          <Text style={styles.profileHeader}>
+            {'Settings'}
+          </Text>
+          <View style={styles.profileCompleteWrapper}>
+            {accountButtons.map((button, index) => (
+              renderMenuButton(button, Boolean(index === accountButtons.length - 1))
+            ))}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+
+      <LogoutModal isVisible={isLogoutModalVisible} />
+    </>
   )
 }
 
@@ -177,7 +189,7 @@ const styles = StyleSheet.create({
 
   },
   menuButtonWrapper: {
-    height: 70,
+    height: 75,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -208,7 +220,8 @@ const styles = StyleSheet.create({
   },
   menuTextLabel: {
     fontSize: 15,
-    fontWeight: '600'
+    fontWeight: '600',
+    letterSpacing: 1.1
   },
   menuTextDesc: {
     fontSize: 12,

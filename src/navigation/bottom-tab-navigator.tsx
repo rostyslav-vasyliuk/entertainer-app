@@ -11,6 +11,10 @@ import SeriesByGenre from '../features/series/SeriesByGenre';
 import MoviesByGenre from '../features/movies/MoviesByGenre';
 import EventDetails from '../features/events/EventDetails/EventDetails';
 import EventByCategories from '../features/events/EventByCategories';
+import Permissions from '../features/profile/ProfileMenuScreens/Permissions';
+import Feedback from '../features/profile/ProfileMenuScreens/Feedback';
+import Preferences from '../features/profile/ProfileMenuScreens/Preferences';
+import ChangePassword from '../features/profile/ProfileMenuScreens/ChangePassword';
 
 const HomeStack = createStackNavigator(
   {
@@ -25,7 +29,7 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
-tabBarIcon: (props) => <Entypo name="grid" size={32} color={props.focused ? 'black' : 'gray'} />,
+  tabBarIcon: (props) => <Entypo name="grid" size={32} color={props.focused ? 'black' : 'gray'} />,
 };
 
 const DiscoverStack = createStackNavigator(
@@ -86,10 +90,22 @@ const ProfileStack = createStackNavigator(
   {
     Profile: {
       screen: Profile
+    },
+    Permissions: {
+      screen: Permissions
+    },
+    Feedback: {
+      screen: Feedback
+    },
+    Preferences: {
+      screen: Preferences
+    },
+    ChangePassword: {
+      screen: ChangePassword
     }
   },
   {
-    headerMode: 'screen'
+    headerMode: 'none'
   }
 );
 
@@ -104,7 +120,7 @@ const BottomTabNavigator = createBottomTabNavigator({
   // ExploreStack,
   ProfileStack
 }, {
-  initialRouteName: 'DiscoverStack'
+  initialRouteName: 'ProfileStack'
 });
 
 export default BottomTabNavigator;
