@@ -15,6 +15,7 @@ import Permissions from '../features/profile/ProfileMenuScreens/Permissions';
 import Feedback from '../features/profile/ProfileMenuScreens/Feedback';
 import Preferences from '../features/profile/ProfileMenuScreens/Preferences';
 import ChangePassword from '../features/profile/ProfileMenuScreens/ChangePassword';
+import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguage';
 
 const HomeStack = createStackNavigator(
   {
@@ -102,6 +103,9 @@ const ProfileStack = createStackNavigator(
     },
     ChangePassword: {
       screen: ChangePassword
+    },
+    ChangeLanguage: {
+      screen: ChangeLanguage
     }
   },
   {

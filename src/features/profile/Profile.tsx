@@ -57,7 +57,7 @@ const Profile = (props) => {
               <Gradient
                 start={[0.45, 0.45]}
                 end={[0.90, 0.90]}
-                colors={gradientColors}
+                colors={button.gradientColors || ['#fff']}
                 style={[styles.gradient, styles.left]}
               >
                 {icon}
@@ -99,7 +99,11 @@ const Profile = (props) => {
 
           <AvatarComponent user={{}} />
           <Text style={styles.textStyle}>
-            {`Name Surname`}
+            {`Petro Mostavchuk`}
+          </Text>
+
+          <Text style={styles.cityTextStyle}>
+            {`Ukraine, Lviv`}
           </Text>
 
           {/* <View style={styles.profileCompleteWrapper}>
@@ -146,7 +150,7 @@ const styles = StyleSheet.create({
     paddingTop: 15
   },
   textStyle: {
-    fontSize: 24,
+    fontSize: 22,
     color: '#000',
     marginTop: 15,
   },
@@ -239,5 +243,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     letterSpacing: 1.5
+  },
+  cityTextStyle: {
+    color: 'gray',
+    padding: 4,
+    fontSize: 16
   }
 })

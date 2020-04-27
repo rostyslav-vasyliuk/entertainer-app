@@ -3,25 +3,29 @@ export const favouriteButtons = [
     buttonLabel: 'Events',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'event',
-    fontFamily: 'MaterialIcons'
+    fontFamily: 'MaterialIcons',
+    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA']
   },
   {
     buttonLabel: 'Movies',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'library-movie',
-    fontFamily: 'MaterialCommunityIcons'
+    fontFamily: 'MaterialCommunityIcons',
+    gradientColors: ['#D94989', '#8F44CE']
   },
   {
     buttonLabel: 'Series',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'md-tv',
-    fontFamily: 'Ionicons'
+    fontFamily: 'Ionicons',
+    gradientColors: ['#8F44CE', '#6B84CA']
   },
   {
     buttonLabel: 'Education',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'university',
-    fontFamily: 'FontAwesome5'
+    fontFamily: 'FontAwesome5',
+    gradientColors: ['#B446AB', '#fe4b66']
   },
 ]
 
@@ -50,7 +54,8 @@ export const accountButtons = [
     buttonLabel: 'Language',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'language',
-    fontFamily: 'FontAwesome'
+    fontFamily: 'FontAwesome',
+    link: 'ChangeLanguage'
   },
   {
     buttonLabel: 'Theme',
