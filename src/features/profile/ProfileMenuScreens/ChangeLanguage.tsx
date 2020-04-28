@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { CheckBox } from 'native-base';
-import { Header, Body, Left, Right, Textarea, Form, Item, Label, Button } from 'native-base';
+import { Header, Body, Left, Right } from 'native-base';
 
 const ChangeLanguage = () => {
   return (

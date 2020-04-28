@@ -8,6 +8,8 @@ import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 import { seriesGenres } from '../constants';
 import { monthLabel } from '../../../constants/date-constants';
+import { Toast } from 'native-base';
+import { AntDesign } from '@expo/vector-icons';
 
 const SeriesDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,11 +17,13 @@ const SeriesDetails = (props) => {
   const [seasonsData, setSeasonsData]: any = useState({});
   const [seasonIsLoading, setSeasonIsLoading] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
+	const [isFavourite, setIsFavourite] = useState(null);
 
   useEffect(() => {
     const series_id = props.navigation.getParam('series_id', null);
     Axios.get(`/tv-series/details/${series_id}`).then((response: AxiosResponse) => {
       setseriesData(response.data);
+			setIsFavourite(response.data.isFavourite);
       setIsLoading(false);
     });
 
@@ -105,6 +109,23 @@ const SeriesDetails = (props) => {
     })
   }
 
+  const addToFavourites = () => {
+		Axios.post('/tv-series/favourite', { id: seriesData.id }).then((response: AxiosResponse) => {
+			setIsFavourite(response.data.isFavourite);
+			if (response.data.isFavourite) {
+				Toast.show({
+					text: 'Added to favourites'
+				})
+			} else {
+				Toast.show({
+					text: 'Removed from favourites'
+				})
+			}
+		}).catch(() => {
+
+		})
+	}
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -140,6 +161,16 @@ const SeriesDetails = (props) => {
             >
               <Text style={{ fontSize: 12, color: '#fff' }}>{seriesData.vote_average}</Text>
             </ProgressCircle>
+
+            <View style={{paddingTop: 15}}>
+							<TouchableOpacity onPress={() => addToFavourites()}>
+								{isFavourite ?
+									<AntDesign name={'star'} size={30} color={'#1ecaff'} />
+									:
+									<AntDesign name={'staro'} size={30} color={'#1ecaff'} />
+								}
+							</TouchableOpacity>
+						</View>
           </View>
         </View>
         <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
@@ -149,7 +180,7 @@ const SeriesDetails = (props) => {
             <Text style={styles.overviewTitle}>Overview</Text>
             <View style={styles.additionalButtons}>
               <TouchableOpacity style={{ paddingRight: 5 }}>
-                <Entypo name='share-alternative' color='#e8ecf2' size={28} />
+                {/* <Entypo name='share-alternative' color='#e8ecf2' size={28} /> */}
               </TouchableOpacity>
             </View>
           </View>

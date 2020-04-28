@@ -13,7 +13,7 @@ const app = createSwitchNavigator(
     App: BottomTabNavigator
   },
   {
-    initialRouteName: 'App'
+    initialRouteName: 'NavigationController'
   }
 );
 

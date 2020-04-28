@@ -6,16 +6,20 @@ import ProgressCircle from 'react-native-progress-circle'
 import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
 import { movieGenres } from '../constants';
+import { Toast } from 'native-base';
+import { AntDesign } from '@expo/vector-icons';
 
 const MovieDetails = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [movieData, setMovieData]: any = useState({});
 	const [recommendations, setRecommendations] = useState([]);
+	const [isFavourite, setIsFavourite] = useState(null);
 
 	useEffect(() => {
 		const movie_id = props.navigation.getParam('movie_id', null);
 		Axios.get(`/movies/details/${movie_id}`).then((response: AxiosResponse) => {
 			setMovieData(response.data);
+			setIsFavourite(response.data.isFavourite);
 			setIsLoading(false);
 		});
 
@@ -91,7 +95,22 @@ const MovieDetails = (props) => {
 		})
 	}
 
+	const addToFavourites = () => {
+		Axios.post('/movies/favourite', { id: movieData.id }).then((response: AxiosResponse) => {
+			setIsFavourite(response.data.isFavourite);
+			if (response.data.isFavourite) {
+				Toast.show({
+					text: 'Added to favourites'
+				})
+			} else {
+				Toast.show({
+					text: 'Removed from favourites'
+				})
+			}
+		}).catch(() => {
 
+		})
+	}
 	return (
 		<>
 			<ScrollView style={styles.container}>
@@ -127,7 +146,7 @@ const MovieDetails = (props) => {
 						</Text>
 						<Text style={styles.duration}>Duration: {movieData.runtime} min</Text>
 					</View>
-					<View style={{ alignItems: 'center' }}>
+					<View style={{ alignItems: 'center', justifyContent: 'space-evenly'}}>
 						<ProgressCircle
 							percent={movieData.vote_average * 10}
 							radius={20}
@@ -138,6 +157,16 @@ const MovieDetails = (props) => {
 						>
 							<Text style={{ fontSize: 12, color: '#fff' }}>{movieData.vote_average}</Text>
 						</ProgressCircle>
+
+						<View style={{paddingTop: 15}}>
+							<TouchableOpacity onPress={() => addToFavourites()}>
+								{isFavourite ?
+									<AntDesign name={'star'} size={30} color={'#1ecaff'} />
+									:
+									<AntDesign name={'staro'} size={30} color={'#1ecaff'} />
+								}
+							</TouchableOpacity>
+						</View>
 					</View>
 				</View>
 				<Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
@@ -146,9 +175,9 @@ const MovieDetails = (props) => {
 					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 5 }}>
 						<Text style={styles.overviewTitle}>Overview</Text>
 						<View style={styles.additionalButtons}>
-							<TouchableOpacity style={{ paddingRight: 5 }}>
+							{/* <TouchableOpacity style={{ paddingRight: 5 }}>
 								<Entypo name='share-alternative' color='#e8ecf2' size={28} />
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 						</View>
 					</View>
 

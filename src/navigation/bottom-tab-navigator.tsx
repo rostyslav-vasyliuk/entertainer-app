@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import Discover from '../features/discover/Discover';
-import Profile from '../features/profile/Profile';
+import Profile from '../features/profile/Profile.container';
 import * as React from 'react';
 import { Entypo, AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import MovieDetails from '../features/movies/MovieDetails/MovieDetails';
@@ -16,6 +16,9 @@ import Feedback from '../features/profile/ProfileMenuScreens/Feedback';
 import Preferences from '../features/profile/ProfileMenuScreens/Preferences';
 import ChangePassword from '../features/profile/ProfileMenuScreens/ChangePassword';
 import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguage';
+import FavouriteEvents from '../features/profile/ProfileMenuScreens/FavouriteEvents';
+import FavouriteSeries from '../features/profile/ProfileMenuScreens/FavouriteSeries';
+import FavouriteMovies from '../features/profile/ProfileMenuScreens/FavouriteMovies';
 
 const HomeStack = createStackNavigator(
   {
@@ -106,6 +109,15 @@ const ProfileStack = createStackNavigator(
     },
     ChangeLanguage: {
       screen: ChangeLanguage
+    },
+    FavouriteEvents: {
+      screen: FavouriteEvents
+    },
+    FavouriteSeries: {
+      screen: FavouriteSeries
+    },
+    FavouriteMovies: {
+      screen: FavouriteMovies
     }
   },
   {

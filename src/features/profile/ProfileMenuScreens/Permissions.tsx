@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header, Body, Left, Right, Switch } from 'native-base';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { screenWidth } from '../../../constants/screen-contants';
@@ -123,7 +123,7 @@ const PermissionsComponent = () => {
             </Text>
           </View>
           <View style={styles.menuArrow}>
-            <Switch value={getPermissions(listItem.type)} disabled={getPermissions(listItem.type)} onValueChange={() => askPermission(listItem.type)}/>
+            <Switch value={getPermissions(listItem.type)} disabled={getPermissions(listItem.type)} onValueChange={() => askPermission(listItem.type)} />
           </View>
         </View>
 
@@ -143,11 +143,13 @@ const PermissionsComponent = () => {
         </Right>
       </Header>
 
-      <View style={styles.wrapper}>
-        {permissionsListItems.map((item, index) => (
-          renderListItem(item, Boolean(index === permissionsListItems.length - 1))
-        ))}
-      </View>
+      <ScrollView>
+        <View style={styles.wrapper}>
+          {permissionsListItems.map((item, index) => (
+            renderListItem(item, Boolean(index === permissionsListItems.length - 1))
+          ))}
+        </View>
+      </ScrollView>
     </>
   )
 }

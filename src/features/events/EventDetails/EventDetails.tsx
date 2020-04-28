@@ -5,20 +5,24 @@ import { AxiosResponse } from 'axios';
 import { eventLabels } from '../constants';
 import { monthLabel } from '../../../constants/date-constants';
 import { screenWidth } from '../../../constants/screen-contants';
-import { Button } from 'native-base';
+import { Button, Toast } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
 
 const EventDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [eventData, setEventData]: any = useState({});
   const [recommendations, setRecommendations] = useState([]);
+  const [isFavourite, setIsFavourite] = useState(null);
 
   useEffect(() => {
     const event_id = props.navigation.getParam('event_id', null);
     Axios.get(`/events/details/${event_id}`).then((response: AxiosResponse) => {
       setEventData(response.data.event);
       setRecommendations(response.data.recommendations);
+      console.log(response.data.isFavourite)
+      setIsFavourite(response.data.isFavourite)
       setIsLoading(false);
     });
   }, []);
@@ -48,6 +52,24 @@ const EventDetails = (props) => {
 
   const onEventNavigate = (event_id: string) => {
     props.navigation.push('EventDetails', { event_id });
+  }
+
+  const addToFavourites = () => {
+    Axios.post('/events/favourite', { id: eventData._id }).then((response: AxiosResponse) => {
+      setIsFavourite(response.data.isFavourite);
+      if (response.data.isFavourite) {
+        Toast.show({
+          text: 'Added to favourites'
+        })
+      } else {
+        Toast.show({
+          text: 'Removed from favourites'
+        })
+      }
+    }).catch(() => {
+
+    })
+    console.log(eventData._id);
   }
 
   const onLinkOpen = (url: string) => {
@@ -96,13 +118,24 @@ const EventDetails = (props) => {
                 {'Price: ' + eventData.price + ' UAH'}
               </Text>}
 
-            <Button full style={styles.button} onPress={() => onLinkOpen(eventData.link)}>
-              <Text style={{ color: '#fff' }}>
-                {'Visit page'}
-              </Text>
-            </Button>
+          </View>
+          <View style={styles.iconWrapper}>
+            <TouchableOpacity onPress={() => addToFavourites()}>
+              {isFavourite ?
+                <AntDesign name={'star'} size={30} color={'#1ecaff'} />
+                :
+                <AntDesign name={'staro'} size={30} color={'#1ecaff'} />
+              }
+            </TouchableOpacity>
           </View>
         </View>
+
+
+        <Button full style={styles.button} onPress={() => onLinkOpen(eventData.link)}>
+          <Text style={{ color: '#fff' }}>
+            {'Visit page'}
+          </Text>
+        </Button>
 
         <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
 
@@ -215,6 +248,10 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: screenWidth - 26,
     borderRadius: 5,
-    backgroundColor: '#fe4b66'
+    backgroundColor: '#fe4b66',
+    marginLeft: 13
   },
+  iconWrapper: {
+    paddingRight: 10
+  }
 })

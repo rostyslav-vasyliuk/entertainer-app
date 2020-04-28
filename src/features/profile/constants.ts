@@ -4,21 +4,24 @@ export const favouriteButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'event',
     fontFamily: 'MaterialIcons',
-    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA']
+    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
+    link: 'FavouriteEvents'
   },
   {
     buttonLabel: 'Movies',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'library-movie',
     fontFamily: 'MaterialCommunityIcons',
-    gradientColors: ['#D94989', '#8F44CE']
+    gradientColors: ['#D94989', '#8F44CE'],
+    link: 'FavouriteMovies'
   },
   {
     buttonLabel: 'Series',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'md-tv',
     fontFamily: 'Ionicons',
-    gradientColors: ['#8F44CE', '#6B84CA']
+    gradientColors: ['#8F44CE', '#6B84CA'],
+    link: 'FavouriteSeries'
   },
   {
     buttonLabel: 'Education',
@@ -81,6 +84,6 @@ export const accountButtons = [
     buttonLabel: 'Logout',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'logout',
-    fontFamily: 'MaterialCommunityIcons'
+    fontFamily: 'MaterialCommunityIcons',
   }
 ]

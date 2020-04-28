@@ -6,12 +6,19 @@ import LottieView from 'lottie-react-native';
 import { Button } from 'native-base';
 
 const LogoutModal = (props) => {
+  const onLogoutConfirm = () => {
+
+  }
+
+  const onCancel = () => {
+    props.setIsLogoutModalVisible(false);
+  }
 
   return (
     <Modal
       deviceWidth={screenWidth}
       deviceHeight={screenHeight}
-      isVisible={props.isVisible}
+      isVisible={props.isLogoutModalVisible}
       backdropOpacity={0.3}
     >
       <View style={styles.wrapper}>
@@ -31,16 +38,14 @@ const LogoutModal = (props) => {
           {/* {'Confirm logout'} */}
           {'Are you sure you wish to logout?'}
         </Text>
-        {/* <Text style={styles.logoutDesc}>
-        </Text> */}
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-          <Button style={styles.cancelButton} dark bordered full>
+          <Button style={styles.cancelButton} dark bordered full onPressIn={() => onCancel()}>
             <Text>
               {'Cancel'}
             </Text>
           </Button>
-          <Button style={styles.cancelButton} dark full>
-            <Text style={{color: 'white'}}>
+          <Button style={styles.cancelButton} dark full onPress={() => onLogoutConfirm()}>
+            <Text style={{ color: 'white' }}>
               {'Logout'}
             </Text>
           </Button>

@@ -94,12 +94,12 @@ const PopularMovies = (props) => {
   return (
     <View>
       {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
-      
+
       {paginationLoading && (
-              <View style={styles.paginationLoaderWrapper}>
-                <ActivityIndicator size='small' color='#000' />
-              </View>
-            )}
+        <View style={styles.paginationLoaderWrapper}>
+          <ActivityIndicator size='small' color='#000' />
+        </View>
+      )}
     </View>
   );
 }
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 5,
+    zIndex: 0
   },
   movieContainer: {
     width: 170,

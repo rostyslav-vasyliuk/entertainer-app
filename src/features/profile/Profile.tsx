@@ -9,7 +9,7 @@ import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIc
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { favouriteButtons, accountButtons } from './constants';
 import { Header, Body, Left, Right } from 'native-base';
-import LogoutModal from '../modals/LogoutModal';
+import LogoutModal from '../modals/LogoutModal.container';
 
 const BASE_SIZE = 16;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
@@ -49,9 +49,17 @@ const Profile = (props) => {
       icon = <FontAwesome {...iconProps} />;
     }
 
+    let onButtonAction = () => {
+      if (button.buttonLabel === 'Logout') {
+        props.setIsLogoutModalVisible(true);
+        return;
+      }
+      onProfileNavigate(button.link)
+    }
+
     return (
       <>
-        <TouchableOpacity activeOpacity={0.6} onPress={() => onProfileNavigate(button.link)}>
+        <TouchableOpacity activeOpacity={0.6} onPress={() => onButtonAction()}>
           <View style={styles.menuButtonWrapper}>
             <View style={styles.menuIcon}>
               <Gradient
@@ -106,15 +114,6 @@ const Profile = (props) => {
             {`Ukraine, Lviv`}
           </Text>
 
-          {/* <View style={styles.profileCompleteWrapper}>
-          <Text style={styles.profileCompleteHeader}>
-            {'Complete your profile'}
-          </Text>
-          <Divider />
-          <View style={styles.progressbarWrapper}>
-            <Progress.Bar progress={0.9} color={percent2color(43)} height={10} width={screenWidth - 50} />
-          </View>
-        </View> */}
           <Text style={styles.profileHeader}>
             {'Favourites'}
           </Text>
@@ -135,7 +134,7 @@ const Profile = (props) => {
         </View>
       </ScrollView>
 
-      <LogoutModal isVisible={isLogoutModalVisible} />
+      <LogoutModal />
     </>
   )
 }
