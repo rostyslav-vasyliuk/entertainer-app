@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AppContainer from './navigation';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
 import * as Font from 'expo-font';
@@ -20,7 +20,7 @@ const App = () => {
   // }
   const _cacheResourcesAsync = async () => {
     const fontAssets = cacheFonts([FontAwesome.font]);
-    
+
     await Promise.all([...fontAssets]);
   }
 
@@ -42,10 +42,19 @@ const App = () => {
     <Provider store={store}>
       <Root>
         <StatusBar barStyle='dark-content' />
-        <AppContainer />
+        <View style={styles.container}>
+          <AppContainer />
+        </View>
       </Root>
     </Provider>
   );
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#17191c',
+  },
+});

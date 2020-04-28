@@ -5,6 +5,7 @@ import EventTile from './EventTile';
 import EventList from './EventList';
 import { eventLabels, eventTypes } from './constants';
 import { Picker } from 'native-base';
+import { BACKGROUND, LOADER_COLOR } from '../../constants/color-constants';
 
 const Events = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -19,7 +20,7 @@ const Events = (props: any) => {
 
   }, [refreshing]);
 
-  const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />;
+  const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR} />;
 
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - 40;
@@ -69,7 +70,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: BACKGROUND
   },
   eventTilesWrapper: {
     // paddingLeft: 10,

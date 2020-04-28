@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+// import Image from 'react-native-image-placeholder';
+import { Image } from 'react-native-elements';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
 import { monthLabel } from '../../constants/date-constants';
 import { Divider } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { screenWidth } from '../../constants/screen-contants';
+import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { FontAwesome } from '@expo/vector-icons';
+import { BACKGROUND, TEXT_COLOR, HEADER_BACKGROUND, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../constants/color-constants';
+import { Entypo } from '@expo/vector-icons'
 
 const ActorDetails = (props) => {
   const [actorsData, setActorsData] = useState(null);
@@ -57,10 +61,19 @@ const ActorDetails = (props) => {
       return (
         <TouchableOpacity onPress={() => onMovieNavigate(movie.id)}>
           <View style={styles.filmBlock}>
-            <Image
-              source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
-              style={{ width: 130, height: 70, borderRadius: 5 }}
-            />
+            {movie.backdrop_path ?
+              <Image
+                source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
+                style={{ width: 130, height: 70, borderRadius: 5 }}
+                placeholderStyle={{ backgroundColor: BACKGROUND }}
+                PlaceholderContent={<ActivityIndicator size='small' color={LOADER_COLOR} />}
+              />
+              : (
+                <View style={{ width: 130, height: 70, borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: HEADER_BACKGROUND }}>
+                  <Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 30 }} />
+                </View>
+              )
+            }
             <View style={styles.filmographyBlock}>
               <Text style={styles.filmographyTextLabel}>
                 {movie.title}
@@ -83,10 +96,19 @@ const ActorDetails = (props) => {
       return (
         <TouchableOpacity onPress={() => onSeriesNavigate(movie.id)}>
           <View style={styles.filmBlock}>
-            <Image
-              source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
-              style={{ width: 130, height: 70, borderRadius: 5 }}
-            />
+            {movie.backdrop_path ?
+              <Image
+                source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
+                style={{ width: 130, height: 70, borderRadius: 5 }}
+                placeholderStyle={{ backgroundColor: BACKGROUND }}
+                PlaceholderContent={<ActivityIndicator size='small' color={LOADER_COLOR} />}
+              />
+              : (
+                <View style={{ width: 130, height: 70, borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: HEADER_BACKGROUND }}>
+                  <Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 30 }} />
+                </View>
+              )
+            }
             <View style={styles.filmographyBlock}>
               <Text style={styles.filmographyTextLabel}>
                 {movie.name}
@@ -140,7 +162,11 @@ const ActorDetails = (props) => {
   }
 
   if (loading) {
-    return <ActivityIndicator />
+    return (
+      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+        <ActivityIndicator size="small" color="#fff" />
+      </View>
+    )
   }
 
   return (
@@ -248,7 +274,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 400,
     width: '100%',
-    backgroundColor: '#030405'
+    borderRadius: 8
   },
   actorsName: {
     color: '#fff',

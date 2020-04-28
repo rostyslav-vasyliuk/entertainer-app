@@ -10,6 +10,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { favouriteButtons, accountButtons } from './constants';
 import { Header, Body, Left, Right } from 'native-base';
 import LogoutModal from '../modals/LogoutModal.container';
+import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT, BACKGROUND } from '../../constants/color-constants';
+import HeaderCustom from '../../ui-components/Header/Header';
 
 const BASE_SIZE = 16;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
@@ -91,18 +93,8 @@ const Profile = (props) => {
 
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>Profile</Text>
-        </Body>
-        <Right>
-          <TouchableOpacity onPress={() => setIsLogoutModalVisible(true)}>
-            <Ionicons name='md-happy' size={30} />
-          </TouchableOpacity>
-        </Right>
-      </Header>
-      <ScrollView>
+      <HeaderCustom label={'Profile'} />
+      <ScrollView style={{backgroundColor: BACKGROUND}}>
         <View style={styles.wrapper}>
 
           <AvatarComponent user={{}} />
@@ -146,20 +138,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 15
+    paddingTop: 15,
+    backgroundColor: BACKGROUND
   },
   textStyle: {
     fontSize: 22,
-    color: '#000',
+    color: TEXT_COLOR,
     marginTop: 15,
   },
   descriptionText: {
     fontSize: 16,
     marginTop: 5,
-    color: 'gray'
+    color: TEXT_COLOR_SECONDARY
   },
   profileCompleteWrapper: {
-    backgroundColor: '#fafafa',
+    backgroundColor: BACKGROUND_LIGHT,
     width: '95%',
     // margin: 50,
     marginTop: 15,

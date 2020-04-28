@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { Icon } from 'native-base';
+import { TEXT_COLOR } from '../../constants/color-constants';
 
 const TabHeaderLabel = (props) => {
   return (
@@ -19,7 +20,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: '500',
-    paddingRight: 6
+    paddingRight: 6,
+    color: TEXT_COLOR
   },
   wrapper: {
     flexDirection: 'row',
@@ -29,6 +31,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 20,
-    paddingTop: 2
+    paddingTop: 2,
+    color: TEXT_COLOR
+
   }
 })

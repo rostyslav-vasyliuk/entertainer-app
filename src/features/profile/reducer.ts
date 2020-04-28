@@ -2,10 +2,12 @@ import * as actionKeys from './actionKeys';
 
 type AuthReducer = {
   data: any;
+  theme: string;
 }
 
 export const initialState: AuthReducer = {
-  data: null
+  data: null,
+  theme: 'dark'
 };
 
 // tslint:disable-next-line:no-any
@@ -15,6 +17,13 @@ export default function (state: AuthReducer = initialState, action) {
       return {
         ...state,
         data: action.payload.data
+      };
+    }
+
+    case actionKeys.CHANGE_COLOUR_THEME: {
+      return {
+        ...state,
+        theme: action.payload.theme
       };
     }
 

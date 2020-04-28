@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'rea
 import { Image } from 'react-native-elements';
 import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
+import { screenHeight } from '../../constants/screen-contants';
+import { BACKGROUND, LOADER_COLOR, TEXT_COLOR } from '../../constants/color-constants';
 
 const PopularSeries = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -91,16 +93,18 @@ const PopularSeries = (props) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator size='large' color='#fff' />
+        <View style={{ height: screenHeight - 300, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+          <ActivityIndicator size="small" color="#fff" />
+        </View>
       ) : (
           <>
             {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
 
             {paginationLoading && (
               <View style={styles.paginationLoaderWrapper}>
-                <ActivityIndicator size='small' color='#000' />
+                <ActivityIndicator size='small' color={LOADER_COLOR} />
               </View>
             )}
           </>
@@ -114,7 +118,8 @@ export default PopularSeries;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: BACKGROUND
   },
   trendingHeader: {
     color: '#000',
@@ -140,12 +145,12 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     alignSelf: 'flex-start',
-    color: '#000',
+    color: TEXT_COLOR,
     fontWeight: '700',
     fontSize: 16,
   },
   movieInfo: {
-    color: '#000',
+    color: TEXT_COLOR,
     fontSize: 12,
   },
   textContainer: {

@@ -6,9 +6,10 @@ import { eventLabels } from './constants';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
 import LottieView from 'lottie-react-native';
-import { screenWidth } from '../../constants/screen-contants';
+import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import { Left, Button, Body, Right, Header } from 'native-base';
+import HeaderCustom from '../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../constants/color-constants';
 
 const EventByCategories = (props) => {
   const [events, setEvents] = useState([]);
@@ -60,6 +61,10 @@ const EventByCategories = (props) => {
     return dateString;
   }
 
+  const goBack = () => {
+    props.navigation.goBack();
+  }
+
   const getCategory = (category: string) => {
     if (!category) {
       return '';
@@ -80,8 +85,13 @@ const EventByCategories = (props) => {
     });
   }
 
+
   if (loading) {
-    return <ActivityIndicator size='large' color='#fff' />
+    return (
+      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+        <ActivityIndicator size="small" color="#fff" />
+      </View>
+    );
   }
 
   const renderDivider = (dateString: string) => {
@@ -143,7 +153,7 @@ const EventByCategories = (props) => {
                 <Text style={styles.descriptionTitle}>
                   {'Date: '}
                 </Text>
-                <Text>
+                <Text style={styles.descriptionTitle}>
                   {getDateString(event.date)}
                 </Text>
               </View>
@@ -153,7 +163,7 @@ const EventByCategories = (props) => {
                   <Text style={styles.descriptionTitle}>
                     {'Price: '}
                   </Text>
-                  <Text>
+                  <Text style={styles.descriptionTitle}>
                     {event.price}
                   </Text>
                 </View>
@@ -163,7 +173,7 @@ const EventByCategories = (props) => {
                 <Text style={styles.descriptionTitle}>
                   {'Type: '}
                 </Text>
-                <Text>
+                <Text style={styles.descriptionTitle}>
                   {getCategory(event.categories)}
                 </Text>
               </View>
@@ -178,18 +188,9 @@ const EventByCategories = (props) => {
 
   return (
     <>
-      <Header transparent>
-        <Left>
-          <Button transparent>
-            {/* <AntDesign name='arrowleft' size={30} /> */}
-          </Button>
-        </Left>
-        <Body>
-          <Text>{eventLabels[category]}</Text>
-        </Body>
-        <Right />
-      </Header>
-      <ScrollView>
+      <HeaderCustom label={eventLabels[category]} back={goBack} />
+
+      <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={styles.listWrapper}>
           {events.map((elem, index) => (
             <View key={elem._id}>
@@ -253,22 +254,23 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 18,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   dateOfWeek: {
     paddingLeft: 6,
-
+    color: TEXT_COLOR
   },
   month: {
     textTransform: 'uppercase',
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     fontWeight: '500',
     fontSize: 12
   },
   year: {
     paddingLeft: 4,
     textTransform: 'uppercase',
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     fontWeight: '500',
     fontSize: 12
   },
@@ -295,7 +297,8 @@ const styles = StyleSheet.create({
   itemsTitle: {
     fontSize: 16,
     fontWeight: '500',
-    marginBottom: 5
+    marginBottom: 5,
+    color: TEXT_COLOR
   },
   makeRow: {
     paddingTop: 5,
@@ -303,10 +306,11 @@ const styles = StyleSheet.create({
   },
   descriptionTitle: {
     fontSize: 14,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   descriptionValue: {
-
+    color: TEXT_COLOR
   },
   paginationLoaderWrapper: {
     minHeight: 50,

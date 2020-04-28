@@ -4,12 +4,12 @@ import MovieTile from './MovieTile';
 import { movieGenres } from './constants';
 import PopularMovies from './PopularMovies'
 import { Picker, Icon } from 'native-base';
+import { BACKGROUND, TEXT_COLOR, LOADER_COLOR } from '../../constants/color-constants';
 
 const data = [
   "Most Relevant",
   "Most Popular"
 ]
-
 
 const Movies = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -24,7 +24,7 @@ const Movies = (props: any) => {
 
   }, [refreshing]);
 
-  const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />;
+  const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR}/>;
 
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - 40;
@@ -70,14 +70,14 @@ const Movies = (props: any) => {
           <Picker
             mode="dropdown"
             iosHeader="Sort by"
-            iosIcon={<Icon name="arrow-down" style={{ marginLeft: 0, marginRight: 4, fontSize: 16 }} />}
+            iosIcon={<Icon name="arrow-down" style={{ marginLeft: 0, marginRight: 4, fontSize: 16, color: TEXT_COLOR }} />}
             style={{ width: undefined }}
-            textStyle={{ fontSize: 13, padding: 0 }}
+            textStyle={{ fontSize: 13, padding: 0, color: TEXT_COLOR }}
             selectedValue={data[0]}
             onValueChange={() => { }}
           >
             {data.map((item) => (
-              <Picker.Item label={item} value={item} />
+              <Picker.Item label={item} value={item} key={item} />
             ))}
           </Picker>
         </View>
@@ -100,15 +100,16 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: BACKGROUND
   },
   popularMoviesLabel: {
     paddingTop: 15,
-    // textAlign: 'center',
     fontSize: 16,
     paddingBottom: 15,
     fontWeight: '600',
-    letterSpacing: 1.1
+    letterSpacing: 1.1,
+    color: TEXT_COLOR
   },
   movieTilesWrapper: {
     // paddingLeft: 10,

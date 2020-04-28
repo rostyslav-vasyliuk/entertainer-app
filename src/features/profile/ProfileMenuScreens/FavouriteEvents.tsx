@@ -7,6 +7,7 @@ import { eventLabels } from '../../events/constants';
 import { monthLabel, dayConstants } from '../../../constants/date-constants';
 import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
+import HeaderCustom from '../../../ui-components/Header/Header';
 
 const FavouriteEvents = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,6 +49,10 @@ const FavouriteEvents = (props) => {
     props.navigation.push('EventDetails', {
       event_id
     });
+  }
+
+  const goBack = () => {
+    props.navigation.goBack();
   }
 
   const renderDivider = (dateString: string) => {
@@ -151,14 +156,7 @@ const FavouriteEvents = (props) => {
 
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>Favourite Events</Text>
-        </Body>
-        <Right>
-        </Right>
-      </Header>
+      <HeaderCustom label={'Favourite Events'} back={goBack}/>
       {isLoading && (
         <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator color={'black'} />

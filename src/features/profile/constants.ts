@@ -44,7 +44,8 @@ export const accountButtons = [
     buttonLabel: 'Edit',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'account-edit',
-    fontFamily: 'MaterialCommunityIcons'
+    fontFamily: 'MaterialCommunityIcons',
+    link: 'EditProfile'
   },
   {
     buttonLabel: 'Change password',
@@ -64,7 +65,8 @@ export const accountButtons = [
     buttonLabel: 'Theme',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'ios-color-palette',
-    fontFamily: 'Ionicons'
+    fontFamily: 'Ionicons',
+    link: 'ChangeTheme'
   },
   {
     buttonLabel: 'Permissions',

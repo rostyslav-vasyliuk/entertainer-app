@@ -5,6 +5,9 @@ import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Header, Left, Body, Right } from 'native-base';
+import HeaderCustom from '../../ui-components/Header/Header';
+import { screenHeight } from '../../constants/screen-contants';
+import { BACKGROUND, LOADER_COLOR, TEXT_COLOR } from '../../constants/color-constants';
 
 const SeriesByGenre = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -89,33 +92,35 @@ const SeriesByGenre = (props) => {
     }
   }
 
+  const goBack = () => {
+    props.navigation.goBack();
+  }
+
   const navigate = (current_id) => {
     props.navigation.push('SeriesDetails', {
       series_id: current_id
     })
   }
+
   if (loading) {
-    return <ActivityIndicator size='large' color='#fff' />
+    return (
+      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+        <ActivityIndicator size="small" color="#fff" />
+      </View>
+    )
   }
 
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>
-            {getGenre(genreID)}
-          </Text>
-        </Body>
-        <Right />
-      </Header>
-      <ScrollView>
+      <HeaderCustom label={getGenre(genreID)} back={goBack} />
+
+      <ScrollView style={{ backgroundColor: BACKGROUND, paddingTop: 10 }}>
         <View>
           {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
 
           {paginationLoading && (
             <View style={styles.paginationLoaderWrapper}>
-              <ActivityIndicator size='small' color='#000' />
+              <ActivityIndicator size='small' color={LOADER_COLOR} />
             </View>
           )}
 
@@ -155,12 +160,12 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     alignSelf: 'flex-start',
-    color: '#000',
+    color: TEXT_COLOR,
     fontWeight: '700',
     fontSize: 16,
   },
   movieInfo: {
-    color: '#000',
+    color: TEXT_COLOR,
     fontSize: 12,
   },
   textContainer: {

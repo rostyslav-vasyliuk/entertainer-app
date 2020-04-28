@@ -10,6 +10,7 @@ import Movies from '../movies/Movies';
 import Series from '../series/Series';
 import Modal from 'react-native-modal';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../constants/color-constants';
 
 const Discover = (props) => {
   const [activeCategory, setActiveCategory] = React.useState('events');
@@ -80,7 +81,7 @@ const Discover = (props) => {
 
   const renderCategories = () => {
     return category.map((category: string) => (
-      <>
+      <View key={category}>
         <TouchableOpacity onPressIn={() => changeCategory(category)} style={modalStyles.touchable}>
           <View style={modalStyles.categoryWrapper}>
             <CheckBox checked={category === activeCategory} />
@@ -95,13 +96,13 @@ const Discover = (props) => {
           </View>
         </TouchableOpacity>
         <Divider style={{ margin: 5 }} />
-      </>
+      </View>
     ));
   }
 
   return (
     <>
-      <Header>
+      <Header transparent style={{backgroundColor: HEADER_BACKGROUND}} iosBarStyle='light-content'>
         <Left />
         <Body>
           <TouchableOpacity onPress={onOpen}>
@@ -112,7 +113,7 @@ const Discover = (props) => {
           </TouchableOpacity>
         </Body>
         <Right>
-          <Text onPress={() => setIsEventCityModalVisible(true)}>s</Text>
+          {/* <Text onPress={() => setIsEventCityModalVisible(true)}>s</Text> */}
         </Right>
       </Header>
 
@@ -122,6 +123,7 @@ const Discover = (props) => {
         modalTopOffset={0}
         snapPoint={450}
         scrollViewProps={{ scrollEnabled: false }}
+        modalStyle={{ backgroundColor: HEADER_BACKGROUND }}
       >
         {renderModalContent()}
       </Modalize>
@@ -155,10 +157,11 @@ const modalStyles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontWeight: '600',
-    paddingBottom: 5
+    paddingBottom: 5,
+    color: TEXT_COLOR
   },
   subheader: {
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     paddingBottom: 20
   },
   categoryWrapper: {
@@ -173,13 +176,14 @@ const modalStyles = StyleSheet.create({
   labelStyle: {
     fontSize: 15,
     fontWeight: '500',
-    paddingBottom: 2
+    paddingBottom: 2,
+    color: TEXT_COLOR
+
   },
   descriptionStyle: {
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     fontSize: 13,
-    paddingRight: 25,
-    // marginBottom: 4
+    paddingRight: 25
   },
   touchable: {
     // height: 80

@@ -7,6 +7,7 @@ import { eventLabels } from '../../events/constants';
 import { monthLabel, dayConstants } from '../../../constants/date-constants';
 import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
+import { seriesGenres } from '../../series/constants';
 
 const FavouriteSeries = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,6 +34,13 @@ const FavouriteSeries = (props) => {
     })
   }, []);
 
+  const getGenre = (genre_id) => {
+    
+    if (seriesGenres.find((item) => item.movieDB_id === genre_id)) {
+      return seriesGenres.find((item) => item.movieDB_id === genre_id).genre;
+    }
+  }
+
   const renderSeriesCast = () => (
     series.map((movie) => {
       return (
@@ -50,7 +58,8 @@ const FavouriteSeries = (props) => {
                 {getYear(movie.first_air_date)}
               </Text>
               <Text style={styles.filmographyCharacter}>
-                {/* {`as ${movie.character}`} */}
+                {console.log(movie.genres)}
+                {getGenre(movie.genres)}
               </Text>
             </View>
           </View>
@@ -160,8 +169,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   filmographyCharacter: {
-    fontSize: 14,
-    fontStyle: 'italic',
-    color: '#fff',
+    fontSize: 12,
+    color: '#000',
   }
 });

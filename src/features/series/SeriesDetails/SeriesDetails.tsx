@@ -10,6 +10,8 @@ import { seriesGenres } from '../constants';
 import { monthLabel } from '../../../constants/date-constants';
 import { Toast } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
+import { screenHeight } from '../../../constants/screen-contants';
+import { BACKGROUND, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../../constants/color-constants';
 
 const SeriesDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,13 +19,13 @@ const SeriesDetails = (props) => {
   const [seasonsData, setSeasonsData]: any = useState({});
   const [seasonIsLoading, setSeasonIsLoading] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
-	const [isFavourite, setIsFavourite] = useState(null);
+  const [isFavourite, setIsFavourite] = useState(null);
 
   useEffect(() => {
     const series_id = props.navigation.getParam('series_id', null);
     Axios.get(`/tv-series/details/${series_id}`).then((response: AxiosResponse) => {
       setseriesData(response.data);
-			setIsFavourite(response.data.isFavourite);
+      setIsFavourite(response.data.isFavourite);
       setIsLoading(false);
     });
 
@@ -33,7 +35,11 @@ const SeriesDetails = (props) => {
   }, []);
 
   if (isLoading) {
-    return <ActivityIndicator />
+    return (
+      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+        <ActivityIndicator size="small" color="#fff" />
+      </View>
+    )
   }
 
   const getYear = (releaseDate) => {
@@ -53,6 +59,9 @@ const SeriesDetails = (props) => {
   }
 
   const getVideoBackground = () => {
+    if (seriesData.videos.results.length === 0) {
+      return '';
+    }
     return `https://i3.ytimg.com/vi/${seriesData.videos.results[0].key}/maxresdefault.jpg`;
   }
 
@@ -110,31 +119,43 @@ const SeriesDetails = (props) => {
   }
 
   const addToFavourites = () => {
-		Axios.post('/tv-series/favourite', { id: seriesData.id }).then((response: AxiosResponse) => {
-			setIsFavourite(response.data.isFavourite);
-			if (response.data.isFavourite) {
-				Toast.show({
-					text: 'Added to favourites'
-				})
-			} else {
-				Toast.show({
-					text: 'Removed from favourites'
-				})
-			}
-		}).catch(() => {
+    Axios.post('/tv-series/favourite', { id: seriesData.id }).then((response: AxiosResponse) => {
+      setIsFavourite(response.data.isFavourite);
+      if (response.data.isFavourite) {
+        Toast.show({
+          text: 'Added to favourites'
+        })
+      } else {
+        Toast.show({
+          text: 'Removed from favourites'
+        })
+      }
+    }).catch(() => {
 
-		})
-	}
+    })
+  }
 
   return (
     <>
       <ScrollView style={styles.container}>
+        {console.log(seriesData.poster_path)}
+        {seriesData.poster_path ?
           <Image
             placeholderStyle={{ backgroundColor: '#000000' }}
-            PlaceholderContent={<ActivityIndicator size='large' color="#fff" />}
+            PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
             source={{ uri: `https://image.tmdb.org/t/p/w1280/${seriesData.poster_path}` }}
             style={styles.image}
           />
+          : (
+            <View style={{
+              flex: 1,
+              width: '100%',
+              height: 450, justifyContent: 'center', alignItems: 'center', backgroundColor: HEADER_BACKGROUND
+            }}>
+              <Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 30 }} />
+            </View>
+          )
+        }
         <Text style={styles.title}>{seriesData.name}</Text>
         <View style={styles.infoMovieMain}>
           <View>
@@ -162,15 +183,15 @@ const SeriesDetails = (props) => {
               <Text style={{ fontSize: 12, color: '#fff' }}>{seriesData.vote_average}</Text>
             </ProgressCircle>
 
-            <View style={{paddingTop: 15}}>
-							<TouchableOpacity onPress={() => addToFavourites()}>
-								{isFavourite ?
-									<AntDesign name={'star'} size={30} color={'#1ecaff'} />
-									:
-									<AntDesign name={'staro'} size={30} color={'#1ecaff'} />
-								}
-							</TouchableOpacity>
-						</View>
+            <View style={{ paddingTop: 15 }}>
+              <TouchableOpacity onPress={() => addToFavourites()}>
+                {isFavourite ?
+                  <AntDesign name={'star'} size={30} color={'#1ecaff'} />
+                  :
+                  <AntDesign name={'staro'} size={30} color={'#1ecaff'} />
+                }
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
@@ -369,8 +390,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: '100%',
-    height: 450,
-    backgroundColor: '#030405'
+    height: 450
   },
   country: {
     color: '#fff',

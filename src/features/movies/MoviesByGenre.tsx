@@ -5,6 +5,9 @@ import { movieGenres } from './constants';
 import { Axios } from '../../api/instance';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Header, Left, Body, Right } from 'native-base';
+import { screenHeight } from '../../constants/screen-contants';
+import { BACKGROUND, TEXT_COLOR } from '../../constants/color-constants';
+import HeaderCustom from '../../ui-components/Header/Header';
 
 const MoviesByGenre = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -112,24 +115,24 @@ const MoviesByGenre = (props) => {
     }
   }
 
-  if (loading) {
-    return <ActivityIndicator size='large' color='#fff' />
+  const goBack = () => {
+    props.navigation.goBack();
   }
 
+  if (loading) {
+    return (
+      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+        <ActivityIndicator size="small" color="#fff" />
+      </View>
+    )
+  }
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>
-            {getGenre(genreID)}
-          </Text>
-        </Body>
-        <Right />
-      </Header>
+      <HeaderCustom label={getGenre(genreID)} back={goBack}/>
 
       <ScrollView
         onScroll={({ nativeEvent }) => onEndDetect(nativeEvent)}
+        style={{ backgroundColor: BACKGROUND, paddingTop: 10 }}
       >
         <View>
           {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
@@ -150,10 +153,10 @@ export default MoviesByGenre;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   trendingHeader: {
-    color: '#000',
+		color: TEXT_COLOR,
     fontSize: 18,
     textAlign: 'center'
   },
@@ -176,12 +179,12 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     alignSelf: 'flex-start',
-    color: '#000',
+		color: TEXT_COLOR,
     fontWeight: '700',
     fontSize: 16,
   },
   movieInfo: {
-    color: '#000',
+		color: TEXT_COLOR,
     fontSize: 12,
   },
   textContainer: {

@@ -8,6 +8,8 @@ import { Divider } from 'react-native-elements';
 import { movieGenres } from '../constants';
 import { Toast } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
+import { screenHeight } from '../../../constants/screen-contants';
+import { BACKGROUND, TEXT_COLOR } from '../../../constants/color-constants';
 
 const MovieDetails = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +31,11 @@ const MovieDetails = (props) => {
 	}, []);
 
 	if (isLoading) {
-		return <ActivityIndicator />
+		return (
+			<View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+				<ActivityIndicator size="small" color="#fff" />
+			</View>
+		)
 	}
 
 	const getYear = (releaseDate) => {
@@ -37,6 +43,9 @@ const MovieDetails = (props) => {
 	}
 
 	const getVideoBackground = () => {
+		if (movieData.videos.results.length === 0) {
+			return '';
+		}
 		return `https://i3.ytimg.com/vi/${movieData.videos.results[0].key}/hqdefault.jpg`;
 	}
 
@@ -80,6 +89,9 @@ const MovieDetails = (props) => {
 	}
 
 	const onTrailerClick = () => {
+		if (movieData.videos.results.length === 0) {
+			return '';
+		}
 		Linking.openURL(`https://youtube.com/watch?v=${movieData.videos.results[0].key}`);
 	}
 
@@ -146,7 +158,7 @@ const MovieDetails = (props) => {
 						</Text>
 						<Text style={styles.duration}>Duration: {movieData.runtime} min</Text>
 					</View>
-					<View style={{ alignItems: 'center', justifyContent: 'space-evenly'}}>
+					<View style={{ alignItems: 'center', justifyContent: 'space-evenly' }}>
 						<ProgressCircle
 							percent={movieData.vote_average * 10}
 							radius={20}
@@ -158,7 +170,7 @@ const MovieDetails = (props) => {
 							<Text style={{ fontSize: 12, color: '#fff' }}>{movieData.vote_average}</Text>
 						</ProgressCircle>
 
-						<View style={{paddingTop: 15}}>
+						<View style={{ paddingTop: 15 }}>
 							<TouchableOpacity onPress={() => addToFavourites()}>
 								{isFavourite ?
 									<AntDesign name={'star'} size={30} color={'#1ecaff'} />
@@ -262,7 +274,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	title: {
-		color: '#fff',
+		color: TEXT_COLOR,
 		fontWeight: '800',
 		fontSize: 24,
 		padding: 10,
@@ -277,11 +289,11 @@ const styles = StyleSheet.create({
 		backgroundColor: '#030405'
 	},
 	country: {
-		color: '#fff',
+		color: TEXT_COLOR,
 		fontSize: 14,
 	},
 	duration: {
-		color: '#fff',
+		color: TEXT_COLOR,
 		fontSize: 14,
 	},
 	yearAndCountry: {

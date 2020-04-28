@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from 'rea
 import { Image } from 'react-native-elements';
 import { movieGenres } from './constants';
 import { Axios } from '../../api/instance';
+import { LOADER_COLOR, TEXT_COLOR } from '../../constants/color-constants';
+import { screenHeight } from '../../constants/screen-contants';
 
 const PopularMovies = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -88,7 +90,11 @@ const PopularMovies = (props) => {
   }
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#fff" />;
+    return (
+      <View style={{height: screenHeight - 400, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="small" color="#fff" />
+      </View>
+    );
   }
 
   return (
@@ -97,7 +103,7 @@ const PopularMovies = (props) => {
 
       {paginationLoading && (
         <View style={styles.paginationLoaderWrapper}>
-          <ActivityIndicator size='small' color='#000' />
+          <ActivityIndicator size='small' color={LOADER_COLOR} />
         </View>
       )}
     </View>
@@ -135,12 +141,13 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     alignSelf: 'flex-start',
-    color: '#000',
+    color: TEXT_COLOR,
     fontWeight: '700',
+    paddingTop: 4,
     fontSize: 16,
   },
   movieInfo: {
-    color: '#000',
+    color: TEXT_COLOR,
     fontSize: 12,
   },
   textContainer: {

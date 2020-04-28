@@ -6,12 +6,14 @@ import { eventLabels } from './constants';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
 import LottieView from 'lottie-react-native';
-import { screenWidth } from '../../constants/screen-contants';
+import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../constants/color-constants';
 
 const EventList = (props) => {
   const [events, setEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsloading] = useState(true);
   const [paginationLoading, setPaginationLoading] = useState(false);
   const [pagination, setPagination] = useState({});
   const [allDataFetched, setAllDataFetched] = useState(false);
@@ -21,6 +23,7 @@ const EventList = (props) => {
       .then((response: AxiosResponse) => {
         setEvents(response.data.events);
         setPagination(response.data.pagination);
+        setIsloading(false);
       })
       .catch((err) => {
         console.log(err)
@@ -133,7 +136,7 @@ const EventList = (props) => {
                 <Text style={styles.descriptionTitle}>
                   {'Date: '}
                 </Text>
-                <Text>
+                <Text style={styles.descriptionTitle}>
                   {getDateString(event.date)}
                 </Text>
               </View>
@@ -143,7 +146,7 @@ const EventList = (props) => {
                   <Text style={styles.descriptionTitle}>
                     {'Price: '}
                   </Text>
-                  <Text>
+                  <Text style={styles.descriptionTitle}>
                     {event.price}
                   </Text>
                 </View>
@@ -153,7 +156,7 @@ const EventList = (props) => {
                 <Text style={styles.descriptionTitle}>
                   {'Type: '}
                 </Text>
-                <Text>
+                <Text style={styles.descriptionTitle}>
                   {getCategory(event.categories)}
                 </Text>
               </View>
@@ -163,6 +166,14 @@ const EventList = (props) => {
         </View>
       </TouchableOpacity>
     )
+  }
+
+  if (isLoading) {
+    return (
+      <View style={{ height: screenHeight - 300, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="small" color="#fff" />
+      </View>
+    );
   }
 
   return (
@@ -176,7 +187,7 @@ const EventList = (props) => {
 
       {paginationLoading && (
         <View style={styles.paginationLoaderWrapper}>
-          <ActivityIndicator size='small' color='#000' />
+          <ActivityIndicator size='small' color={LOADER_COLOR} />
         </View>
       )}
 
@@ -227,22 +238,23 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 18,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   dateOfWeek: {
     paddingLeft: 6,
-
+    color: TEXT_COLOR
   },
   month: {
     textTransform: 'uppercase',
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     fontWeight: '500',
     fontSize: 12
   },
   year: {
     paddingLeft: 4,
     textTransform: 'uppercase',
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     fontWeight: '500',
     fontSize: 12
   },
@@ -269,7 +281,8 @@ const styles = StyleSheet.create({
   itemsTitle: {
     fontSize: 16,
     fontWeight: '500',
-    marginBottom: 5
+    marginBottom: 5,
+    color: TEXT_COLOR
   },
   makeRow: {
     paddingTop: 5,
@@ -277,15 +290,16 @@ const styles = StyleSheet.create({
   },
   descriptionTitle: {
     fontSize: 14,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   descriptionValue: {
-
+    color: TEXT_COLOR
   },
   paginationLoaderWrapper: {
     minHeight: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   paginationEndReached: {
     height: 150,
@@ -299,6 +313,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
     padding: 6,
-    color: '#7a7a7a'
+    color: TEXT_COLOR
   }
 })

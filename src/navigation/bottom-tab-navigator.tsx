@@ -19,6 +19,9 @@ import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguag
 import FavouriteEvents from '../features/profile/ProfileMenuScreens/FavouriteEvents';
 import FavouriteSeries from '../features/profile/ProfileMenuScreens/FavouriteSeries';
 import FavouriteMovies from '../features/profile/ProfileMenuScreens/FavouriteMovies';
+import EditProfile from '../features/profile/ProfileMenuScreens/EditProfile.container';
+import ChangeTheme from '../features/profile/ProfileMenuScreens/Theme/ChangeTheme.container';
+import { HEADER_BACKGROUND } from '../constants/color-constants';
 
 const HomeStack = createStackNavigator(
   {
@@ -33,7 +36,13 @@ const HomeStack = createStackNavigator(
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
-  tabBarIcon: (props) => <Entypo name="grid" size={32} color={props.focused ? 'black' : 'gray'} />,
+  tabBarOptions: {
+    activeTintColor: '#fff',
+    style: {
+      backgroundColor: HEADER_BACKGROUND,
+    },
+  },
+  tabBarIcon: (props) => <Entypo name="grid" size={28} color={props.focused ? 'white' : 'gray'} />,
 };
 
 const DiscoverStack = createStackNavigator(
@@ -70,7 +79,13 @@ const DiscoverStack = createStackNavigator(
 
 DiscoverStack.navigationOptions = {
   tabBarLabel: 'Events',
-  tabBarIcon: (props) => <AntDesign name="calendar" size={26} color={props.focused ? 'black' : 'gray'} />
+  tabBarOptions: {
+    activeTintColor: '#fff',
+    style: {
+      backgroundColor: HEADER_BACKGROUND,
+    },
+  },
+  tabBarIcon: (props) => <AntDesign name="calendar" size={20} color={props.focused ? 'white' : 'gray'} />
 };
 
 
@@ -87,10 +102,11 @@ const ExploreStack = createStackNavigator(
 
 ExploreStack.navigationOptions = {
   tabBarLabel: 'Events',
-  tabBarIcon: (props) => <MaterialCommunityIcons name="theater" size={26} color={props.focused ? 'black' : 'gray'} />
+  tabBarIcon: (props) => <MaterialCommunityIcons name="theater" size={20} color={props.focused ? 'white' : 'gray'} />
 };
 
 const ProfileStack = createStackNavigator(
+  
   {
     Profile: {
       screen: Profile
@@ -118,6 +134,12 @@ const ProfileStack = createStackNavigator(
     },
     FavouriteMovies: {
       screen: FavouriteMovies
+    },
+    EditProfile: {
+      screen: EditProfile
+    },
+    ChangeTheme: {
+      screen: ChangeTheme
     }
   },
   {
@@ -127,7 +149,13 @@ const ProfileStack = createStackNavigator(
 
 ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
-  tabBarIcon: (props) => <FontAwesome name="user-o" size={26} color={props.focused ? 'black' : 'gray'} />
+  tabBarOptions: {
+    activeTintColor: '#fff',
+    style: {
+      backgroundColor: HEADER_BACKGROUND,
+    },
+  },
+  tabBarIcon: (props) => <FontAwesome name="user-o" size={20} color={props.focused ? 'white' : 'gray'} />
 };
 
 const BottomTabNavigator = createBottomTabNavigator({

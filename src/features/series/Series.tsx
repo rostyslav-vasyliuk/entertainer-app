@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StyleSheet, RefreshControl } from 'react-native
 import SeriesTile from './SeriesTile';
 import { seriesGenres } from './constants';
 import PopularSeries from './PopularSeries';
+import { BACKGROUND, TEXT_COLOR } from '../../constants/color-constants';
 
 const Series = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -41,6 +42,7 @@ const Series = (props: any) => {
         refreshControl={RefreshController}
         scrollEventThrottle={100}
         onScroll={({ nativeEvent }) => onEndDetect(nativeEvent)}
+        style={{backgroundColor: BACKGROUND}}
       >
         <View style={styles.movieTilesWrapper}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -83,7 +85,8 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     textAlign: 'center',
     fontSize: 16,
-    paddingBottom: 15
+    paddingBottom: 15,
+    color: TEXT_COLOR
   },
   movieTilesWrapper: {
     // paddingLeft: 10,
