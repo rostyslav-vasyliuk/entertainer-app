@@ -8,6 +8,7 @@ import { monthLabel, dayConstants } from '../../../constants/date-constants';
 import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
 import HeaderCustom from '../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
 
 const FavouriteEvents = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -105,7 +106,7 @@ const FavouriteEvents = (props) => {
                 <Text style={styles.descriptionTitle}>
                   {'City: '}
                 </Text>
-                <Text style={styles.descriptionValue}>
+                <Text style={styles.descriptionTitle}>
                   {event.city}
                 </Text>
               </View>
@@ -114,7 +115,7 @@ const FavouriteEvents = (props) => {
                 <Text style={styles.descriptionTitle}>
                   {'Date: '}
                 </Text>
-                <Text>
+                <Text style={styles.descriptionTitle}>
                   {getDateString(event.date)}
                 </Text>
               </View>
@@ -124,7 +125,7 @@ const FavouriteEvents = (props) => {
                   <Text style={styles.descriptionTitle}>
                     {'Price: '}
                   </Text>
-                  <Text>
+                  <Text style={styles.descriptionTitle}>
                     {event.price}
                   </Text>
                 </View>
@@ -134,7 +135,7 @@ const FavouriteEvents = (props) => {
                 <Text style={styles.descriptionTitle}>
                   {'Type: '}
                 </Text>
-                <Text>
+                <Text style={styles.descriptionTitle}>
                   {getCategory(event.categories)}
                 </Text>
               </View>
@@ -146,23 +147,15 @@ const FavouriteEvents = (props) => {
     )
   }
 
-  // if (!isLoading) {
-  //   return (
-  //     <View style={{ height: screenHeight, alignItems: 'center', justifyContent: 'center' }}>
-  //       <ActivityIndicator color={'black'} />
-  //     </View>
-  //   )
-  // }
-
   return (
     <>
-      <HeaderCustom label={'Favourite Events'} back={goBack}/>
+      <HeaderCustom label={'Favourite Events'} back={goBack} />
       {isLoading && (
-        <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center' }}>
-          <ActivityIndicator color={'black'} />
+        <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center', backgroundColor: BACKGROUND }}>
+          <ActivityIndicator color={LOADER_COLOR} />
         </View>
       )}
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={{ padding: 10 }}>
           {events.map((event, index) => (
             <>
@@ -200,22 +193,23 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 18,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   dateOfWeek: {
     paddingLeft: 6,
-
+    color: TEXT_COLOR
   },
   month: {
     textTransform: 'uppercase',
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     fontWeight: '500',
     fontSize: 12
   },
   year: {
     paddingLeft: 4,
     textTransform: 'uppercase',
-    color: '#7a7a7a',
+    color: TEXT_COLOR_SECONDARY,
     fontWeight: '500',
     fontSize: 12
   },
@@ -242,7 +236,8 @@ const styles = StyleSheet.create({
   itemsTitle: {
     fontSize: 16,
     fontWeight: '500',
-    marginBottom: 5
+    marginBottom: 5,
+    color: TEXT_COLOR
   },
   makeRow: {
     paddingTop: 5,
@@ -250,10 +245,12 @@ const styles = StyleSheet.create({
   },
   descriptionTitle: {
     fontSize: 14,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   descriptionValue: {
-
+    color: TEXT_COLOR,
+    fontWeight: '500',
   },
   paginationLoaderWrapper: {
     minHeight: 50,

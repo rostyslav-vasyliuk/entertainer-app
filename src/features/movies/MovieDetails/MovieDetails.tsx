@@ -187,9 +187,6 @@ const MovieDetails = (props) => {
 					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 5 }}>
 						<Text style={styles.overviewTitle}>Overview</Text>
 						<View style={styles.additionalButtons}>
-							{/* <TouchableOpacity style={{ paddingRight: 5 }}>
-								<Entypo name='share-alternative' color='#e8ecf2' size={28} />
-							</TouchableOpacity> */}
 						</View>
 					</View>
 

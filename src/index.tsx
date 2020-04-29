@@ -41,7 +41,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Root>
-        <StatusBar barStyle='dark-content' />
+        <StatusBar barStyle='light-content' />
         <View style={styles.container}>
           <AppContainer />
         </View>

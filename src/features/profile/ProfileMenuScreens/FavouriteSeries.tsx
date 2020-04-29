@@ -8,6 +8,8 @@ import { monthLabel, dayConstants } from '../../../constants/date-constants';
 import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
 import { seriesGenres } from '../../series/constants';
+import HeaderCustom from '../../../ui-components/Header/Header';
+import { LOADER_COLOR, BACKGROUND, TEXT_COLOR } from '../../../constants/color-constants';
 
 const FavouriteSeries = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,11 +36,15 @@ const FavouriteSeries = (props) => {
     })
   }, []);
 
-  const getGenre = (genre_id) => {
-    
-    if (seriesGenres.find((item) => item.movieDB_id === genre_id)) {
-      return seriesGenres.find((item) => item.movieDB_id === genre_id).genre;
+  const getGenre = (genres: any[]) => {
+    console.log(genres[0])
+    if (seriesGenres.find((item) => item.movieDB_id === genres[0].id)) {
+      return seriesGenres.find((item) => item.movieDB_id === genres[0].id).genre;
     }
+  }
+
+  const goBack = () => {
+    props.navigation.goBack();
   }
 
   const renderSeriesCast = () => (
@@ -70,29 +76,15 @@ const FavouriteSeries = (props) => {
 
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>Favourite Series</Text>
-        </Body>
-        <Right>
-        </Right>
-      </Header>
+      <HeaderCustom label={'Favourite Series'} back={goBack} />
       {isLoading && (
-        <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center' }}>
-          <ActivityIndicator color={'black'} />
+        <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center', backgroundColor: BACKGROUND }}>
+          <ActivityIndicator color={LOADER_COLOR} />
         </View>
       )}
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={{ padding: 10 }}>
           {!isLoading && renderSeriesCast()}
-          {/* {series.map((element) => renderSeriesCast(element))} */}
-          {/* {events.map((event, index) => ( */}
-          <>
-            {/* {(index === 0 || event.date !== events[index - 1].date) && renderDivider(event.date)}
-              {renderItem(event)} */}
-          </>
-          {/* ))} */}
         </View>
       </ScrollView>
     </>
@@ -160,16 +152,16 @@ const styles = StyleSheet.create({
   },
   filmographyTextLabel: {
     fontSize: 16,
-    color: '#000',
+    color: TEXT_COLOR,
     fontWeight: '700',
     paddingBottom: 2
   },
   filmographyReleaseYear: {
     fontSize: 12,
-    color: '#000',
+    color: TEXT_COLOR,
   },
   filmographyCharacter: {
     fontSize: 12,
-    color: '#000',
+    color: TEXT_COLOR,
   }
 });

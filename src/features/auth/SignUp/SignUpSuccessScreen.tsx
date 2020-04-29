@@ -5,10 +5,10 @@ import { Button, Text } from 'native-base';
 import { screenWidth } from '../../../constants/screen-contants';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const GreetingsScreen = (props) => {
   const [isUserRegistered, setIsUserRegistered] = useState(false);
-  // const [timeEllapsed, setTimeEllapsed] = useState(false);
 
   const goToApp = () => {
     props.navigation.navigate('App');
@@ -29,17 +29,17 @@ const GreetingsScreen = (props) => {
     }
 
     Axios.post('/auth/sign-up', body).then((response: AxiosResponse) => {
-      console.log(response.data);
-      const token = response.headers['access-token'];
       setIsUserRegistered(true);
+      const token = response.headers['access-token'];
       AsyncStorage.setItem('access-token', token);
+      Object.assign(Axios.defaults, { headers: { 'access-token': token } });
     })
   }, [])
 
   if (!isUserRegistered) {
     return (
       <>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="light-content" />
         <View style={styles.wrapper}>
           <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
             <LottieView
@@ -68,7 +68,7 @@ const GreetingsScreen = (props) => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <View style={styles.wrapper}>
         <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
           <LottieView
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    backgroundColor: BACKGROUND
   },
   button: {
     margin: 10,
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   basicText: {
-    color: '#b0b1b2'
+    color: TEXT_COLOR
   },
   linkText: {
     color: '#fe4b66',
@@ -135,14 +136,15 @@ const styles = StyleSheet.create({
   labelHeader: {
     textAlign: 'center',
     fontSize: 24,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   labelDescription: {
     textAlign: 'center',
     paddingRight: 25,
     paddingLeft: 25,
     paddingTop: 10,
-    color: '#b0b1b2'
+    color: TEXT_COLOR_SECONDARY
   },
   buttonsWrapper: {
     width: screenWidth,

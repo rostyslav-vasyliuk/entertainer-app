@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Button, Text } from 'native-base';
 import { screenWidth } from '../../../constants/screen-contants';
+import { BACKGROUND, BACKGROUND_LIGHT, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const GreetingsScreen = (props) => {
   const toLoginPage = () => {
@@ -15,7 +16,7 @@ const GreetingsScreen = (props) => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <View style={styles.wrapper}>
         <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
           <LottieView
@@ -47,16 +48,6 @@ const GreetingsScreen = (props) => {
                 Log In
               </Text>
             </Button>
-            {/* <View style={styles.additionalLink}>
-              <Text style={styles.basicText}>
-                Already have an account?
-              </Text>
-              <TouchableOpacity onPress={toLoginPage}>
-                <Text style={styles.linkText}>
-                  Log In
-                </Text>
-              </TouchableOpacity>
-            </View> */}
           </View>
         </View>
       </View>
@@ -73,6 +64,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    backgroundColor: BACKGROUND
   },
   button: {
     margin: 10,
@@ -100,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   basicText: {
-    color: '#b0b1b2'
+    color: TEXT_COLOR
   },
   linkText: {
     color: '#fe4b66',
@@ -109,14 +101,15 @@ const styles = StyleSheet.create({
   labelHeader: {
     textAlign: 'center',
     fontSize: 28,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: TEXT_COLOR
   },
   labelDescription: {
     textAlign: 'center',
     paddingRight: 25,
     paddingLeft: 25,
     paddingTop: 10,
-    color: '#b0b1b2'
+    color: TEXT_COLOR_SECONDARY
   },
   buttonsWrapper: {
     width: screenWidth,

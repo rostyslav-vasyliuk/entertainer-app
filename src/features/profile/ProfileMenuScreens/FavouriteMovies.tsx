@@ -7,6 +7,8 @@ import { eventLabels } from '../../events/constants';
 import { monthLabel, dayConstants } from '../../../constants/date-constants';
 import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
+import HeaderCustom from '../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
 
 const FavouriteMovies = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,12 +22,16 @@ const FavouriteMovies = (props) => {
   }
 
 
-	const getGenres = (genres) => {
-		let finalString = '';
-		genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
-		finalString = finalString.slice(0, finalString.length - 2);
-		return finalString;
-	}
+  const getGenres = (genres) => {
+    let finalString = '';
+    genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
+    finalString = finalString.slice(0, finalString.length - 2);
+    return finalString;
+  }
+
+  const onBack = () => {
+    props.navigation.goBack();
+  }
 
 
   const getYear = (releaseDate) => {
@@ -70,20 +76,13 @@ const FavouriteMovies = (props) => {
 
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>Favourite Series</Text>
-        </Body>
-        <Right>
-        </Right>
-      </Header>
+      <HeaderCustom label={'Favourite Movies'} back={onBack} />
       {isLoading && (
-        <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center' }}>
-          <ActivityIndicator color={'black'} />
+        <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center', backgroundColor: BACKGROUND }}>
+          <ActivityIndicator color={LOADER_COLOR} />
         </View>
       )}
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={{ padding: 10 }}>
           {!isLoading && renderFilmography()}
         </View>
@@ -153,17 +152,17 @@ const styles = StyleSheet.create({
   },
   filmographyTextLabel: {
     fontSize: 16,
-    color: '#000',
+    color: TEXT_COLOR,
     fontWeight: '700',
     paddingBottom: 2
   },
   filmographyReleaseYear: {
     fontSize: 13,
-    color: '#000',
+    color: TEXT_COLOR,
   },
   filmographyCharacter: {
     fontSize: 12,
     paddingTop: 3,
-    color: '#000',
+    color: TEXT_COLOR,
   }
 });

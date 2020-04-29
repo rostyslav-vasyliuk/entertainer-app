@@ -11,6 +11,7 @@ import Series from '../series/Series';
 import Modal from 'react-native-modal';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../constants/color-constants';
+import Courses from '../courses/Courses';
 
 const Discover = (props) => {
   const [activeCategory, setActiveCategory] = React.useState('events');
@@ -124,6 +125,7 @@ const Discover = (props) => {
         snapPoint={450}
         scrollViewProps={{ scrollEnabled: false }}
         modalStyle={{ backgroundColor: HEADER_BACKGROUND }}
+        handleStyle={{backgroundColor: 'gray'}}
       >
         {renderModalContent()}
       </Modalize>
@@ -131,6 +133,8 @@ const Discover = (props) => {
       {activeCategory === 'events' && <Events navigation={props.navigation} />}
       {activeCategory === 'movies' && <Movies navigation={props.navigation} />}
       {activeCategory === 'tv_series' && <Series navigation={props.navigation} />}
+      {activeCategory === 'education' && <Courses navigation={props.navigation} />}
+
 
       <Modal
         deviceWidth={screenWidth}

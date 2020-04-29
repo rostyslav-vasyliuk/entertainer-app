@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import Modal from 'react-native-modal';
 import LottieView from 'lottie-react-native';
 import { Button } from 'native-base';
 
 const LogoutModal = (props) => {
-  const onLogoutConfirm = () => {
-
+  const onLogoutConfirm = async () => {
+    await AsyncStorage.removeItem('access-token');
+    props.setIsLogoutModalVisible(false);
+    props.navigation.navigate('GreetingsScreen');
   }
 
   const onCancel = () => {
@@ -59,7 +61,7 @@ export default LogoutModal;
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#fafafa',
+    backgroundColor: '#c2c2c2',
     padding: 10,
     paddingBottom: 15,
     borderRadius: 5,

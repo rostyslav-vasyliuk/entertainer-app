@@ -6,6 +6,7 @@ import LottieView from "lottie-react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { Button, Icon } from 'native-base';
+import { BACKGROUND_LIGHT, TEXT_COLOR, TEXT_COLOR_SECONDARY, BUTTON_COLOR, BACKGROUND } from '../../constants/color-constants';
 
 type Props = {
   navigation: any;
@@ -19,7 +20,7 @@ const AppIntroOverlay = (props: Props) => {
 
   return (
     <View style={styles.wrapper}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle='light-content' />
       <Swiper
         showsButtons={true}
         nextButton={<NextButton />}
@@ -101,7 +102,7 @@ const AppIntroOverlay = (props: Props) => {
           <LottieView
             style={{
               width: 350,
-              height: 200,
+              height: 230,
               backgroundColor: 'transparent',
             }}
             source={require('../../assets/mobile-app.json')}
@@ -112,7 +113,7 @@ const AppIntroOverlay = (props: Props) => {
           <Text style={styles.slideDescription}>
             With our app you may forget about books. Prefer conversations with real people!
             </Text>
-          <Button iconLeft style={{ padding: 15, marginTop: 35, borderRadius: 10, backgroundColor: '#fe4b66' }} onPress={_onContinue}>
+          <Button iconLeft style={{ padding: 15, marginTop: 55, borderRadius: 10, backgroundColor: BUTTON_COLOR }} onPress={_onContinue}>
             <Text style={{ color: '#fff', fontSize: 18 }}>
               LET'S START
               </Text>
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
   wrapper: {
     height: screenHeight,
     width: screenWidth,
-    backgroundColor: '#fff'
+    backgroundColor: BACKGROUND
   },
   buttonWrapperStyle: {
     backgroundColor: 'transparent',
@@ -155,7 +156,8 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 24,
     fontWeight: '600',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: TEXT_COLOR
   },
   slideDescription: {
     padding: 35,
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 16,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR_SECONDARY
   },
   constinueButton: {
     color: '#fff'
@@ -174,7 +176,7 @@ const NextButton = () => {
   return (
     <TouchableOpacity style={buttonStyles.wrapper}>
       <View>
-        <AntDesign name={'arrowright'} size={30} color={'#fe4b66'} />
+        <AntDesign name={'arrowright'} size={30} color={BUTTON_COLOR} />
       </View>
     </TouchableOpacity>
   );
@@ -184,14 +186,15 @@ const Dot = () => {
   return (
     <View
       style={{
-        backgroundColor: 'rgba(0,0,0,.2)',
+        backgroundColor: 'gray',
         width: 8,
         height: 8,
         borderRadius: 4,
         marginLeft: 3,
         marginRight: 3,
         marginTop: 3,
-        marginBottom: 5
+        marginBottom: 5,
+        opacity: 0.5
       }} />
   );
 }

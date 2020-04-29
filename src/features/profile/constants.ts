@@ -28,7 +28,8 @@ export const favouriteButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'university',
     fontFamily: 'FontAwesome5',
-    gradientColors: ['#B446AB', '#fe4b66']
+    gradientColors: ['#B446AB', '#fe4b66'],
+    link: 'FavouriteCourses'
   },
 ]
 
@@ -38,6 +39,7 @@ export const accountButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'settings',
     fontFamily: 'MaterialIcons',
+    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
     link: 'Preferences'
   },
   {
@@ -45,6 +47,7 @@ export const accountButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'account-edit',
     fontFamily: 'MaterialCommunityIcons',
+    gradientColors: ['#D94989', '#8F44CE'],
     link: 'EditProfile'
   },
   {
@@ -52,6 +55,7 @@ export const accountButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'security',
     fontFamily: 'MaterialCommunityIcons',
+    gradientColors: ['#8F44CE', '#6B84CA'],
     link: 'ChangePassword'
   },
   {
@@ -59,20 +63,15 @@ export const accountButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'language',
     fontFamily: 'FontAwesome',
+    gradientColors: ['#B446AB', '#fe4b66'],
     link: 'ChangeLanguage'
-  },
-  {
-    buttonLabel: 'Theme',
-    buttonDescription: 'Control your preferences and orders of categories',
-    icon: 'ios-color-palette',
-    fontFamily: 'Ionicons',
-    link: 'ChangeTheme'
   },
   {
     buttonLabel: 'Permissions',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'ios-switch',
     fontFamily: 'Ionicons',
+    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
     link: 'Permissions'
   },
   {
@@ -80,6 +79,7 @@ export const accountButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'chat-processing',
     fontFamily: 'MaterialCommunityIcons',
+    gradientColors: ['#B446AB', '#fe4b66'],
     link: 'Feedback'
   },
   {
@@ -87,5 +87,6 @@ export const accountButtons = [
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'logout',
     fontFamily: 'MaterialCommunityIcons',
+    gradientColors: ['#B446AB', '#fe4b66'],
   }
 ]

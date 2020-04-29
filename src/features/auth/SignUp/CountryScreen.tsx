@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, TouchableOpacity, Image } from 'react-native';
 import { Button, Header, Left, Body, Right, Text } from 'native-base';
-import { AntDesign } from 'react-native-vector-icons';
 import { screenHeight } from '../../../constants/screen-contants';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import CountryPicker, { Country, CountryCode } from 'react-native-country-picker-modal';
+import CountryPicker, { Country, CountryCode, DARK_THEME } from 'react-native-country-picker-modal';
 import Stepper from '../../../ui-components/stepper/Stepper';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, BUTTON_COLOR, BACKGROUND_LIGHT } from '../../../constants/color-constants';
+import BackArrow from '../../../ui-components/BackArrow/BackArrow';
 
 const ContryScreen = (props) => {
   const [countryCode, setCountryCode] = useState<CountryCode>(null);
@@ -57,21 +58,20 @@ const ContryScreen = (props) => {
 
   return (
     <View>
-      <Header transparent>
+      <Header transparent style={{ backgroundColor: BACKGROUND }}>
         <Left>
-          <Button transparent onPress={goBack}>
-            <AntDesign name='arrowleft' size={30} />
-          </Button>
+          <TouchableOpacity onPress={goBack}>
+            <BackArrow />
+          </TouchableOpacity>
         </Left>
         <Body>
         </Body>
         <Right />
       </Header>
-      <View>
-        <Stepper amount={4} activeIndex={2} />
+      <View style={{ backgroundColor: BACKGROUND, height: '100%' }}>
         <View>
           <Text style={styles.viewHeader}>
-            {'Hello, Name Surname!'}
+            {`Hello, ${props.firstname} ${props.lastname}!`}
           </Text>
           <Text style={styles.viewDescription}>
             {'We need some additional info about you, please fill just right here!'}
@@ -98,11 +98,11 @@ const ContryScreen = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.birthdateWrapper}>
-          <Text>
+          <Text style={{ color: TEXT_COLOR }}>
             {'Your birthdate:'}
           </Text>
           <TouchableOpacity onPress={showDatepicker}>
-            <Text style={{ color: '#595959' }}>
+            <Text style={{ color: TEXT_COLOR }}>
               {displayDate ? displayDate : 'Click to select date'}
             </Text>
           </TouchableOpacity>
@@ -111,12 +111,12 @@ const ContryScreen = (props) => {
           <View style={styles.datePickerContainer}>
             <View style={styles.buttonsWrapper}>
               <Button transparent onPress={onDataPickerClose}>
-                <Text>
+                <Text style={{ color: BUTTON_COLOR }}>
                   {'Close'}
                 </Text>
               </Button>
               <Button transparent onPress={onDataPickerConfirm}>
-                <Text>
+                <Text style={{ color: BUTTON_COLOR }}>
                   {'Confirm'}
                 </Text>
               </Button>
@@ -128,11 +128,12 @@ const ContryScreen = (props) => {
               is24Hour={true}
               display="default"
               onChange={onDateChange}
+              textColor='#FFFFFF'
             />
           </View>
         }
         <View style={styles.countryWrapper}>
-          <Text>
+          <Text style={{ color: TEXT_COLOR }}>
             {'Your country:'}
           </Text>
           <TouchableOpacity onPress={showDatepicker}>
@@ -144,6 +145,7 @@ const ContryScreen = (props) => {
               withFilter
               withFlag
               visible={false}
+              theme={DARK_THEME}
             />
           </TouchableOpacity>
         </View>
@@ -174,7 +176,8 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 22,
     fontWeight: '500',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: TEXT_COLOR
   },
   viewDescription: {
     padding: 35,
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR_SECONDARY
   },
   inputWrapper: {
     width: '90%',
@@ -196,7 +199,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: '#e3e3e3',
     borderRadius: 10,
     zIndex: 2
   },
@@ -233,7 +236,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   sexText: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: '600',
+    color: TEXT_COLOR
   },
   sexImage: {
     width: 100,
@@ -242,6 +247,6 @@ const styles = StyleSheet.create({
   activeSexImage: {
     borderWidth: 5,
     borderRadius: 50,
-    borderColor: 'black'
+    borderColor: BUTTON_COLOR
   }
 })

@@ -5,6 +5,8 @@ import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse, AxiosError } from 'axios';
+import HeaderCustom from '../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 // import Stepper from '../../../ui-components/stepper/Stepper';
 
 const EnterEmail = (props) => {
@@ -67,17 +69,7 @@ const EnterEmail = (props) => {
 
   return (
     <View>
-      <Header transparent>
-        <Left>
-          <Button transparent onPress={goBack}>
-            {/* <AntDesign name='arrowleft' size={30} /> */}
-          </Button>
-        </Left>
-        <Body>
-          {/* <Title>Sign Up</Title> */}
-        </Body>
-        <Right />
-      </Header>
+      <HeaderCustom back={goBack} label={'Forgot Password'}/>
       <View style={styles.contentWrapper}>
         <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
           <View>
@@ -97,6 +89,8 @@ const EnterEmail = (props) => {
                 returnKeyType='next'
                 autoCapitalize='none'
                 tintColor={'#fe4b66'}
+                baseColor={TEXT_COLOR}
+                textColor={TEXT_COLOR}
                 style={{ width: 200 }}
               />
             </View>
@@ -119,7 +113,8 @@ export default EnterEmail;
 
 const styles = StyleSheet.create({
   contentWrapper: {
-    height: '100%'
+    height: '100%',
+    backgroundColor: BACKGROUND
   },
   button: {
     width: '90%',
@@ -152,7 +147,8 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 22,
     fontWeight: '500',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: TEXT_COLOR
   },
   viewDescription: {
     padding: 35,
@@ -160,6 +156,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR_SECONDARY
   },
 })

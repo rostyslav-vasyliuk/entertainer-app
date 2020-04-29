@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-
+import { BACKGROUND_LIGHT, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 export const CELL_SIZE = 40;
 export const CELL_BORDER_RADIUS = 8;
 export const DEFAULT_CELL_BG_COLOR = '#fff';
@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: BACKGROUND_LIGHT
   },
   title: {
     padding: 20,
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: '700',
     textAlign: 'center',
-    paddingBottom: 40,
+    paddingBottom: 40
   },
   subTitle: {
     padding: 20,
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 22,
     fontWeight: '500',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: TEXT_COLOR
   },
   button: {
     width: '90%',
@@ -75,15 +77,16 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR
   },
   timer: {
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR
   },
   remaining: {
-    fontWeight: '700'
+    fontWeight: '700',
+    color: TEXT_COLOR
   },
   viewHeader: {
     padding: 20,

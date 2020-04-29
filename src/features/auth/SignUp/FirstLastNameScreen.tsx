@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Platform, KeyboardAvoidingView, TouchableOpacity, StatusBar } from 'react-native';
 import { Button, Header, Left, Body, Right, Text } from 'native-base';
-import { AntDesign } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
 import { screenWidth } from '../../../constants/screen-contants';
 import Stepper from '../../../ui-components/stepper/Stepper';
+import BackArrow from '../../../ui-components/BackArrow/BackArrow';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const FirstLastNameScreen = (props) => {
   const [firstname, setFirstname] = useState('');
@@ -21,12 +22,13 @@ const FirstLastNameScreen = (props) => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
 
   return (
-    <View>
-      <Header transparent>
+    <>
+      {/* <StatusBar barStyle={'light-content'}/> */}
+      <Header transparent style={{backgroundColor: BACKGROUND}}>
         <Left>
-          <Button transparent onPress={goBack}>
-            <AntDesign name='arrowleft' size={30} />
-          </Button>
+          <TouchableOpacity onPress={goBack}>
+            <BackArrow />
+          </TouchableOpacity>
         </Left>
         <Body>
         </Body>
@@ -52,6 +54,8 @@ const FirstLastNameScreen = (props) => {
               autoCompleteType={'email'}
               autoCapitalize='sentences'
               tintColor={'#fe4b66'}
+              baseColor={TEXT_COLOR}
+              textColor={TEXT_COLOR}
               style={{ width: 200 }}
             />
           </View>
@@ -63,6 +67,8 @@ const FirstLastNameScreen = (props) => {
               returnKeyType='next'
               autoCapitalize='sentences'
               tintColor={'#fe4b66'}
+              baseColor={TEXT_COLOR}
+              textColor={TEXT_COLOR}
               style={{ width: 150 }}
             />
           </View>
@@ -73,7 +79,7 @@ const FirstLastNameScreen = (props) => {
           </Button>
         </KeyboardAvoidingView>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: screenWidth,
     height: '100%',
+    backgroundColor: BACKGROUND
   },
   inputWrapper: {
     width: '90%',
@@ -105,7 +112,8 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 22,
     fontWeight: '500',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: TEXT_COLOR
   },
   viewDescription: {
     padding: 35,
@@ -113,6 +121,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR_SECONDARY
   }
 })

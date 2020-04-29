@@ -82,7 +82,7 @@ const Profile = (props) => {
               </Text>
             </View>
             <View style={styles.menuArrow}>
-              <MaterialIcons name='chevron-right' size={BASE_SIZE * 1.5} />
+              <MaterialIcons name='chevron-right' size={BASE_SIZE * 1.5} style={{ color: TEXT_COLOR_SECONDARY }} />
             </View>
           </View>
         </TouchableOpacity>
@@ -94,7 +94,7 @@ const Profile = (props) => {
   return (
     <>
       <HeaderCustom label={'Profile'} />
-      <ScrollView style={{backgroundColor: BACKGROUND}}>
+      <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={styles.wrapper}>
 
           <AvatarComponent user={{}} />
@@ -126,7 +126,7 @@ const Profile = (props) => {
         </View>
       </ScrollView>
 
-      <LogoutModal />
+      <LogoutModal navigation={props.navigation}/>
     </>
   )
 }
@@ -212,17 +212,19 @@ const styles = StyleSheet.create({
     width: 65
   },
   menuText: {
-    width: screenWidth - 65 - 60
+    width: screenWidth - 65 - 60,
+    color: TEXT_COLOR
   },
   menuTextLabel: {
     fontSize: 15,
     fontWeight: '600',
-    letterSpacing: 1.1
+    letterSpacing: 1.1,
+    color: TEXT_COLOR
   },
   menuTextDesc: {
     fontSize: 12,
     paddingTop: 2,
-    color: 'gray'
+    color: TEXT_COLOR_SECONDARY
   },
   menuArrow: {
     width: 60
@@ -234,10 +236,11 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 1.5
+    letterSpacing: 1.5,
+    color: TEXT_COLOR
   },
   cityTextStyle: {
-    color: 'gray',
+    color: TEXT_COLOR_SECONDARY,
     padding: 4,
     fontSize: 16
   }

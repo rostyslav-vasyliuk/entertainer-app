@@ -8,15 +8,17 @@ import { permissionsListItems } from './constants';
 import { Divider } from 'react-native-elements';
 import { CAMERA, CAMERA_ROLL, NOTIFICATIONS } from 'expo-permissions';
 import * as Permissions from 'expo-permissions';
+import HeaderCustom from '../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const BASE_SIZE = 16;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
 const GRADIENT_PINK = ['#D442F8', '#B645F5', '#9B40F8'];
 const COLOR_WHITE = '#FFFFFF';
-const COLOR_GREY = '#9FA5AA';
+
 const gradientColors = true ? GRADIENT_BLUE : GRADIENT_PINK;
 
-const PermissionsComponent = () => {
+const PermissionsComponent = (props) => {
   const [CAMERA_PERM, SET_CAMERA_PERM] = useState(false);
   const [CAMERA_ROLL_PERM, SET_CAMERA_ROLL_PERM] = useState(false);
   const [NOTIFICATIONS_PERM, SET_NOTIFICATIONS_PERM] = useState(false);
@@ -48,6 +50,10 @@ const PermissionsComponent = () => {
     getNotificationsPermsAsync();
 
   }, [])
+
+  const goBack = () => {
+    props.navigate.goBack();
+  }
 
   const getPermissions = (type) => {
     if (type === CAMERA) {
@@ -123,7 +129,7 @@ const PermissionsComponent = () => {
             </Text>
           </View>
           <View style={styles.menuArrow}>
-            <Switch value={getPermissions(listItem.type)} disabled={getPermissions(listItem.type)} onValueChange={() => askPermission(listItem.type)} />
+            <Switch value={getPermissions(listItem.type)} onValueChange={() => askPermission(listItem.type)} />
           </View>
         </View>
 
@@ -134,16 +140,9 @@ const PermissionsComponent = () => {
 
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>Permission</Text>
-        </Body>
-        <Right>
-        </Right>
-      </Header>
+      <HeaderCustom label={'Permissions'} back={goBack} />
 
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={styles.wrapper}>
           {permissionsListItems.map((item, index) => (
             renderListItem(item, Boolean(index === permissionsListItems.length - 1))
@@ -233,17 +232,19 @@ const styles = StyleSheet.create({
     width: 65
   },
   menuText: {
-    width: screenWidth - 80 - 60
+    width: screenWidth - 80 - 60,
+    color: TEXT_COLOR
   },
   menuTextLabel: {
     fontSize: 15,
     fontWeight: '600',
-    letterSpacing: 1.1
+    letterSpacing: 1.1,
+    color: TEXT_COLOR
   },
   menuTextDesc: {
     fontSize: 12,
     paddingTop: 2,
-    color: 'gray'
+    color: TEXT_COLOR_SECONDARY
   },
   menuArrow: {
     width: 80,

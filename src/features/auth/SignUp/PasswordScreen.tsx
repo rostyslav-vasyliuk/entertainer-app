@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView, TouchableOpacity, StatusBar } from 'react-native';
 import { Button, Header, Left, Body, Right, Text } from 'native-base';
 import { AntDesign } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { screenWidth } from '../../../constants/screen-contants';
 import Stepper from '../../../ui-components/stepper/Stepper';
+import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import BackArrow from '../../../ui-components/BackArrow/BackArrow';
 
 const PasswordScreen = (props) => {
   const [newPassword, setNewPassword] = useState('');
@@ -23,12 +25,12 @@ const PasswordScreen = (props) => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: BACKGROUND }}>
       <Header transparent>
         <Left>
-          <Button transparent onPress={goBack}>
-            <AntDesign name='arrowleft' size={30} />
-          </Button>
+          <TouchableOpacity onPress={goBack}>
+            <BackArrow />
+          </TouchableOpacity>
         </Left>
         <Body>
           {/* <Title>Sign Up</Title> */}
@@ -36,7 +38,6 @@ const PasswordScreen = (props) => {
         <Right />
       </Header>
       <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-      <Stepper amount={4} activeIndex={3}/>
         <View>
           <Text style={styles.viewHeader}>
             {'Create your password!'}
@@ -56,6 +57,8 @@ const PasswordScreen = (props) => {
               value={newPassword}
               onChangeText={(value: string) => setNewPassword(value)}
               tintColor={'#fe4b66'}
+              baseColor={TEXT_COLOR}
+              textColor={TEXT_COLOR}
               style={{ width: 200 }}
             />
             <BarPasswordStrengthDisplay
@@ -63,6 +66,8 @@ const PasswordScreen = (props) => {
               minLength={1}
               width={(screenWidth - 60)}
               scoreLimit={100}
+              // barContainerStyle={{backgroundColor: 'yellow'}}
+              barColor={'gray'}
             />
             <TextField
               label='Confirm password'
@@ -73,7 +78,9 @@ const PasswordScreen = (props) => {
               value={confirmedPassword}
               onChangeText={(value: string) => setConfirmedPassword(value)}
               tintColor={'#fe4b66'}
-              style={{ width: 200 }}
+              baseColor={TEXT_COLOR}
+              textColor={TEXT_COLOR}
+              style={{ width: 200, paddingTop: 0 }}
             />
           </View>
           <Button full style={styles.button} onPress={toNextScreen}>
@@ -131,7 +138,8 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 22,
     fontWeight: '500',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: TEXT_COLOR
   },
   viewDescription: {
     padding: 20,
@@ -139,6 +147,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR_SECONDARY
   }
 })

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, AsyncStorage } from 'react-native';
 import { screenHeight, screenWidth } from '../../../constants/screen-contants';
 import { Button, Text, Header, Left, Body, Title, Right } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
+import HeaderCustom from '../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState('');
@@ -21,7 +23,9 @@ const LoginScreen = (props) => {
     };
 
     Axios.post('/auth/sign-in', body).then((response: AxiosResponse) => {
-      console.log(response);
+      const token = response.headers['access-token'];
+      AsyncStorage.setItem('access-token', token);
+      Object.assign(Axios.defaults, { headers: { 'access-token': token } });
       props.navigation.navigate('App');
     })
   }
@@ -34,72 +38,75 @@ const LoginScreen = (props) => {
     props.navigation.push('ForgotPassword');
   }
 
+  const onBack = () => {
+    props.navigation.goBack();
+  }
+
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
 
   return (
-    <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-      <Header transparent>
-        <Left>
-        </Left>
-        <Body>
-          <Title>Login</Title>
-        </Body>
-        <Right />
-      </Header>
-      <View>
-        <View style={styles.loginFormWrapper}>
-          <TextField
-            label='Email'
-            value={email}
-            onChangeText={(email) => setEmail(email)}
-            autoCompleteType={'email'}
-            tintColor={'#fe4b66'}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoCorrect={false}
-            returnKeyType='next'
-            style={{ width: 200 }}
-          />
-          <View style={{ paddingTop: 0 }}>
+    <View style={{ backgroundColor: BACKGROUND, height: '100%' }}>
+      <HeaderCustom label={'Login'} back={onBack} />
+      <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
+        <View>
+          <View style={styles.loginFormWrapper}>
             <TextField
-              label='Password'
-              autoCompleteType={'password'}
-              secureTextEntry={true}
-              returnKeyType='done'
-              autoCapitalize='none'
-              value={password}
-              onChangeText={(password) => setPassword(password)}
+              label='Email'
+              value={email}
+              onChangeText={(email) => setEmail(email)}
+              autoCompleteType={'email'}
               tintColor={'#fe4b66'}
+              keyboardType='email-address'
+              autoCapitalize='none'
+              baseColor={TEXT_COLOR}
+              textColor={TEXT_COLOR}
+              autoCorrect={false}
+              returnKeyType='next'
               style={{ width: 200 }}
             />
-          </View>
-          <View style={{ width: screenWidth , alignItems: 'flex-end'}}>
-            <Button transparent onPress={onForgotPassword} style={styles.forgotPasswordButton}>
-              <Text style={styles.forgotPasswordButtonLabel}>
-                {'Forgot password?'}
-              </Text>
-            </Button>
+            <View style={{ paddingTop: 0 }}>
+              <TextField
+                label='Password'
+                autoCompleteType={'password'}
+                secureTextEntry={true}
+                returnKeyType='done'
+                autoCapitalize='none'
+                value={password}
+                baseColor={TEXT_COLOR}
+                textColor={TEXT_COLOR}
+                onChangeText={(password) => setPassword(password)}
+                tintColor={'#fe4b66'}
+                style={{ width: 200 }}
+              />
+            </View>
+            <View style={{ width: screenWidth, alignItems: 'flex-end' }}>
+              <Button transparent onPress={onForgotPassword} style={styles.forgotPasswordButton}>
+                <Text style={styles.forgotPasswordButtonLabel}>
+                  {'Forgot password?'}
+                </Text>
+              </Button>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.buttonsWrapper}>
-        <Button full style={styles.button} onPress={onLogin}>
-          <Text>
-            {'Login'}
-          </Text>
-        </Button>
-        <View style={styles.additionalLink}>
-          <Text style={styles.basicText}>
-            {'Dont have an account?'}
-          </Text>
-          <TouchableOpacity onPress={toSignUpPage}>
-            <Text style={styles.linkText}>
-              {'Sing Up'}
+        <View style={styles.buttonsWrapper}>
+          <Button full style={styles.button} onPress={onLogin}>
+            <Text>
+              {'Login'}
             </Text>
-          </TouchableOpacity>
+          </Button>
+          <View style={styles.additionalLink}>
+            <Text style={styles.basicText}>
+              {'Dont have an account?'}
+            </Text>
+            <TouchableOpacity onPress={toSignUpPage}>
+              <Text style={styles.linkText}>
+                {'Sing Up'}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -107,7 +114,8 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: screenHeight
+    height: screenHeight,
+
   },
   contentWrapper: {
     display: 'flex',
@@ -131,7 +139,7 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   basicText: {
-    color: '#b0b1b2'
+    color: TEXT_COLOR_SECONDARY
   },
   linkText: {
     color: '#fe4b66',

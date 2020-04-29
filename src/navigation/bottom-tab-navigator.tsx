@@ -19,9 +19,13 @@ import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguag
 import FavouriteEvents from '../features/profile/ProfileMenuScreens/FavouriteEvents';
 import FavouriteSeries from '../features/profile/ProfileMenuScreens/FavouriteSeries';
 import FavouriteMovies from '../features/profile/ProfileMenuScreens/FavouriteMovies';
+import FavouriteCourses from '../features/profile/ProfileMenuScreens/FavouriteCourses';
 import EditProfile from '../features/profile/ProfileMenuScreens/EditProfile.container';
 import ChangeTheme from '../features/profile/ProfileMenuScreens/Theme/ChangeTheme.container';
 import { HEADER_BACKGROUND } from '../constants/color-constants';
+import Courses from '../features/courses/Courses';
+import CoursesByCategories from '../features/courses/CoursesByCategories';
+import CourseDetails from '../features/courses/CourseDetails/CourseDetails';
 
 const HomeStack = createStackNavigator(
   {
@@ -70,6 +74,15 @@ const DiscoverStack = createStackNavigator(
     },
     EventByCategories: {
       screen: EventByCategories
+    },
+    Courses: {
+      screen: Courses
+    },
+    CoursesByCategories: {
+      screen: CoursesByCategories
+    },
+    CourseDetails: {
+      screen: CourseDetails
     }
   },
   {
@@ -134,6 +147,9 @@ const ProfileStack = createStackNavigator(
     },
     FavouriteMovies: {
       screen: FavouriteMovies
+    },
+    FavouriteCourses: {
+      screen: FavouriteCourses
     },
     EditProfile: {
       screen: EditProfile
