@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AppContainer from './navigation';
+import AppContainer from './AppContainer';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import { StatusBar, StyleSheet, View } from 'react-native';

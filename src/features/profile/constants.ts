@@ -85,8 +85,8 @@ export const accountButtons = [
   {
     buttonLabel: 'Logout',
     buttonDescription: 'Control your preferences and orders of categories',
-    icon: 'logout',
-    fontFamily: 'MaterialCommunityIcons',
+    icon: 'ios-exit',
+    fontFamily: 'Ionicons',
     gradientColors: ['#B446AB', '#fe4b66'],
   }
 ]

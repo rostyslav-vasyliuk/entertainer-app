@@ -12,10 +12,6 @@ const LoginScreen = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // const goBack = () => {
-  //   props.navigation.push('GreetingsScreen');
-  // }
-
   const onLogin = () => {
     const body = {
       email,

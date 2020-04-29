@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView, TouchableOpacity, StatusBar } from 'react-native';
+import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Button, Header, Left, Body, Right, Text } from 'native-base';
-import { AntDesign } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { screenWidth } from '../../../constants/screen-contants';
-import Stepper from '../../../ui-components/stepper/Stepper';
-import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT } from '../../../constants/color-constants';
 import BackArrow from '../../../ui-components/BackArrow/BackArrow';
 
 const PasswordScreen = (props) => {
@@ -67,7 +65,7 @@ const PasswordScreen = (props) => {
               width={(screenWidth - 60)}
               scoreLimit={100}
               // barContainerStyle={{backgroundColor: 'yellow'}}
-              barColor={'gray'}
+              barColor={BACKGROUND_LIGHT}
             />
             <TextField
               label='Confirm password'

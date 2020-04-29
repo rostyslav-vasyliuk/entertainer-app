@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { Axios } from '../api/instance';
+import { BACKGROUND, LOADER_COLOR } from '../constants/color-constants';
 
 const NavigationController = (props) => {
 
@@ -36,8 +37,8 @@ const NavigationController = (props) => {
   }
 
   return (
-    <View>
-      <ActivityIndicator />
+    <View style={{ backgroundColor: BACKGROUND, height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+      <ActivityIndicator color={LOADER_COLOR} />
     </View>
   )
 }

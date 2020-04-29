@@ -114,7 +114,7 @@ const PermissionsComponent = (props) => {
             <Gradient
               start={[0.45, 0.45]}
               end={[0.90, 0.90]}
-              colors={gradientColors}
+              colors={listItem.gradientColors || gradientColors}
               style={[styles.gradient, styles.left]}
             >
               {icon}

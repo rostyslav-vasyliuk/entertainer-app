@@ -3,11 +3,13 @@ import * as actionKeys from './actionKeys';
 type AuthReducer = {
   data: any;
   theme: string;
+  isConnected: boolean;
 }
 
 export const initialState: AuthReducer = {
   data: null,
-  theme: 'dark'
+  theme: 'dark',
+  isConnected: true
 };
 
 // tslint:disable-next-line:no-any
@@ -25,6 +27,13 @@ export default function (state: AuthReducer = initialState, action) {
         ...state,
         theme: action.payload.theme
       };
+    }
+
+    case actionKeys.SET_NETWORK_STATE: {
+      return {
+        ...state,
+        isConnected: action.payload.isConnected
+      }
     }
 
     default:

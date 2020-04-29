@@ -8,7 +8,7 @@ import { screenWidth } from '../../../constants/screen-contants';
 import Stepper from '../../../ui-components/stepper/Stepper';
 import { Axios } from '../../../api/instance';
 import HeaderCustom from '../../../ui-components/Header/Header';
-import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND } from '../../../constants/color-constants';
+import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND, BACKGROUND_LIGHT } from '../../../constants/color-constants';
 
 const NewPasswordComponent = (props) => {
   const [newPassword, setNewPassword] = useState('');
@@ -68,7 +68,7 @@ const NewPasswordComponent = (props) => {
                 minLength={1}
                 width={(screenWidth - 60)}
                 scoreLimit={100}
-                barColor={'gray'}
+                barColor={BACKGROUND_LIGHT}
               />
               <TextField
                 label='Confirm password'

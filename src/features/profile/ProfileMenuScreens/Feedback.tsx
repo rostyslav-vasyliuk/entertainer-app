@@ -1,71 +1,89 @@
 import React, { useState } from 'react';
-import { Header, Body, Left, Right, Textarea, Form, Item, Label, Button, CheckBox } from 'native-base';
-import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { TextField } from 'react-native-material-textfield';
+import { Textarea, Button, CheckBox } from 'native-base';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { screenWidth } from '../../../constants/screen-contants';
+import HeaderCustom from '../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR } from '../../../constants/color-constants';
+import * as Device from 'expo-device';
 
-const Feedback = () => {
+const Feedback = (props) => {
   const [feedbackText, setFeedbackText] = useState('');
 
+  const onBack = () => {
+    props.navigation.goBack();
+  }
+
+  const getDeviceInfo = () => {
+    const deviceInfo = {
+      brand: Device.brand,
+      manufacturer: Device.manufacturer,
+      modelName: Device.modelName,
+      yearClass: Device.deviceYearClass,
+      memory: Device.totalMemory,
+      architecture: Device.supportedCpuArchitectures,
+      osName: Device.osName,
+      osVersion: Device.osVersion
+    }
+    console.log(deviceInfo);
+  }
   return (
     <>
-      <Header>
-        <Left />
-        <Body>
-          <Text>Feedback</Text>
-        </Body>
-        <Right>
-        </Right>
-      </Header>
-      <View style={{ padding: 10 }}>
-        <Text style={styles.labelDescription}>
-          {'Choose type of feedback you want to leave with clicking on the checkbox. Your opinion is very important to us!'}
-        </Text>
-
-        <TouchableOpacity>
-          <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
-            <CheckBox color={'#fe4b66'} />
-            <Text style={{ paddingLeft: 20 }}>
-              {'Leave app feedback'}
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
-            <CheckBox color={'#fe4b66'} />
-            <Text style={{ paddingLeft: 20 }}>
-              {'Request improvment'}
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
-            <CheckBox color={'#fe4b66'} />
-            <Text style={{ paddingLeft: 20 }}>
-              {'Request a bug'}
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <View style={{ paddingTop: 15 }}>
-          <Textarea
-            rowSpan={8}
-            bordered
-            placeholder="Type your feedback here..."
-            value={feedbackText}
-            onChangeText={(feedbackText) => setFeedbackText(feedbackText)}
-            underline={true}
-          />
-        </View>
-
-        <Button style={styles.button} full>
-          <Text style={{ color: 'white' }}>
-            Send
+      <HeaderCustom label={'Feedback'} back={onBack} />
+      <ScrollView style={{ backgroundColor: BACKGROUND }}>
+        <View style={{ padding: 10 }}>
+          <Text style={styles.labelDescription}>
+            {'Leave feedback for us!'}
           </Text>
-        </Button>
-      </View>
+          <Text style={styles.labelDescription2}>
+            {'We will although include information about your device in case you have some issues'}
+          </Text>
+
+          <TouchableOpacity>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
+              <CheckBox color={'#fe4b66'} />
+              <Text style={styles.checkboxLabel}>
+                {'Leave app feedback'}
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
+              <CheckBox color={'#fe4b66'} checked={true} />
+              <Text style={styles.checkboxLabel}>
+                {'Request improvment'}
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
+              <CheckBox color={'#fe4b66'} />
+              <Text style={styles.checkboxLabel}>
+                {'Request a bug'}
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={{ paddingTop: 15 }}>
+            <Textarea
+              rowSpan={8}
+              bordered
+              placeholder="Type your feedback here..."
+              value={feedbackText}
+              style={{ color: TEXT_COLOR }}
+              onChangeText={(feedbackText) => setFeedbackText(feedbackText)}
+              underline={true}
+            />
+          </View>
+
+          <Button style={styles.button} full onPress={() => getDeviceInfo()}>
+            <Text style={{ color: 'white' }}>
+              {'Send'}
+            </Text>
+          </Button>
+        </View>
+      </ScrollView>
     </>
   )
 }
@@ -79,6 +97,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  checkboxLabel: {
+    paddingLeft: 20,
+    color: TEXT_COLOR,
+    fontSize: 15,
+    fontWeight: '600',
+    letterSpacing: 1.05
   },
   button: {
     marginTop: 20,
@@ -119,8 +144,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingRight: 15,
     paddingLeft: 15,
+    paddingBottom: 5,
+    fontSize: 18,
     paddingTop: 5,
-    color: '#000'
+    fontWeight: '600',
+    color: TEXT_COLOR
+  },
+  labelDescription2: {
+    textAlign: 'center',
+    paddingRight: 15,
+    paddingLeft: 20,
+    paddingBottom: 20,
+    fontSize: 12,
+    paddingTop: 5,
+    fontWeight: '500',
+    color: TEXT_COLOR_SECONDARY
   },
   buttonsWrapper: {
     width: screenWidth,

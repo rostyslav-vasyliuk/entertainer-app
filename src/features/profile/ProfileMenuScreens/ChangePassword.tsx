@@ -6,6 +6,8 @@ import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { Axios } from '../../../api/instance';
 import { screenWidth } from '../../../constants/screen-contants';
+import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT } from '../../../constants/color-constants';
+import HeaderCustom from '../../../ui-components/Header/Header';
 
 const ChangePassword = (props) => {
   const [newPassword, setNewPassword] = useState('');
@@ -34,76 +36,75 @@ const ChangePassword = (props) => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
 
   return (
-    <ScrollView>
-      <Header transparent>
-        <Left>
-          <Button transparent onPress={goBack}>
-            <AntDesign name='arrowleft' size={30} />
-          </Button>
-        </Left>
-        <Body>
-          {/* <Title>Sign Up</Title> */}
-        </Body>
-        <Right />
-      </Header>
-      <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-        <View>
-          <Text style={styles.viewHeader}>
-            {'Create your password!'}
-          </Text>
-          <Text style={styles.viewDescription}>
-            {'To protect your account with all your data you should create a hard password! Just type your password in the field below and we will provide feedback about it.'}
-          </Text>
-        </View>
-        <View style={styles.contentWrapper}>
-          <View style={styles.inputWrapperPassword}>
-          <TextField
-              label='Old Password'
-              autoCompleteType={'password'}
-              secureTextEntry={true}
-              returnKeyType='done'
-              autoCapitalize='none'
-              value={newPassword}
-              onChangeText={(value: string) => setNewPassword(value)}
-              tintColor={'#fe4b66'}
-              style={{ width: 200 }}
-            />
-            <TextField
-              label='New Password'
-              autoCompleteType={'password'}
-              secureTextEntry={true}
-              returnKeyType='done'
-              autoCapitalize='none'
-              value={newPassword}
-              onChangeText={(value: string) => setNewPassword(value)}
-              tintColor={'#fe4b66'}
-              style={{ width: 200 }}
-            />
-            <BarPasswordStrengthDisplay
-              password={newPassword}
-              minLength={1}
-              width={(screenWidth - 60)}
-              scoreLimit={100}
-            />
-            <TextField
-              label='Confirm new password'
-              autoCompleteType={'password'}
-              secureTextEntry={true}
-              returnKeyType='done'
-              autoCapitalize='none'
-              value={confirmedPassword}
-              onChangeText={(value: string) => setConfirmedPassword(value)}
-              tintColor={'#fe4b66'}
-              style={{ width: 200 }}
-            />
-          </View>
-          <Button full style={styles.button} onPress={toNextScreen}>
-            <Text>
-              {'Next'}
+    <ScrollView style={{ backgroundColor: BACKGROUND }}>
+      <HeaderCustom back={goBack} label={'New Password'} />
+      <View style={{ backgroundColor: BACKGROUND, height: '100%' }}>
+        <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
+          <View>
+            <Text style={styles.viewHeader}>
+              {'Create your password!'}
             </Text>
-          </Button>
-        </View>
-      </KeyboardAvoidingView>
+            <Text style={styles.viewDescription}>
+              {'To protect your account with all your data you should create a hard password! Just type your password in the field below and we will provide feedback about it.'}
+            </Text>
+          </View>
+          <View style={styles.contentWrapper}>
+            <View style={styles.inputWrapperPassword}>
+            <TextField
+                label='Old Password'
+                autoCompleteType={'password'}
+                secureTextEntry={true}
+                returnKeyType='done'
+                autoCapitalize='none'
+                baseColor={TEXT_COLOR}
+                textColor={TEXT_COLOR}
+                value={newPassword}
+                onChangeText={(value: string) => setNewPassword(value)}
+                tintColor={'#fe4b66'}
+                style={{ width: 200 }}
+              />
+              <TextField
+                label='New Password'
+                autoCompleteType={'password'}
+                secureTextEntry={true}
+                returnKeyType='done'
+                autoCapitalize='none'
+                baseColor={TEXT_COLOR}
+                textColor={TEXT_COLOR}
+                value={newPassword}
+                onChangeText={(value: string) => setNewPassword(value)}
+                tintColor={'#fe4b66'}
+                style={{ width: 200 }}
+              />
+              <BarPasswordStrengthDisplay
+                password={newPassword}
+                minLength={1}
+                width={(screenWidth - 60)}
+                scoreLimit={100}
+                barColor={BACKGROUND_LIGHT}
+              />
+              <TextField
+                label='Confirm new password'
+                autoCompleteType={'password'}
+                secureTextEntry={true}
+                returnKeyType='done'
+                autoCapitalize='none'
+                value={confirmedPassword}
+                baseColor={TEXT_COLOR}
+                textColor={TEXT_COLOR}
+                onChangeText={(value: string) => setConfirmedPassword(value)}
+                tintColor={'#fe4b66'}
+                style={{ width: 200 }}
+              />
+            </View>
+            <Button full style={styles.button} onPress={toNextScreen}>
+              <Text>
+                {'Next'}
+              </Text>
+            </Button>
+          </View>
+        </KeyboardAvoidingView>
+      </View>
     </ScrollView>
   );
 }
@@ -152,7 +153,8 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     fontSize: 22,
     fontWeight: '500',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: TEXT_COLOR
   },
   viewDescription: {
     padding: 20,
@@ -160,6 +162,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959'
+    color: TEXT_COLOR_SECONDARY
   }
 })

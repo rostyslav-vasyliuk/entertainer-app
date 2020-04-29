@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CountryScreen from './CountryScreen';
-import { setEmail, setCountryBirthGender } from '../actions';
+import { setCountryBirthGender } from '../actions';
 
 const mapDispatchToProps = (dispatch) => ({
   setCountryBirthGender: (country: string, birth: string, gender: string) => {
