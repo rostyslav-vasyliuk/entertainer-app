@@ -10,6 +10,7 @@ import { Divider } from 'react-native-elements';
 import { seriesGenres } from '../../series/constants';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { LOADER_COLOR, BACKGROUND, TEXT_COLOR } from '../../../constants/color-constants';
+import NoResults from '../../../ui-components/NoResults/NoResults';
 
 const FavouriteSeries = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -86,6 +87,8 @@ const FavouriteSeries = (props) => {
         <View style={{ padding: 10 }}>
           {!isLoading && renderSeriesCast()}
         </View>
+
+        {series.length === 0 && !isLoading && <NoResults />}
       </ScrollView>
     </>
   )

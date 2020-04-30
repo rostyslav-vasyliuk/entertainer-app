@@ -31,6 +31,7 @@ const GreetingsScreen = (props) => {
     Axios.post('/auth/sign-up', body).then((response: AxiosResponse) => {
       setIsUserRegistered(true);
       const token = response.headers['access-token'];
+      props.setUserData(response.data);
       AsyncStorage.setItem('access-token', token);
       Object.assign(Axios.defaults, { headers: { 'access-token': token } });
     })

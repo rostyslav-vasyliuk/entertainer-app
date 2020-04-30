@@ -3,6 +3,9 @@ import { ActivityIndicator, View } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import { Axios } from '../api/instance';
 import { BACKGROUND, LOADER_COLOR } from '../constants/color-constants';
+import { connect } from 'react-redux';
+import { setUserData } from '../features/profile/actions';
+import { AxiosResponse } from 'axios';
 
 const NavigationController = (props) => {
 
@@ -14,14 +17,15 @@ const NavigationController = (props) => {
     try {
       // if user is logged, it will be logged in automatically
       const token = await AsyncStorage.getItem('access-token');
-      let response = { status: null };
+      let response: AxiosResponse = null;
       if (token) {
         response = await Axios.post('/auth/validate-user', {}, { headers: { 'access-token': token } });
       }
 
-      if (token !== null && response.status === 200) {
+      if (token !== null && response && response.status === 200) {
         console.log('Token setted')
         Object.assign(Axios.defaults, { headers: { 'access-token': token } });
+        props.setUserData(response.data);
         props.navigation.navigate('App');
       } else {
         // if user has seen Intro it means that he is logged out - if not so its brand new user
@@ -46,4 +50,10 @@ const NavigationController = (props) => {
   )
 }
 
-export default NavigationController;
+const mapDispatchToProps = (dispatch) => ({
+  setUserData: (data: any) => {
+    dispatch(setUserData(data))
+  }
+});
+
+export default connect(null, mapDispatchToProps)(NavigationController);

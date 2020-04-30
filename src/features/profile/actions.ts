@@ -1,4 +1,4 @@
-import { SET_USER_DATA, CHANGE_COLOUR_THEME, SET_NETWORK_STATE } from "./actionKeys";
+import { SET_USER_DATA, CHANGE_COLOUR_THEME, SET_NETWORK_STATE, CHANGE_LANGUAGE } from "./actionKeys";
 
 export const setUserData = (data) => ({
   type: SET_USER_DATA,
@@ -18,5 +18,12 @@ export const changeNetworkState = (isConnected) => ({
   type: SET_NETWORK_STATE,
   payload: {
     isConnected
+  }
+})
+
+export const changeLanguage = (language) => ({
+  type: CHANGE_LANGUAGE,
+  payload: {
+    language
   }
 })

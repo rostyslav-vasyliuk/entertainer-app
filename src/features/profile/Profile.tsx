@@ -8,21 +8,14 @@ import AvatarComponent from './AvatarComponent';
 import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { favouriteButtons, accountButtons } from './constants';
-import { Header, Body, Left, Right } from 'native-base';
 import LogoutModal from '../modals/LogoutModal.container';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT, BACKGROUND } from '../../constants/color-constants';
 import HeaderCustom from '../../ui-components/Header/Header';
 
 const BASE_SIZE = 16;
-const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];
-const GRADIENT_PINK = ['#D442F8', '#B645F5', '#9B40F8'];
 const COLOR_WHITE = '#FFFFFF';
-const COLOR_GREY = '#9FA5AA';
-const gradientColors = true ? GRADIENT_BLUE : GRADIENT_PINK;
 
 const Profile = (props) => {
-  const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
-
   const onProfileNavigate = (component: string) => {
     if (!component) {
       return;
@@ -99,11 +92,11 @@ const Profile = (props) => {
 
           <AvatarComponent user={{}} />
           <Text style={styles.textStyle}>
-            {`Petro Mostavchuk`}
+            {`${props.userData.firstname} ${props.userData.lastname}`}
           </Text>
 
           <Text style={styles.cityTextStyle}>
-            {`Ukraine, Lviv`}
+            {`${props.userData.country}`}
           </Text>
 
           <Text style={styles.profileHeader}>
@@ -139,6 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 15,
+    marginBottom: 15,
     backgroundColor: BACKGROUND
   },
   textStyle: {

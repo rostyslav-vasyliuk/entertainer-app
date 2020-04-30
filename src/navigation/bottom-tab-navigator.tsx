@@ -15,7 +15,7 @@ import Permissions from '../features/profile/ProfileMenuScreens/Permissions';
 import Feedback from '../features/profile/ProfileMenuScreens/Feedback.container';
 import Preferences from '../features/profile/ProfileMenuScreens/Preferences';
 import ChangePassword from '../features/profile/ProfileMenuScreens/ChangePassword';
-import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguage';
+import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguage.container';
 import FavouriteEvents from '../features/profile/ProfileMenuScreens/FavouriteEvents';
 import FavouriteSeries from '../features/profile/ProfileMenuScreens/FavouriteSeries';
 import FavouriteMovies from '../features/profile/ProfileMenuScreens/FavouriteMovies';

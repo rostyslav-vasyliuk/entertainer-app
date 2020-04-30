@@ -9,6 +9,7 @@ import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
+import NoResults from '../../../ui-components/NoResults/NoResults';
 
 const FavouriteMovies = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -86,6 +87,8 @@ const FavouriteMovies = (props) => {
         <View style={{ padding: 10 }}>
           {!isLoading && renderFilmography()}
         </View>
+
+        {movies.length === 0 && !isLoading && <NoResults />}
       </ScrollView>
     </>
   )

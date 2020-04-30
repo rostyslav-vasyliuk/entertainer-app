@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 import EditProfile from './EditProfile';
+import { setUserData } from '../actions';
 
 const mapStateToProps: (state) => any = (state) => ({
-  isLogoutModalVisible: state.modals.isLogoutModalVisible,
+  userData: state.profile.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // setIsLogoutModalVisible: (isVisible: boolean) => {
-  //   dispatch(setIsLogoutModalVisible(isVisible))
-  // }
+  setUserData: (data) => {
+    dispatch(setUserData(data))
+  }
 });
 
 // tslint:disable-next-line

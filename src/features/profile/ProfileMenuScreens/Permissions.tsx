@@ -52,7 +52,7 @@ const PermissionsComponent = (props) => {
   }, [])
 
   const goBack = () => {
-    props.navigate.goBack();
+    props.navigation.goBack();
   }
 
   const getPermissions = (type) => {

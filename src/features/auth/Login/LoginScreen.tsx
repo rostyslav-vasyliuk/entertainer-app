@@ -22,6 +22,7 @@ const LoginScreen = (props) => {
       const token = response.headers['access-token'];
       AsyncStorage.setItem('access-token', token);
       Object.assign(Axios.defaults, { headers: { 'access-token': token } });
+      props.setUserData(response.data);
       props.navigation.navigate('App');
     })
   }

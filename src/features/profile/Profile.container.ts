@@ -4,6 +4,7 @@ import { setIsLogoutModalVisible } from '../modals/actions';
 
 const mapStateToProps: (state) => any = (state) => ({
   isLogoutModalVisible: state.modals.isLogoutModalVisible,
+  userData: state.profile.userData
 });
 
 const mapDispatchToProps = (dispatch) => ({

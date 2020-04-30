@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
-import { AntDesign } from 'react-native-vector-icons';
+import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { Axios } from '../../../api/instance';
@@ -10,6 +9,7 @@ import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT } from '
 import HeaderCustom from '../../../ui-components/Header/Header';
 
 const ChangePassword = (props) => {
+  const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
 
@@ -18,12 +18,9 @@ const ChangePassword = (props) => {
   }
 
   const toNextScreen = () => {
-    // props.setPassword(newPassword);
-    const token = props.navigation.getParam('reset-password-token', null);
-    const email = props.navigation.getParam('email', null);
-    Axios.post('/auth/reset-password', { email, password: newPassword }, { headers: { 'reset-password-token': token } })
+    Axios.post('/profile/password', { oldPassword, newPassword })
       .then(() => {
-        props.navigation.navigate('Login');
+        props.navigation.navigate('Profile');
         Toast.show({
           text: 'Password was succesfully changed',
           buttonText: 'Okay'
@@ -42,7 +39,7 @@ const ChangePassword = (props) => {
         <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
           <View>
             <Text style={styles.viewHeader}>
-              {'Create your password!'}
+              {'Change your password'}
             </Text>
             <Text style={styles.viewDescription}>
               {'To protect your account with all your data you should create a hard password! Just type your password in the field below and we will provide feedback about it.'}
@@ -50,7 +47,7 @@ const ChangePassword = (props) => {
           </View>
           <View style={styles.contentWrapper}>
             <View style={styles.inputWrapperPassword}>
-            <TextField
+              <TextField
                 label='Old Password'
                 autoCompleteType={'password'}
                 secureTextEntry={true}
@@ -58,8 +55,8 @@ const ChangePassword = (props) => {
                 autoCapitalize='none'
                 baseColor={TEXT_COLOR}
                 textColor={TEXT_COLOR}
-                value={newPassword}
-                onChangeText={(value: string) => setNewPassword(value)}
+                value={oldPassword}
+                onChangeText={(value: string) => setOldPassword(value)}
                 tintColor={'#fe4b66'}
                 style={{ width: 200 }}
               />
@@ -151,7 +148,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 5,
     paddingBottom: 0,
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '500',
     textAlign: 'center',
     color: TEXT_COLOR

@@ -8,6 +8,7 @@ import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
+import NoResults from '../../../ui-components/NoResults/NoResults';
 
 const FavouriteCourses = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -115,6 +116,8 @@ const FavouriteCourses = (props) => {
             </>
           ))}
         </View>
+
+        {courses.length === 0 && !isLoading && <NoResults />}
       </ScrollView>
     </>
   )

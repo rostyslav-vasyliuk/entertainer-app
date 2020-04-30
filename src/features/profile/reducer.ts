@@ -1,15 +1,17 @@
 import * as actionKeys from './actionKeys';
 
 type AuthReducer = {
-  data: any;
+  userData: any;
   theme: string;
   isConnected: boolean;
+  language: string;
 }
 
 export const initialState: AuthReducer = {
-  data: null,
+  userData: null,
   theme: 'dark',
-  isConnected: true
+  isConnected: true,
+  language: 'english'
 };
 
 // tslint:disable-next-line:no-any
@@ -18,7 +20,7 @@ export default function (state: AuthReducer = initialState, action) {
     case actionKeys.SET_USER_DATA: {
       return {
         ...state,
-        data: action.payload.data
+        userData: action.payload.data
       };
     }
 
@@ -33,6 +35,13 @@ export default function (state: AuthReducer = initialState, action) {
       return {
         ...state,
         isConnected: action.payload.isConnected
+      }
+    }
+
+    case actionKeys.CHANGE_LANGUAGE: {
+      return {
+        ...state,
+        language: action.payload.language
       }
     }
 

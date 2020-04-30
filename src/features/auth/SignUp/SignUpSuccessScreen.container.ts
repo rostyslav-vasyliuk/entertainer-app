@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import SignUpSuccessScreen from './SignUpSuccessScreen';
 import { setEmail } from '../actions';
+import { setUserData } from '../../profile/actions';
 
 type StateProps = {
   email: string;
@@ -25,6 +26,9 @@ const mapStateToProps: (state) => StateProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setEmail: (email: string) => {
     dispatch(setEmail(email))
+  },
+  setUserData: (data: any) => {
+    dispatch(setUserData(data))
   }
 });
 

@@ -38,7 +38,7 @@ const ContryScreen = (props) => {
   const onCountryPickerSelect = (country: Country) => {
     console.log(country)
     setCountryName(country.name);
-    setCountryCode(country.cca2)
+    setCountryCode(country.cca2);
   }
 
   const setSexProperty = (genderIndex: number) => {
