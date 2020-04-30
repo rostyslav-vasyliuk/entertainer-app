@@ -75,7 +75,7 @@ export const accountButtons = [
     link: 'Permissions'
   },
   {
-    buttonLabel: 'Leave feedback',
+    buttonLabel: 'Support',
     buttonDescription: 'Control your preferences and orders of categories',
     icon: 'chat-processing',
     fontFamily: 'MaterialCommunityIcons',

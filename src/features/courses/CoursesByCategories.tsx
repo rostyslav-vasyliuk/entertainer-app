@@ -8,6 +8,7 @@ import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import HeaderCustom from '../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../constants/color-constants';
+import NoResults from '../../ui-components/NoResults/NoResults';
 
 const CoursesByCategories = (props) => {
   const [courses, setCourses] = useState([]);
@@ -70,7 +71,6 @@ const CoursesByCategories = (props) => {
       course_id
     });
   }
-
 
   if (loading) {
     return (
@@ -143,6 +143,8 @@ const CoursesByCategories = (props) => {
               {renderItem(elem)}
             </View>
           ))}
+
+          {courses.length === 0 && !loading && <NoResults />}
 
           {paginationLoading && !allDataFetched && (
             <View style={styles.paginationLoaderWrapper}>

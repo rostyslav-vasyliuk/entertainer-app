@@ -10,6 +10,7 @@ import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import HeaderCustom from '../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../constants/color-constants';
+import NoResults from '../../ui-components/NoResults/NoResults';
 
 const EventByCategories = (props) => {
   const [events, setEvents] = useState([]);
@@ -18,7 +19,6 @@ const EventByCategories = (props) => {
   const [paginationLoading, setPaginationLoading] = useState(false);
   const [pagination, setPagination] = useState({});
   const [allDataFetched, setAllDataFetched] = useState(false);
-
 
   useEffect(() => {
     const category = props.navigation.getParam('category', null);
@@ -199,6 +199,7 @@ const EventByCategories = (props) => {
             </View>
           ))}
 
+          {events.length === 0 && !loading && <NoResults />}
           {paginationLoading && (
             <View style={styles.paginationLoaderWrapper}>
               <ActivityIndicator size='small' color='#000' />

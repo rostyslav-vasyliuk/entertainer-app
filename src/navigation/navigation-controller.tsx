@@ -14,9 +14,12 @@ const NavigationController = (props) => {
     try {
       // if user is logged, it will be logged in automatically
       const token = await AsyncStorage.getItem('access-token');
-      const response = await Axios.post('/auth/validate-user', {}, { headers: { 'access-token': token } });
+      let response = { status: null };
+      if (token) {
+        response = await Axios.post('/auth/validate-user', {}, { headers: { 'access-token': token } });
+      }
 
-      if (response.status === 200) {
+      if (token !== null && response.status === 200) {
         console.log('Token setted')
         Object.assign(Axios.defaults, { headers: { 'access-token': token } });
         props.navigation.navigate('App');

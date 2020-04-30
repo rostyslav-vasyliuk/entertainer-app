@@ -12,7 +12,7 @@ import MoviesByGenre from '../features/movies/MoviesByGenre';
 import EventDetails from '../features/events/EventDetails/EventDetails';
 import EventByCategories from '../features/events/EventByCategories';
 import Permissions from '../features/profile/ProfileMenuScreens/Permissions';
-import Feedback from '../features/profile/ProfileMenuScreens/Feedback';
+import Feedback from '../features/profile/ProfileMenuScreens/Feedback.container';
 import Preferences from '../features/profile/ProfileMenuScreens/Preferences';
 import ChangePassword from '../features/profile/ProfileMenuScreens/ChangePassword';
 import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguage';

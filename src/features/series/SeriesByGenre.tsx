@@ -8,6 +8,7 @@ import { Header, Left, Body, Right } from 'native-base';
 import HeaderCustom from '../../ui-components/Header/Header';
 import { screenHeight } from '../../constants/screen-contants';
 import { BACKGROUND, LOADER_COLOR, TEXT_COLOR } from '../../constants/color-constants';
+import NoResults from '../../ui-components/NoResults/NoResults';
 
 const SeriesByGenre = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -117,6 +118,8 @@ const SeriesByGenre = (props) => {
       <ScrollView style={{ backgroundColor: BACKGROUND, paddingTop: 10 }}>
         <View>
           {dividedArray.map((movieRow) => renderMovieRow(movieRow))}
+
+          {dividedArray.length === 0 && !loading && <NoResults />}
 
           {paginationLoading && (
             <View style={styles.paginationLoaderWrapper}>

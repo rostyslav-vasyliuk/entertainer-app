@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { Textarea, Button, CheckBox } from 'native-base';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import { screenWidth } from '../../../constants/screen-contants';
 import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR } from '../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
 import * as Device from 'expo-device';
+import { Axios } from '../../../api/instance';
+import FeedbackSuccessModal from '../../modals/FeedbackSuccessModal.container';
 
 const Feedback = (props) => {
   const [feedbackText, setFeedbackText] = useState('');
+  const [activeCheckbox, setActiveCheckbox] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onBack = () => {
     props.navigation.goBack();
   }
 
-  const getDeviceInfo = () => {
+  const onFeedbackSubmit = () => {
+    setIsLoading(true);
     const deviceInfo = {
       brand: Device.brand,
       manufacturer: Device.manufacturer,
@@ -24,41 +29,55 @@ const Feedback = (props) => {
       osName: Device.osName,
       osVersion: Device.osVersion
     }
-    console.log(deviceInfo);
+
+    const body = {
+      deviceInfo,
+      type: activeCheckbox,
+      feedbackText
+    }
+
+    Axios.post('/profile/feedback', body).then(() => {
+      props.setIsFeedbackModalVisible(true);
+      setIsLoading(false);
+    })
+  }
+
+  const changeCategory = (type) => {
+    setActiveCheckbox(type)
   }
   return (
     <>
-      <HeaderCustom label={'Feedback'} back={onBack} />
+      <HeaderCustom label={'Support'} back={onBack} />
       <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={{ padding: 10 }}>
           <Text style={styles.labelDescription}>
             {'Leave feedback for us!'}
           </Text>
           <Text style={styles.labelDescription2}>
-            {'We will although include information about your device in case you have some issues'}
+            {'We will although include information about your device so no need to describe it in description'}
           </Text>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCategory('support')}>
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
-              <CheckBox color={'#fe4b66'} />
+              <CheckBox color={'#fe4b66'} checked={activeCheckbox === 'support'} />
+              <Text style={styles.checkboxLabel}>
+                {'Request support'}
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => changeCategory('feedback')}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
+              <CheckBox color={'#fe4b66'} checked={activeCheckbox === 'feedback'} />
               <Text style={styles.checkboxLabel}>
                 {'Leave app feedback'}
               </Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => changeCategory('bug')}>
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
-              <CheckBox color={'#fe4b66'} checked={true} />
-              <Text style={styles.checkboxLabel}>
-                {'Request improvment'}
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 15 }}>
-              <CheckBox color={'#fe4b66'} />
+              <CheckBox color={'#fe4b66'} checked={activeCheckbox === 'bug'} />
               <Text style={styles.checkboxLabel}>
                 {'Request a bug'}
               </Text>
@@ -77,13 +96,21 @@ const Feedback = (props) => {
             />
           </View>
 
-          <Button style={styles.button} full onPress={() => getDeviceInfo()}>
-            <Text style={{ color: 'white' }}>
-              {'Send'}
-            </Text>
+          <Button style={styles.button} full onPress={() => onFeedbackSubmit()}>
+            {isLoading ?
+              (
+                <View>
+                  <ActivityIndicator color={LOADER_COLOR} />
+                </View>
+              ) : (
+                <Text style={{ color: 'white' }}>
+                  {'Send'}
+                </Text>
+              )}
           </Button>
         </View>
       </ScrollView>
+      <FeedbackSuccessModal navigation={props.navigation} />
     </>
   )
 }

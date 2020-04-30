@@ -1,11 +1,13 @@
 import * as actionKeys from './actionKeys';
 
 type AuthReducer = {
-  isLogoutModalVisible: any;
+  isLogoutModalVisible: boolean;
+  isFeedbackModalVisible: boolean;
 }
 
 export const initialState: AuthReducer = {
-  isLogoutModalVisible: null
+  isLogoutModalVisible: false,
+  isFeedbackModalVisible: true
 };
 
 // tslint:disable-next-line:no-any
@@ -15,6 +17,13 @@ export default function (state: AuthReducer = initialState, action) {
       return {
         ...state,
         isLogoutModalVisible: action.payload.isLogoutModalVisible
+      };
+    }
+
+    case actionKeys.SET_FEEDBACK_MODAL_VISIBILITY: {
+      return {
+        ...state,
+        isFeedbackModalVisible: action.payload.isFeedbackModalVisible
       };
     }
 
