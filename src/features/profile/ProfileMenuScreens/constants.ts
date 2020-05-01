@@ -24,3 +24,30 @@ export const permissionsListItems = [
     type: 'notifications'
   }
 ]
+
+export const editProfileListItems = [
+  {
+    buttonLabel: 'Edit Name',
+    buttonDescription: 'Access to your camera for capturing in-app photos',
+    icon: 'account-edit',
+    fontFamily: 'MaterialCommunityIcons',
+    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
+    link: 'ChangeName'
+  },
+  {
+    buttonLabel: 'Edit Email',
+    buttonDescription: 'Access to your camera roll for getting images from your gallery',
+    icon: 'email-outline',
+    fontFamily: 'MaterialCommunityIcons',
+    gradientColors: ['#B446AB', '#fe4b66'],
+    link: 'ChangeEmail'
+  },
+  {
+    buttonLabel: 'Edit Additional Information',
+    buttonDescription: 'For receiving of recomendations with push notifications',
+    icon: 'edit',
+    fontFamily: 'MaterialIcons',
+    gradientColors: ['#fe4b66', '#B446AB'],
+    link: 'ChangeInfo'
+  }
+]

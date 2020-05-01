@@ -1,29 +1,26 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR } from '../../../constants/color-constants';
+import HeaderCustom from '../../../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR } from '../../../../../constants/color-constants';
 import { Button, Text } from 'native-base';
-import { TextField } from 'react-native-material-textfield';
-import { screenHeight } from '../../../constants/screen-contants';
+import { screenHeight } from '../../../../../constants/screen-contants';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker, { Country, CountryCode, DARK_THEME } from 'react-native-country-picker-modal';
-import { Axios } from '../../../api/instance';
+import { Axios } from '../../../../../api/instance';
 import { AxiosResponse } from 'axios';
 
-const EditProfile = (props) => {
+const ChangeInfo = (props) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
-  const [firstname, setFirstname] = useState(props.userData.firstname);
-  const [lastname, setLastname] = useState(props.userData.lastname);
   const [country, setCountry] = useState(props.userData.country);
-  const [countryCode, setCountryCode] = useState<CountryCode>(null);
+  const [countryCode, setCountryCode] = useState<CountryCode>(props.userData.countryCode);
   const [birthdate, setBirthdate] = useState(props.userData.birthdate.toLocaleString('en-US', options));
   const [gender, setGender] = useState(props.userData.gender);
 
-  const [displayDate, setDisplayDate] = useState(props.userData.birthdate.toLocaleString('en-US', options));
+  const [displayDate, setDisplayDate] = useState(new Date (props.userData.birthdate).toLocaleString('en-US', options));
   const [show, setShow] = useState(false);
 
-  const onDateChange = (event, selectedDate) => {
+  const onDateChange = (_event: any, selectedDate: any) => {
     const currentDate = selectedDate || birthdate;
 
     console.log(currentDate)
@@ -61,9 +58,8 @@ const EditProfile = (props) => {
 
   const onSubmit = () => {
     const body = {
-      firstname,
-      lastname,
       country,
+      countryCode,
       birthdate,
       gender
     }
@@ -75,43 +71,15 @@ const EditProfile = (props) => {
 
   return (
     <>
-      <HeaderCustom label={'Edit Profile'} back={goBack} />
+      <HeaderCustom label={'Edit Profile Info'} back={goBack} />
       <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={styles.wrapper}>
-          <View style={styles.inputWrapper}>
-            <TextField
-              value={firstname}
-              onChangeText={(firstname) => setFirstname(firstname)}
-              label='Firstname'
-              returnKeyType='next'
-              autoCompleteType={'email'}
-              autoCapitalize='sentences'
-              tintColor={'#fe4b66'}
-              baseColor={TEXT_COLOR}
-              textColor={TEXT_COLOR}
-              style={{ width: 200 }}
-            />
-          </View>
-          <View style={styles.inputWrapper}>
-            <TextField
-              value={lastname}
-              onChangeText={(lastname) => setLastname(lastname)}
-              label='Lastname'
-              returnKeyType='next'
-              autoCapitalize='sentences'
-              tintColor={'#fe4b66'}
-              baseColor={TEXT_COLOR}
-              textColor={TEXT_COLOR}
-              style={{ width: 150 }}
-            />
-          </View>
-
 
           <View style={styles.sexWrapper}>
             <TouchableOpacity onPress={() => setSexProperty(0)}>
               <Image
                 style={[styles.sexImage, gender === 'Male' && styles.activeSexImage]}
-                source={require('../../../assets/male.png')}
+                source={require('../../../../../assets/male.png')}
               />
               <Text style={styles.sexText}>
                 {'I am Male'}
@@ -120,7 +88,7 @@ const EditProfile = (props) => {
             <TouchableOpacity onPress={() => setSexProperty(1)}>
               <Image
                 style={[styles.sexImage, gender === 'Female' && styles.activeSexImage]}
-                source={require('../../../assets/female.png')}
+                source={require('../../../../../assets/female.png')}
               />
               <Text style={styles.sexText}>
                 {'I am Female'}
@@ -191,7 +159,7 @@ const EditProfile = (props) => {
   )
 }
 
-export default EditProfile;
+export default ChangeInfo;
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -199,9 +167,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: BUTTON_COLOR,
-    marginLeft: 40,
-    marginRight: 40,
-    borderRadius: 4
+    marginLeft: '5%',
+    marginRight: '5%',
+    borderRadius: 4,
+    marginTop: 10
   },
   buttonLabel: {
     fontSize: 15,

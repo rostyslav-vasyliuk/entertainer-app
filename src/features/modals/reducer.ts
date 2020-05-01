@@ -7,7 +7,7 @@ type AuthReducer = {
 
 export const initialState: AuthReducer = {
   isLogoutModalVisible: false,
-  isFeedbackModalVisible: true
+  isFeedbackModalVisible: false
 };
 
 // tslint:disable-next-line:no-any

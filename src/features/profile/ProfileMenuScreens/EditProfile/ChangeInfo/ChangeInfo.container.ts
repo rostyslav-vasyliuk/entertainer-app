@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import EditProfile from './EditProfile';
-import { setUserData } from '../actions';
+import ChangeInfo from './ChangeInfo';
+import { setUserData } from '../../../actions';
 
 const mapStateToProps: (state) => any = (state) => ({
   userData: state.profile.userData,
@@ -13,4 +13,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 // tslint:disable-next-line
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile) as any;
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeInfo) as any;
