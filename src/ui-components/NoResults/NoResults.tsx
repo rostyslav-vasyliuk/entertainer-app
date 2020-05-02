@@ -13,7 +13,7 @@ const NoResults = () => {
             height: '100%',
             backgroundColor: 'transparent',
           }}
-          source={require('../../assets/cubic-loader.json')}
+          source={require('../../assets/lottie/cubic-loader.json')}
           autoPlay
           loop={true}
         />

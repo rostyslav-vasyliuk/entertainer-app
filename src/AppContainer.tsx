@@ -31,7 +31,7 @@ const AppContainer = (props) => {
             height: 220,
             backgroundColor: 'transparent',
           }}
-          source={require('./assets/connection.json')}
+          source={require('./assets/lottie/connection.json')}
           autoPlay
           loop={true}
         />

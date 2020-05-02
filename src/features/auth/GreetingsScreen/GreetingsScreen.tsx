@@ -25,7 +25,7 @@ const GreetingsScreen = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../../assets/3532-car.json')}
+            source={require('../../../assets/lottie/car.json')}
             autoPlay
             loop={true}
           />

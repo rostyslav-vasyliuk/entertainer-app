@@ -88,7 +88,7 @@ const AppIntroOverlay = (props: Props) => {
               height: 250,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/analysis.json')}
+            source={require('../../assets/lottie/analysis.json')}
             autoPlay
             loop={true}
           />
