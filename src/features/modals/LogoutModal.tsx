@@ -4,6 +4,7 @@ import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import Modal from 'react-native-modal';
 import LottieView from 'lottie-react-native';
 import { Button } from 'native-base';
+import { BACKGROUND_LIGHT, BUTTON_COLOR, TEXT_COLOR, BACKGROUND } from '../../constants/color-constants';
 
 const LogoutModal = (props) => {
   const onLogoutConfirm = async () => {
@@ -21,7 +22,7 @@ const LogoutModal = (props) => {
       deviceWidth={screenWidth}
       deviceHeight={screenHeight}
       isVisible={props.isLogoutModalVisible}
-      backdropOpacity={0.3}
+      backdropOpacity={0.7}
     >
       <View style={styles.wrapper}>
         <View style={styles.lottieWrapper}>
@@ -31,23 +32,22 @@ const LogoutModal = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/logout.json')}
+            source={require('../../assets/logout-dark.json')}
             autoPlay
             loop={true}
           />
         </View>
         <Text style={styles.logoutLabel}>
-          {/* {'Confirm logout'} */}
           {'Are you sure you wish to logout?'}
         </Text>
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-          <Button style={styles.cancelButton} dark bordered full onPressIn={() => onCancel()}>
-            <Text>
+          <Button style={styles.cancelButton} danger bordered full onPressIn={() => onCancel()}>
+            <Text style={{ color: TEXT_COLOR }}>
               {'Cancel'}
             </Text>
           </Button>
-          <Button style={styles.cancelButton} dark full onPress={() => onLogoutConfirm()}>
-            <Text style={{ color: 'white' }}>
+          <Button style={styles.confirmButton} dark full onPress={() => onLogoutConfirm()}>
+            <Text style={{ color: TEXT_COLOR }}>
               {'Logout'}
             </Text>
           </Button>
@@ -61,11 +61,11 @@ export default LogoutModal;
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#c2c2c2',
+    backgroundColor: BACKGROUND_LIGHT,
     padding: 10,
     paddingBottom: 15,
     borderRadius: 5,
-    shadowColor: "#000",
+    shadowColor: BACKGROUND,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
   logoutLabel: {
     fontSize: 16,
     fontWeight: '600',
-    paddingBottom: 20
+    paddingBottom: 20,
+    color: TEXT_COLOR
   },
   logoutDesc: {
     fontSize: 12,
@@ -95,8 +96,12 @@ const styles = StyleSheet.create({
     color: 'gray'
   },
   cancelButton: {
-    // backgroundColor: 
     width: '40%',
     borderRadius: 8
+  },
+  confirmButton: {
+    backgroundColor: BUTTON_COLOR,
+    width: '40%',
+    borderRadius: 8 
   }
 })

@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Discover from '../features/discover/Discover';
 import Profile from '../features/profile/Profile.container';
 import * as React from 'react';
-import { Entypo, AntDesign, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, AntDesign, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import MovieDetails from '../features/movies/MovieDetails/MovieDetails';
 import SeriesDetails from '../features/series/SeriesDetails/SeriesDetails';
 import ActorDetails from '../features/actor/ActorDetails';
@@ -22,7 +22,7 @@ import FavouriteMovies from '../features/profile/ProfileMenuScreens/FavouriteMov
 import FavouriteCourses from '../features/profile/ProfileMenuScreens/FavouriteCourses';
 import EditProfile from '../features/profile/ProfileMenuScreens/EditProfile/EditProfile.container';
 import ChangeTheme from '../features/profile/ProfileMenuScreens/Theme/ChangeTheme.container';
-import { HEADER_BACKGROUND } from '../constants/color-constants';
+import { HEADER_BACKGROUND, BUTTON_COLOR } from '../constants/color-constants';
 import Courses from '../features/courses/Courses';
 import CoursesByCategories from '../features/courses/CoursesByCategories';
 import CourseDetails from '../features/courses/CourseDetails/CourseDetails';
@@ -44,12 +44,12 @@ const HomeStack = createStackNavigator(
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarOptions: {
-    activeTintColor: '#fff',
+    activeTintColor: BUTTON_COLOR,
     style: {
       backgroundColor: HEADER_BACKGROUND,
     },
   },
-  tabBarIcon: (props) => <Entypo name="grid" size={28} color={props.focused ? 'white' : 'gray'} />,
+  tabBarIcon: (props) => <Entypo name="grid" size={28} color={props.focused ? BUTTON_COLOR : 'gray'} />,
 };
 
 const DiscoverStack = createStackNavigator(
@@ -94,14 +94,14 @@ const DiscoverStack = createStackNavigator(
 );
 
 DiscoverStack.navigationOptions = {
-  tabBarLabel: 'Events',
+  tabBarLabel: 'Explore',
   tabBarOptions: {
-    activeTintColor: '#fff',
+    activeTintColor: BUTTON_COLOR,
     style: {
       backgroundColor: HEADER_BACKGROUND,
     },
   },
-  tabBarIcon: (props) => <AntDesign name="calendar" size={20} color={props.focused ? 'white' : 'gray'} />
+  tabBarIcon: (props) => <MaterialIcons name="explore" size={24} color={props.focused ? BUTTON_COLOR : 'gray'} />
 };
 
 
@@ -178,12 +178,12 @@ const ProfileStack = createStackNavigator(
 ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
   tabBarOptions: {
-    activeTintColor: '#fff',
+    activeTintColor: BUTTON_COLOR,
     style: {
       backgroundColor: HEADER_BACKGROUND,
     },
   },
-  tabBarIcon: (props) => <FontAwesome name="user-o" size={20} color={props.focused ? 'white' : 'gray'} />
+  tabBarIcon: (props) => <MaterialIcons name="account-circle" size={24} color={props.focused ? BUTTON_COLOR : 'gray'} />
 };
 
 const BottomTabNavigator = createBottomTabNavigator({

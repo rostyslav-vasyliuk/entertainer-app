@@ -102,7 +102,7 @@ const FavouriteCourses = (props) => {
 
   return (
     <>
-      <HeaderCustom label={'Favourite Events'} back={goBack} />
+      <HeaderCustom label={'Favourite Courses'} back={goBack} />
       {isLoading && (
         <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center', backgroundColor: BACKGROUND }}>
           <ActivityIndicator color={LOADER_COLOR} />

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
 import { Avatar, Divider } from 'react-native-elements';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import * as Progress from 'react-native-progress';
 import { screenWidth } from '../../constants/screen-contants';
-import AvatarComponent from './AvatarComponent';
+import AvatarComponent from './AvatarComponent.container';
 import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { favouriteButtons, accountButtons } from './constants';
 import LogoutModal from '../modals/LogoutModal.container';
-import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT, BACKGROUND } from '../../constants/color-constants';
+import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT, BACKGROUND, LOADER_COLOR } from '../../constants/color-constants';
 import HeaderCustom from '../../ui-components/Header/Header';
 
 const BASE_SIZE = 16;
@@ -22,6 +22,18 @@ const Profile = (props) => {
     }
     props.navigation.push(component);
   }
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 1000);
+
+  }, [refreshing]);
+
+  const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR} />;
 
   const renderMenuButton = (button, isLastButton) => {
     const iconProps: any = {
@@ -54,7 +66,7 @@ const Profile = (props) => {
 
     return (
       <>
-        <TouchableOpacity activeOpacity={0.6} onPress={() => onButtonAction()}>
+        <TouchableOpacity activeOpacity={0.6} onPress={() => onButtonAction()} key={button.buttonLabel}>
           <View style={styles.menuButtonWrapper}>
             <View style={styles.menuIcon}>
               <Gradient
@@ -87,10 +99,10 @@ const Profile = (props) => {
   return (
     <>
       <HeaderCustom label={'Profile'} />
-      <ScrollView style={{ backgroundColor: BACKGROUND }}>
+      <ScrollView style={{ backgroundColor: BACKGROUND }} refreshControl={RefreshController}>
         <View style={styles.wrapper}>
 
-          <AvatarComponent user={{}} />
+          <AvatarComponent />
           <Text style={styles.textStyle}>
             {`${props.userData.firstname} ${props.userData.lastname}`}
           </Text>

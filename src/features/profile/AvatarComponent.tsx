@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Image } from 'react-native-elements';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import ImageEditor from '@react-native-community/image-editor'
 import { ActionSheet } from 'native-base'
+import { Axios } from '../../api/instance';
+import { LOADER_COLOR, BACKGROUND_LIGHT } from '../../constants/color-constants';
 
-const BASE_URL = '';
+const BASE_URL = 'http://192.168.0.13:3030';
 
 var BUTTONS = ["Take a Photo", "Choose from Gallery", "Delete", "Cancel"];
-export default class AvatarComponent extends React.Component<any> {
+class AvatarComponent extends React.Component<any> {
   state = {
-    image: `${BASE_URL}/uploads/${this.props.user.image}` || null,
+    image: `${BASE_URL}/uploads/${this.props.userData.image}` || null,
     clicked: null,
   };
 
@@ -29,6 +30,7 @@ export default class AvatarComponent extends React.Component<any> {
 
   render() {
     let { image } = this.state;
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity onPress={() =>
@@ -43,12 +45,15 @@ export default class AvatarComponent extends React.Component<any> {
               this.onActionSheetButton(buttonIndex);
             }
           )}>
-          <Avatar
-            rounded
-            size='xlarge'
-            icon={{ name: 'user', type: 'font-awesome' }}
+
+          <Image
+            style={{ width: 180, height: 180, borderRadius: 100 }}
             source={{ uri: image }}
+            PlaceholderContent={<ActivityIndicator size='small' color={LOADER_COLOR} />}
+            placeholderStyle={{ backgroundColor: BACKGROUND_LIGHT }}
+            borderRadius={100}
           />
+
         </TouchableOpacity>
       </View>
     );
@@ -63,46 +68,41 @@ export default class AvatarComponent extends React.Component<any> {
       }
     }
 
-    let result = await ImagePicker.launchCameraAsync({
+    let result: any = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
-    let resizedUri = await new Promise((resolve, reject) => {
-      ImageEditor.cropImage(result.uri,
-        {
-          offset: { x: 0, y: 0 },
-          size: { width: result.width, height: result.height },
-          displaySize: {
-            width: 640 * (result.width > result.height ? 1 : result.width / result.height),
-            height: 640 * (result.height > result.width ? 1 : result.height / result.width),
-          },
-          resizeMode: 'cover',
-        },
-        (uri) => resolve(uri),
-        () => reject(),
-      );
-    });
+    if (result.cancelled) {
+      return;
+    }
 
-    this.setState({ image: resizedUri });
+    this.setState({ image: result.uri });
 
     let localUri = result.uri;
     let filename = localUri.split('/').pop();
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
-    let formData = new FormData();
-    formData.append('avatar', { uri: localUri, name: filename, type });
-    formData.append('id', this.props.user._id);
+    let formData: any = new FormData();
 
-    return await fetch(`${BASE_URL}/api/auth/upload`, {
-      method: 'POST',
-      body: formData,
-      header: {
-        'content-type': 'multipart/form-data',
-      },
-    });
-  };
+    formData.append('avatar', { uri: localUri, name: filename, type });
+    formData.append('id', this.props.userData._id);
+
+    Axios({
+      method: 'post',
+      url: `${BASE_URL}/api/profile/avatar-upload`,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (response) {
+        console.log(response);
+      });
+  }
+
 
   pickImage = async () => {
     const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
@@ -113,7 +113,7 @@ export default class AvatarComponent extends React.Component<any> {
       }
     }
 
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let result: any = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -123,38 +123,28 @@ export default class AvatarComponent extends React.Component<any> {
 
     this.setState({ image: result.uri });
 
-    let resizedUri;
-    await new Promise((resolve, reject) => {
-      ImageEditor.cropImage(result.uri,
-        {
-          offset: { x: 0, y: 0 },
-          size: { width: result.width, height: result.height },
-          displaySize: {
-            width: 640 * (result.width > result.height ? 1 : result.width / result.height),
-            height: 640 * (result.height > result.width ? 1 : result.height / result.width),
-          },
-          resizeMode: 'cover',
-        },
-        (uri) => resolve(resizedUri = uri),
-        () => reject(),
-      );
-    });
-
-    this.setState({ image: resizedUri });
-
     let localUri = result.uri;
     let filename = localUri.split('/').pop();
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
-    let formData = new FormData();
+    let formData: any = new FormData();
+
     formData.append('avatar', { uri: localUri, name: filename, type });
-    formData.append('id', this.props.user._id)
-    return await fetch(`${BASE_URL}/api/auth/upload`, {
-      method: 'POST',
-      body: formData,
-      header: {
-        'content-type': 'multipart/form-data',
-      },
-    });
+    formData.append('id', this.props.userData._id);
+
+    Axios({
+      method: 'post',
+      url: `${BASE_URL}/api/profile/avatar-upload`,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (response) {
+        console.log(response);
+      });
   };
 }
+
+export default AvatarComponent;
