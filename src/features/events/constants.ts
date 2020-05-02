@@ -27,3 +27,54 @@ export const eventLabels: any = {
   sports: 'Sport',
   poetry: 'Poetry'
 }
+
+export const eventTypeArray = [
+  {
+    name: 'Concert',
+    key: 'concerts'
+  },
+  {
+    key: 'cinema',
+    name: 'Cinema',
+  },
+  {
+    key: 'theatres',
+    name: 'Theatre',
+  },
+  {
+    key: 'children',
+    name: 'For Child',
+  },
+  {
+    key: 'festivals',
+    name: 'Festival',
+  },
+  {
+    key: 'stand-up',
+    name: 'Stand-Up',
+  },
+  {
+    key: 'seminars',
+    name: 'Seminars',
+  },
+  {
+    key: 'exhibitions',
+    name: 'Exhibition',
+  },
+  {
+    key: 'business',
+    name: 'Bussiness',
+  },
+  {
+    key: 'quests',
+    name: 'Quest',
+  },
+  {
+    key: 'sports',
+    name: 'Sport',
+  },
+  {
+    key: 'poetry',
+    name: 'Poetry'
+  }
+]

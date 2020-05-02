@@ -23,7 +23,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.entertainer.entertainer",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.entertainer.entertainer",
+      "versionCode": 1
     }
   }
 }

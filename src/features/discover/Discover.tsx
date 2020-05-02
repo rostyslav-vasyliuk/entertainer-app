@@ -10,11 +10,37 @@ import Movies from '../movies/Movies';
 import Series from '../series/Series';
 import Modal from 'react-native-modal';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
-import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../constants/color-constants';
+import { TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND, BUTTON_COLOR } from '../../constants/color-constants';
 import Courses from '../courses/Courses';
 
-const Discover = (props) => {
-  const [activeCategory, setActiveCategory] = React.useState('events');
+const defaultCategories = ['events', 'movies', 'tv_series', 'education'];
+
+const categoryLabels = {
+  events: {
+    label: 'Events',
+    description: 'Different types of events (like concerts, festivals etc.)'
+  },
+  cinema: {
+    label: 'Cinema',
+    description: 'Search for new moview to watch it in cinema in your town'
+  },
+  movies: {
+    label: 'Movies',
+    description: 'Search for all movies in our database to get something interesting for you'
+  },
+  tv_series: {
+    label: 'TV Series',
+    description: 'Find your favourite TV series with our recommendations'
+  },
+  education: {
+    label: 'Education',
+    description: 'Real Japan rolls? Or a huge Cheesburger? Order to door? Yeah, just click here!'
+  },
+}
+
+const Discover = ({ userData, navigation }) => {
+  const category = (userData.order && userData.order.length) ? userData.order.map(elem => elem.key) : defaultCategories;
+  const [activeCategory, setActiveCategory] = React.useState(category[0]);
   const [isEventCityModalVisible, setIsEventCityModalVisible] = React.useState(false);
 
   const modalRef = useRef(null);
@@ -50,30 +76,6 @@ const Discover = (props) => {
     </>
   );
 
-  const category = ['events', 'movies', 'tv_series', 'education'];
-  const categoryLabels = {
-    events: {
-      label: 'Events',
-      description: 'Different types of events (like concerts, festivals etc.)'
-    },
-    cinema: {
-      label: 'Cinema',
-      description: 'Search for new moview to watch it in cinema in your town'
-    },
-    movies: {
-      label: 'Movies',
-      description: 'Search for all movies in our database to get something interesting for you'
-    },
-    tv_series: {
-      label: 'TV Series',
-      description: 'Find your favourite TV series with our recommendations'
-    },
-    education: {
-      label: 'Education',
-      description: 'Real Japan rolls? Or a huge Cheesburger? Order to door? Yeah, just click here!'
-    },
-  }
-
   const changeCategory = (category: string) => {
     console.log(category);
     setActiveCategory(category);
@@ -85,7 +87,7 @@ const Discover = (props) => {
       <View key={category}>
         <TouchableOpacity onPressIn={() => changeCategory(category)} style={modalStyles.touchable}>
           <View style={modalStyles.categoryWrapper}>
-            <CheckBox checked={category === activeCategory} />
+            <CheckBox checked={category === activeCategory} color={BUTTON_COLOR} />
             <View style={modalStyles.categoryDescription}>
               <Text style={modalStyles.labelStyle}>
                 {categoryLabels[category].label}
@@ -103,7 +105,7 @@ const Discover = (props) => {
 
   return (
     <>
-      <Header transparent style={{backgroundColor: HEADER_BACKGROUND}} iosBarStyle='light-content'>
+      <Header transparent style={{ backgroundColor: HEADER_BACKGROUND }} iosBarStyle='light-content'>
         <Left />
         <Body>
           <TouchableOpacity onPress={onOpen}>
@@ -125,15 +127,15 @@ const Discover = (props) => {
         snapPoint={450}
         scrollViewProps={{ scrollEnabled: false }}
         modalStyle={{ backgroundColor: HEADER_BACKGROUND }}
-        handleStyle={{backgroundColor: 'gray'}}
+        handleStyle={{ backgroundColor: 'gray' }}
       >
         {renderModalContent()}
       </Modalize>
 
-      {activeCategory === 'events' && <Events navigation={props.navigation} />}
-      {activeCategory === 'movies' && <Movies navigation={props.navigation} />}
-      {activeCategory === 'tv_series' && <Series navigation={props.navigation} />}
-      {activeCategory === 'education' && <Courses navigation={props.navigation} />}
+      {activeCategory === 'events' && <Events navigation={navigation} />}
+      {activeCategory === 'movies' && <Movies navigation={navigation} />}
+      {activeCategory === 'tv_series' && <Series navigation={navigation} />}
+      {activeCategory === 'education' && <Courses navigation={navigation} />}
 
 
       <Modal

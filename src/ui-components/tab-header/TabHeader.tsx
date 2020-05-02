@@ -18,16 +18,16 @@ export default TabHeaderLabel;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 18,
-    fontWeight: '500',
-    paddingRight: 6,
-    color: TEXT_COLOR
+    color: TEXT_COLOR,
+    fontSize: 16,
+    letterSpacing: 1.1,
+    fontWeight: '600',
+    overflow: 'visible',
+    paddingRight: 6
   },
   wrapper: {
     flexDirection: 'row',
-    // alignItems: 'flex-start',
-    // justifyContent: 'center',
-    // alignContent: 'center'
+    alignItems: 'center'
   },
   icon: {
     fontSize: 20,

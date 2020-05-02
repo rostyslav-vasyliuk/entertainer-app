@@ -14,6 +14,29 @@ export const coursesLabels: any = {
   marketing: 'Marketing',
 }
 
+export const coursesTypesArray = [
+  {
+    name: 'Programming',
+    key: 'programming'
+  },
+  {
+    key: 'economic',
+    name: 'Economic'
+  },
+  {
+    key: 'language',
+    name: 'Language'
+  },
+  {
+    key: 'marketing',
+    name: 'Marketing'
+  },
+  {
+    key: 'music',
+    name: 'Music'
+  },
+];
+
 export const getBiggerImage = (url: string) => {
   if (url) {
     return url.replace('w=80', 'w=500').replace('h=80', 'h=500');

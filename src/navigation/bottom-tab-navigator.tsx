@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import Discover from '../features/discover/Discover';
+import Discover from '../features/discover/Discover.container';
 import Profile from '../features/profile/Profile.container';
 import * as React from 'react';
-import { Entypo, AntDesign, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import MovieDetails from '../features/movies/MovieDetails/MovieDetails';
 import SeriesDetails from '../features/series/SeriesDetails/SeriesDetails';
 import ActorDetails from '../features/actor/ActorDetails';
@@ -13,7 +13,7 @@ import EventDetails from '../features/events/EventDetails/EventDetails';
 import EventByCategories from '../features/events/EventByCategories';
 import Permissions from '../features/profile/ProfileMenuScreens/Permissions';
 import Feedback from '../features/profile/ProfileMenuScreens/Feedback.container';
-import Preferences from '../features/profile/ProfileMenuScreens/Preferences';
+import Preferences from '../features/profile/ProfileMenuScreens/Preferences.container';
 import ChangePassword from '../features/profile/ProfileMenuScreens/ChangePassword';
 import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguage.container';
 import FavouriteEvents from '../features/profile/ProfileMenuScreens/FavouriteEvents';
@@ -29,19 +29,20 @@ import CourseDetails from '../features/courses/CourseDetails/CourseDetails';
 import ChangeEmail from '../features/profile/ProfileMenuScreens/EditProfile/ChangeEmail/ChangeEmail.container';
 import ChangeInfo from '../features/profile/ProfileMenuScreens/EditProfile/ChangeInfo/ChangeInfo.container';
 import ChangeName from '../features/profile/ProfileMenuScreens/EditProfile/ChangeName/ChangeName.container';
+import RecommendationsFeed from '../features/recommendations-feed/Feed';
 
-const HomeStack = createStackNavigator(
+const RecommendationsStack = createStackNavigator(
   {
-    Discover: {
-      screen: Discover,
+    RecommendationsFeed: {
+      screen: RecommendationsFeed,
     },
   },
   {
-    headerMode: 'screen'
+    headerMode: 'none'
   }
 );
 
-HomeStack.navigationOptions = {
+RecommendationsStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarOptions: {
     activeTintColor: BUTTON_COLOR,
@@ -187,9 +188,8 @@ ProfileStack.navigationOptions = {
 };
 
 const BottomTabNavigator = createBottomTabNavigator({
-  HomeStack,
+  RecommendationsStack,
   DiscoverStack,
-  // ExploreStack,
   ProfileStack
 }, {
   initialRouteName: 'ProfileStack'
