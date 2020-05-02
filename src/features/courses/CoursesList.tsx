@@ -167,41 +167,10 @@ const styles = StyleSheet.create({
     marginTop: 30,
     padding: 5
   },
-  dateDividerStyle: {
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    marginLeft: 10,
-    marginTop: 3
-  },
-  dividerWrapper: {
-    marginTop: 15
-  },
-  dividerStyle: {
-    margin: 10,
-    marginBottom: 0
-  },
   dateText: {
     fontSize: 18,
     fontWeight: '500',
     color: TEXT_COLOR
-  },
-  dateOfWeek: {
-    paddingLeft: 6,
-    color: TEXT_COLOR
-  },
-  month: {
-    textTransform: 'uppercase',
-    color: TEXT_COLOR_SECONDARY,
-    fontWeight: '500',
-    fontSize: 12
-  },
-  year: {
-    paddingLeft: 4,
-    textTransform: 'uppercase',
-    color: TEXT_COLOR_SECONDARY,
-    fontWeight: '500',
-    fontSize: 12
   },
   itemWrapper: {
     flexDirection: 'row',
@@ -244,9 +213,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: TEXT_COLOR,
     textTransform: 'capitalize'
-  },
-  descriptionValue: {
-    color: TEXT_COLOR
   },
   paginationLoaderWrapper: {
     minHeight: 50,

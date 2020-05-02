@@ -120,20 +120,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fe4b66'
   },
-  additionalLink: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingTop: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  basicText: {
-    color: TEXT_COLOR
-  },
-  linkText: {
-    color: '#fe4b66',
-    paddingLeft: 10
-  },
   labelHeader: {
     textAlign: 'center',
     fontSize: 24,

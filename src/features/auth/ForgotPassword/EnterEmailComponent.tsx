@@ -124,22 +124,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fe4b66'
   },
-  buttonDisabled: {
-    backgroundColor: '#ccc'
-  },
   inputWrapper: {
     width: '90%',
     marginLeft: '5%',
     marginRight: '5%',
     paddingBottom: 10
-  },
-  viewTitle: {
-    padding: 20,
-    paddingTop: 10,
-    paddingBottom: 0,
-    fontSize: 23,
-    fontWeight: '600',
-    textAlign: 'center'
   },
   viewHeader: {
     padding: 20,

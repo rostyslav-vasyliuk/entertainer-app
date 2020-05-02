@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-// import Image from 'react-native-image-placeholder';
 import { Image } from 'react-native-elements';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
@@ -9,7 +8,7 @@ import { Divider } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { FontAwesome } from '@expo/vector-icons';
-import { BACKGROUND, TEXT_COLOR, HEADER_BACKGROUND, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../constants/color-constants';
+import { BACKGROUND, HEADER_BACKGROUND, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../constants/color-constants';
 import { Entypo } from '@expo/vector-icons'
 
 const ActorDetails = (props) => {

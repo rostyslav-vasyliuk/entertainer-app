@@ -187,12 +187,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: TEXT_COLOR_SECONDARY
   },
-  inputWrapper: {
-    width: '90%',
-    marginLeft: '5%',
-    marginRight: '5%',
-    paddingBottom: 10
-  },
   datePickerContainer: {
     position: 'absolute',
     top: screenHeight - 325,

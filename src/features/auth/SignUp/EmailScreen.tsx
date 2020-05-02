@@ -119,14 +119,6 @@ const styles = StyleSheet.create({
     marginRight: '5%',
     paddingBottom: 10
   },
-  viewTitle: {
-    padding: 20,
-    paddingTop: 10,
-    paddingBottom: 0,
-    fontSize: 23,
-    fontWeight: '600',
-    textAlign: 'center'
-  },
   viewHeader: {
     padding: 20,
     paddingTop: 10,

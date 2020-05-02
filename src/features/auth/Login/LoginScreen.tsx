@@ -110,17 +110,6 @@ const LoginScreen = (props) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    height: screenHeight,
-
-  },
-  contentWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%'
-  },
   button: {
     marginLeft: 15,
     marginRight: 15,

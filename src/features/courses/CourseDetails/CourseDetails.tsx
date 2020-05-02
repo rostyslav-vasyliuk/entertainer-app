@@ -222,22 +222,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingTop: 6
   },
-  level: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 14,
-    paddingTop: 6,
-    textTransform: 'capitalize'
-  },
   duration: {
     color: '#fff',
     fontSize: 14,
     paddingTop: 8
-  },
-  date: {
-    color: '#fff',
-    fontSize: 12,
-    paddingTop: 4
   },
   infoMovieMain: {
     flexDirection: 'row',
