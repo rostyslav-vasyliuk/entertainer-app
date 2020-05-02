@@ -176,10 +176,6 @@ export default FavouriteEvents;
 
 
 const styles = StyleSheet.create({
-  listWrapper: {
-    // marginTop: 5,
-    // padding: 5
-  },
   dateDividerStyle: {
     justifyContent: 'flex-start',
     flexDirection: 'row',
@@ -251,27 +247,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: TEXT_COLOR
   },
-  descriptionValue: {
-    color: TEXT_COLOR,
-    fontWeight: '500',
-  },
-  paginationLoaderWrapper: {
-    minHeight: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  paginationEndReached: {
-    height: 150,
-    width: screenWidth - 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15,
-    marginBottom: 30
-  },
-  bottomReachedDesc: {
-    fontSize: 13,
-    textAlign: 'center',
-    padding: 6,
-    color: '#7a7a7a'
-  }
 })

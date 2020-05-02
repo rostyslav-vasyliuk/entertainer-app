@@ -105,24 +105,6 @@ const EditProfile = (props) => {
 export default EditProfile;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 15,
-    marginBottom: 15,
-    backgroundColor: BACKGROUND
-  },
-  textStyle: {
-    fontSize: 22,
-    color: TEXT_COLOR,
-    marginTop: 15,
-  },
-  descriptionText: {
-    fontSize: 16,
-    marginTop: 5,
-    color: TEXT_COLOR_SECONDARY
-  },
   profileCompleteWrapper: {
     backgroundColor: BACKGROUND_LIGHT,
     width: '95%',
@@ -141,21 +123,6 @@ const styles = StyleSheet.create({
 
     elevation: 1,
   },
-  profileCompleteHeader: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 16
-  },
-  progressbarWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 20,
-    marginBottom: 20
-  },
-  profileMenuWrapper: {
-
-  },
   menuButtonWrapper: {
     height: 75,
     flexDirection: 'row',
@@ -166,11 +133,6 @@ const styles = StyleSheet.create({
   },
   left: {
     marginRight: BASE_SIZE,
-  },
-  right: {
-    width: BASE_SIZE * 2,
-    backgroundColor: 'transparent',
-    elevation: 0,
   },
   gradient: {
     width: BASE_SIZE * 3,
@@ -201,19 +163,4 @@ const styles = StyleSheet.create({
   menuArrow: {
     width: 60
   },
-  profileHeader: {
-    textAlign: 'left',
-    width: screenWidth,
-    paddingTop: 20,
-    paddingLeft: 15,
-    fontSize: 16,
-    fontWeight: '600',
-    letterSpacing: 1.5,
-    color: TEXT_COLOR
-  },
-  cityTextStyle: {
-    color: TEXT_COLOR_SECONDARY,
-    padding: 4,
-    fontSize: 16
-  }
 })

@@ -98,53 +98,6 @@ export default FavouriteMovies;
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#030405',
-    color: '#fff'
-  },
-  image: {
-    flex: 1,
-    height: 400,
-    width: '100%',
-    backgroundColor: '#030405'
-  },
-  actorsName: {
-    color: '#fff',
-    fontWeight: '800',
-    fontSize: 24,
-    paddingBottom: 5
-  },
-  bigLabel: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 22,
-    paddingBottom: 10
-  },
-  textLabel: {
-    color: '#fff',
-    fontSize: 15,
-    paddingBottom: 1
-  },
-  blockWrapper: {
-    padding: 10,
-    paddingBottom: 5,
-    paddingTop: 5
-  },
-  carouselleItemImage: {
-    width: 200,
-    height: 300,
-    borderRadius: 10
-  },
-  socialIcon: {
-    fontSize: 32,
-    color: 'white',
-    padding: 5,
-    paddingRight: 20
-  },
-  socialsBlock: {
-    flexDirection: 'row'
-  },
   filmBlock: {
     flexDirection: 'row',
     paddingBottom: 15

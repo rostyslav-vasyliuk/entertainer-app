@@ -265,11 +265,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#030405',
 		color: '#fff'
 	},
-	loaderStyle: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	title: {
 		color: TEXT_COLOR,
 		fontWeight: '800',
@@ -343,19 +338,6 @@ const styles = StyleSheet.create({
 		color: '#b2b2b2',
 		fontSize: 12,
 		paddingTop: 2,
-	},
-	linkButton: {
-		marginTop: 15,
-		borderColor: '#fff',
-		borderWidth: 1,
-	},
-	linkButtonTitle: {
-		color: '#fff',
-	},
-	addFavorite: {
-		paddingTop: 10,
-		justifyContent: 'center',
-		alignItems: 'center'
 	},
 	playButton: {
 		width: 70,

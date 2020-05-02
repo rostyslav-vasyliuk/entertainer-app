@@ -152,14 +152,6 @@ const MoviesByGenre = (props) => {
 export default MoviesByGenre;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  trendingHeader: {
-		color: TEXT_COLOR,
-    fontSize: 18,
-    textAlign: 'center'
-  },
   movieImageStyle: {
     height: 250,
     width: 170,

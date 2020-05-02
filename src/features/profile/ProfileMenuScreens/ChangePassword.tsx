@@ -121,24 +121,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fe4b66'
   },
-  additionalLink: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingTop: 5
-  },
-  basicText: {
-    color: '#b0b1b2'
-  },
-  linkText: {
-    color: '#fe4b66',
-    paddingLeft: 10
-  },
-  inputWrapper: {
-    width: '90%',
-    marginLeft: '5%',
-    marginRight: '5%',
-    paddingBottom: 10
-  },
   inputWrapperPassword: {
     width: '90%',
     marginLeft: '5%',

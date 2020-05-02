@@ -125,46 +125,6 @@ const FavouriteCourses = (props) => {
 
 export default FavouriteCourses;
 const styles = StyleSheet.create({
-  listWrapper: {
-    marginTop: 30,
-    padding: 5
-  },
-  dateDividerStyle: {
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    marginLeft: 10,
-    marginTop: 3
-  },
-  dividerWrapper: {
-    marginTop: 15
-  },
-  dividerStyle: {
-    margin: 10,
-    marginBottom: 0
-  },
-  dateText: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: TEXT_COLOR
-  },
-  dateOfWeek: {
-    paddingLeft: 6,
-    color: TEXT_COLOR
-  },
-  month: {
-    textTransform: 'uppercase',
-    color: TEXT_COLOR_SECONDARY,
-    fontWeight: '500',
-    fontSize: 12
-  },
-  year: {
-    paddingLeft: 4,
-    textTransform: 'uppercase',
-    color: TEXT_COLOR_SECONDARY,
-    fontWeight: '500',
-    fontSize: 12
-  },
   itemWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -207,26 +167,4 @@ const styles = StyleSheet.create({
     color: TEXT_COLOR,
     textTransform: 'capitalize'
   },
-  descriptionValue: {
-    color: TEXT_COLOR
-  },
-  paginationLoaderWrapper: {
-    minHeight: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  paginationEndReached: {
-    height: 150,
-    width: screenWidth - 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15,
-    marginBottom: 30
-  },
-  bottomReachedDesc: {
-    fontSize: 13,
-    textAlign: 'center',
-    padding: 6,
-    color: TEXT_COLOR
-  }
 })

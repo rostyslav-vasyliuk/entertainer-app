@@ -152,11 +152,6 @@ const styles = StyleSheet.create({
     color: TEXT_COLOR,
     marginTop: 15,
   },
-  descriptionText: {
-    fontSize: 16,
-    marginTop: 5,
-    color: TEXT_COLOR_SECONDARY
-  },
   profileCompleteWrapper: {
     backgroundColor: BACKGROUND_LIGHT,
     width: '95%',
@@ -175,21 +170,6 @@ const styles = StyleSheet.create({
 
     elevation: 1,
   },
-  profileCompleteHeader: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 16
-  },
-  progressbarWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 20,
-    marginBottom: 20
-  },
-  profileMenuWrapper: {
-
-  },
   menuButtonWrapper: {
     height: 75,
     flexDirection: 'row',
@@ -200,11 +180,6 @@ const styles = StyleSheet.create({
   },
   left: {
     marginRight: BASE_SIZE,
-  },
-  right: {
-    width: BASE_SIZE * 2,
-    backgroundColor: 'transparent',
-    elevation: 0,
   },
   gradient: {
     width: BASE_SIZE * 3,

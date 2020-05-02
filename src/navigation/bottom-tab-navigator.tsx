@@ -21,7 +21,6 @@ import FavouriteSeries from '../features/profile/ProfileMenuScreens/FavouriteSer
 import FavouriteMovies from '../features/profile/ProfileMenuScreens/FavouriteMovies';
 import FavouriteCourses from '../features/profile/ProfileMenuScreens/FavouriteCourses';
 import EditProfile from '../features/profile/ProfileMenuScreens/EditProfile/EditProfile.container';
-import ChangeTheme from '../features/profile/ProfileMenuScreens/Theme/ChangeTheme.container';
 import { HEADER_BACKGROUND, BUTTON_COLOR } from '../constants/color-constants';
 import Courses from '../features/courses/Courses';
 import CoursesByCategories from '../features/courses/CoursesByCategories';
@@ -157,9 +156,6 @@ const ProfileStack = createStackNavigator(
     },
     EditProfile: {
       screen: EditProfile
-    },
-    ChangeTheme: {
-      screen: ChangeTheme
     },
     ChangeEmail: {
       screen: ChangeEmail

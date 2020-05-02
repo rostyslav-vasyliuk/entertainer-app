@@ -121,11 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BACKGROUND
   },
-  trendingHeader: {
-    color: '#000',
-    fontSize: 18,
-    textAlign: 'center'
-  },
   movieImageStyle: {
     height: 250,
     width: 170,

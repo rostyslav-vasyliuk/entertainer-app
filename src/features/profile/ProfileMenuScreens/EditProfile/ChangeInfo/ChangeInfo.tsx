@@ -177,11 +177,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: TEXT_COLOR
   },
-  inputWrapper: {
-    width: '90%',
-    marginLeft: '5%',
-    marginRight: '5%'
-  },
   datePickerContainer: {
     position: 'absolute',
     top: screenHeight - 368,

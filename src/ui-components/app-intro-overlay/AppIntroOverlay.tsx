@@ -167,9 +167,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: TEXT_COLOR_SECONDARY
   },
-  constinueButton: {
-    color: '#fff'
-  }
 });
 
 const NextButton = () => {
@@ -226,7 +223,4 @@ const buttonStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  icon: {
-    color: 'white'
-  }
 });

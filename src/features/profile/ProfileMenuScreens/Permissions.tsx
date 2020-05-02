@@ -162,48 +162,6 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     paddingTop: 10
   },
-  textStyle: {
-    fontSize: 24,
-    color: '#000',
-    marginTop: 15,
-  },
-  descriptionText: {
-    fontSize: 16,
-    marginTop: 5,
-    color: 'gray'
-  },
-  profileCompleteWrapper: {
-    backgroundColor: '#fafafa',
-    width: '100%',
-    marginTop: 15,
-    marginBottom: 15,
-    padding: 7,
-    borderRadius: 5,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 1.84,
-
-    elevation: 1,
-  },
-  profileCompleteHeader: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 16
-  },
-  progressbarWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 20,
-    marginBottom: 20
-  },
-  profileMenuWrapper: {
-
-  },
   menuButtonWrapper: {
     height: 75,
     flexDirection: 'row',
@@ -214,11 +172,6 @@ const styles = StyleSheet.create({
   },
   left: {
     marginRight: BASE_SIZE,
-  },
-  right: {
-    width: BASE_SIZE * 2,
-    backgroundColor: 'transparent',
-    elevation: 0,
   },
   gradient: {
     width: BASE_SIZE * 3,
@@ -250,13 +203,4 @@ const styles = StyleSheet.create({
     width: 80,
     paddingLeft: 10
   },
-  profileHeader: {
-    textAlign: 'left',
-    width: screenWidth,
-    paddingTop: 20,
-    paddingLeft: 15,
-    fontSize: 16,
-    fontWeight: '600',
-    letterSpacing: 1.5
-  }
 })

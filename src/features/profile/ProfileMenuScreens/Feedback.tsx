@@ -118,13 +118,6 @@ const Feedback = (props) => {
 export default Feedback;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   checkboxLabel: {
     paddingLeft: 20,
     color: TEXT_COLOR,
@@ -137,35 +130,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 5,
     backgroundColor: '#fe4b66'
-  },
-  loginButton: {
-    margin: 10,
-    marginTop: 0,
-    marginRight: 30,
-    marginLeft: 30,
-    height: 50,
-    borderRadius: 5,
-    color: '#fe4b66'
-    // backgroundColor: '#fe4b66'
-  },
-  additionalLink: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingTop: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  basicText: {
-    color: '#b0b1b2'
-  },
-  linkText: {
-    color: '#fe4b66',
-    paddingLeft: 10
-  },
-  labelHeader: {
-    textAlign: 'center',
-    fontSize: 22,
-    fontWeight: '500'
   },
   labelDescription: {
     textAlign: 'center',
@@ -187,8 +151,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: TEXT_COLOR_SECONDARY
   },
-  buttonsWrapper: {
-    width: screenWidth,
-    paddingTop: 40
-  }
 })

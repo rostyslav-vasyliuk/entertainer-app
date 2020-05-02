@@ -302,11 +302,6 @@ export default Preferences;
 
 
 const styles = StyleSheet.create({
-  dragWrapper: {
-    padding: 10,
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
   wrapper: {
     flex: 1,
     alignItems: 'center',
@@ -348,11 +343,6 @@ const styles = StyleSheet.create({
     shadowRadius: 1.84,
     elevation: 1
   },
-  profileCompleteHeader: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 16
-  },
   menuButtonWrapper: {
     height: 50,
     flexDirection: 'row',
@@ -363,11 +353,6 @@ const styles = StyleSheet.create({
   },
   left: {
     marginRight: BASE_SIZE,
-  },
-  right: {
-    width: BASE_SIZE * 2,
-    backgroundColor: 'transparent',
-    elevation: 0,
   },
   gradient: {
     width: BASE_SIZE * 2.5,
