@@ -11,6 +11,7 @@ import ActorWithMovies from './components/ActorWithMovies';
 import ListMoviesOfTheWeek from './components/ListMoviesOfTheWeek';
 import SerieOfTheWeek from './components/SerieOfTheWeek';
 import ListSeriesOfTheWeek from './components/ListSeriesOfTheWeek';
+import MoviesGrid from './components/MoviesGrid';
 
 const RecommendationsFeed = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +54,7 @@ const RecommendationsFeed = (props) => {
     }
 
     if (data.type === 'movies_of_the_week') {
-      return <ListMoviesOfTheWeek data={data.data} navigation={props.navigation} />
+      return <MoviesGrid data={data.data} navigation={props.navigation} label={'People watching now'}/>
     }
 
     if (data.type === 'serie_of_the_week') {
@@ -63,6 +64,11 @@ const RecommendationsFeed = (props) => {
     if (data.type === 'series_of_the_week') {
       return <ListSeriesOfTheWeek data={data.data} navigation={props.navigation} />
     }
+    if (data.type === 'movies_preferences') {
+      console.log(data)
+      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Based on your preferences'}/>
+    }
+    
   }
 
   const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR} />;

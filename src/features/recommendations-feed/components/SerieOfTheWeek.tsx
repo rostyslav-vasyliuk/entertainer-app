@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { ScrollView, StyleSheet, View, ActivityIndicator, RefreshControl, Text, TouchableOpacity, Animated, Easing, Image, ImageBackground, TouchableWithoutFeedback } from 'react-native';
 import { BACKGROUND, LOADER_COLOR, TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY, BUTTON_COLOR } from '../../../constants/color-constants';
-import { screenHeight, BOTTOM_NAVIGATOR_HEIGHT, TOP_HEADER_HEIGHT, screenWidth } from '../../../constants/screen-contants';
-import { Axios } from '../../../api/instance';
-import { AxiosResponse } from 'axios';
-import { Button } from 'native-base';
-import { movieGenres } from '../../movies/constants';
+import { screenHeight, BOTTOM_NAVIGATOR_HEIGHT, screenWidth } from '../../../constants/screen-contants';
 import { seriesGenres } from '../../series/constants';
 
 
 const SerieOfTheWeek = ({ data, navigation }) => {
+  const navigate = (current_id) => {
+    navigation.push('SeriesDetails', {
+      series_id: current_id
+    })
+  }
+
   const animatedValue = new Animated.Value(1);
   const onPressInAnimation = () => {
     Animated.timing(animatedValue, {
@@ -39,6 +41,7 @@ const SerieOfTheWeek = ({ data, navigation }) => {
       <TouchableWithoutFeedback
         onPressIn={() => onPressInAnimation()}
         onPressOut={() => onPressOutAnimation()}
+        onPress={() => navigate(data.id)}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
           <View style={movieOfTheWeekStyles.wrapper}>

@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { ScrollView, StyleSheet, View, ActivityIndicator, RefreshControl, Text, TouchableOpacity, Animated, Easing, Image, ImageBackground, TouchableWithoutFeedback } from 'react-native';
-import { BACKGROUND, LOADER_COLOR, TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY, BUTTON_COLOR } from '../../../constants/color-constants';
-import { screenHeight, BOTTOM_NAVIGATOR_HEIGHT, TOP_HEADER_HEIGHT, screenWidth } from '../../../constants/screen-contants';
-import { Axios } from '../../../api/instance';
-import { AxiosResponse } from 'axios';
-import { Button } from 'native-base';
+import React from 'react';
+import { StyleSheet, View, Text, Animated, Easing, ImageBackground, TouchableWithoutFeedback } from 'react-native';
+import { TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { screenWidth } from '../../../constants/screen-contants';
 import { movieGenres } from '../../movies/constants';
 
 
@@ -23,6 +19,12 @@ const MovieOfTheWeek = ({ data, navigation }) => {
     }).start();
   }
 
+  const navigate = (current_id) => {
+    navigation.push('MovieDetails', {
+      movie_id: current_id
+    })
+  }
+
   const getGenre = (genre_id) => {
     if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
       return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
@@ -38,6 +40,7 @@ const MovieOfTheWeek = ({ data, navigation }) => {
       <TouchableWithoutFeedback
         onPressIn={() => onPressInAnimation()}
         onPressOut={() => onPressOutAnimation()}
+        onPress={() => navigate(data.id)}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
           <View style={movieOfTheWeekStyles.wrapper}>

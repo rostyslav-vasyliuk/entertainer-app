@@ -224,7 +224,6 @@ const Preferences = (props) => {
                 colors={colors}
                 styles={stylesMulti}
                 onSelectedItemsChange={onSelectedMoviesChange}
-                // onSelectedItemObjectsChange={onSelectedMoviesChange}
                 selectedItems={selectedMovies}
                 onConfirm={() => onConfirm('moviesPreferences')}
               />
@@ -238,7 +237,7 @@ const Preferences = (props) => {
             <View style={styles.profileCompleteWrapper}>
               <SectionedMultiSelect
                 items={seriesGenres}
-                uniqueKey="genre"
+                uniqueKey="movieDB_id"
                 displayKey='genre'
                 selectText="Choose series genres...  "
                 searchPlaceholderText={'Type here'}
