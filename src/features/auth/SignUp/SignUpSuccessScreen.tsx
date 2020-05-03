@@ -49,7 +49,7 @@ const GreetingsScreen = (props) => {
                 height: '100%',
                 backgroundColor: 'transparent',
               }}
-              source={require('../../../assets/gears.json')}
+              source={require('../../../assets/lottie/gears.json')}
               autoPlay
               loop={true}
             />
@@ -78,7 +78,7 @@ const GreetingsScreen = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../../assets/trophy.json')}
+            source={require('../../../assets/lottie/trophy.json')}
             autoPlay
             loop={false}
           />

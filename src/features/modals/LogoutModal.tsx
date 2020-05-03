@@ -32,7 +32,7 @@ const LogoutModal = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/logout-dark.json')}
+            source={require('../../assets/lottie/logout-dark.json')}
             autoPlay
             loop={true}
           />

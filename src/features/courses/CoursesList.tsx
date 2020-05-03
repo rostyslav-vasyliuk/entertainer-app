@@ -144,7 +144,7 @@ const EventList = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/empty-box.json')}
+            source={require('../../assets/lottie/empty-box.json')}
             autoPlay
             loop={true}
           />

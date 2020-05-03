@@ -128,7 +128,7 @@ const AnimatedExample = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../../assets/timer.json')}
+            source={require('../../../assets/lottie/timer.json')}
             autoPlay
             loop={true}
           />
@@ -166,7 +166,7 @@ const AnimatedExample = (props) => {
             height: '100%',
             backgroundColor: 'transparent',
           }}
-          source={require('../../../assets/envelope.json')}
+          source={require('../../../assets/lottie/envelope.json')}
           autoPlay
           loop={true}
         />

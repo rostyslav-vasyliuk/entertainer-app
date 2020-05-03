@@ -37,7 +37,7 @@ const AppIntroOverlay = (props: Props) => {
               height: 250,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/welcome-animation.json')}
+            source={require('../../assets/lottie/welcome-animation.json')}
             autoPlay
             loop={true}
           />
@@ -54,7 +54,7 @@ const AppIntroOverlay = (props: Props) => {
               height: 250,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/world.json')}
+            source={require('../../assets/lottie/world.json')}
             autoPlay
             loop={true}
           />
@@ -71,7 +71,7 @@ const AppIntroOverlay = (props: Props) => {
               height: 250,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/town.json')}
+            source={require('../../assets/lottie/town.json')}
             autoPlay
             loop={false}
           />
@@ -105,7 +105,7 @@ const AppIntroOverlay = (props: Props) => {
               height: 230,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/mobile-app.json')}
+            source={require('../../assets/lottie/mobile-app.json')}
             autoPlay
             loop={true}
           />

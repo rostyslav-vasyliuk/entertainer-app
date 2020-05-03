@@ -27,7 +27,7 @@ const FeedbackSuccessModal = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/success.json')}
+            source={require('../../assets/lottie/success.json')}
             autoPlay
             loop={false}
           />

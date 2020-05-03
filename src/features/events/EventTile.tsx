@@ -3,17 +3,17 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react
 
 const EventTile = (props) => {
   const images = {
-    concerts: require('../../assets/images/concert.jpg'),
-    theatres: require('../../assets/images/theatre.jpg'),
-    children: require('../../assets/images/for_child.jpg'),
-    festivals: require('../../assets/images/festival.jpg'),
-    'stand-up': require('../../assets/images/stand_up.jpg'),
-    seminars: require('../../assets/images/seminar.jpg'),
-    exhibitions: require('../../assets/images/exhibition.jpg'),
-    business: require('../../assets/images/bussiness.jpg'),
-    quests: require('../../assets/images/quest.jpg'),
-    sports: require('../../assets/images/sport.jpg'),
-    poetry: require('../../assets/images/poetry.jpg'),
+    concerts: require('../../assets/images/events/concert.jpg'),
+    theatres: require('../../assets/images/events/theatre.jpg'),
+    children: require('../../assets/images/events/for_child.jpg'),
+    festivals: require('../../assets/images/events/festival.jpg'),
+    'stand-up': require('../../assets/images/events/stand_up.jpg'),
+    seminars: require('../../assets/images/events/seminar.jpg'),
+    exhibitions: require('../../assets/images/events/exhibition.jpg'),
+    business: require('../../assets/images/events/bussiness.jpg'),
+    quests: require('../../assets/images/events/quest.jpg'),
+    sports: require('../../assets/images/events/sport.jpg'),
+    poetry: require('../../assets/images/events/poetry.jpg'),
   }
 
   const onEventTypeNavigate = () => {
