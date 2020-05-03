@@ -7,6 +7,8 @@ import { AppLoading } from 'expo';
 import { FontAwesome, Entypo, AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import { Root } from 'native-base';
+import { Asset } from 'expo-asset';
+import { assets } from './constants/images-assets';
 
 const App = () => {
   const [isAppReady, setIsAppReady] = useState(false)
@@ -16,11 +18,17 @@ const App = () => {
       [FontAwesome.font, Entypo.font, AntDesign.font, Ionicons.font, MaterialIcons.font, MaterialCommunityIcons.font]
     );
 
-    await Promise.all([...fontAssets]);
+    const imagesAssets = cacheImages([...assets]);
+
+    await Promise.all([...fontAssets, ...imagesAssets]);
   }
 
   const cacheFonts = (fonts) => {
     return fonts.map(font => Font.loadAsync(font));
+  }
+
+  const cacheImages = (images) => {
+    return images.map(image => Asset.loadAsync(image));
   }
 
   if (!isAppReady) {
