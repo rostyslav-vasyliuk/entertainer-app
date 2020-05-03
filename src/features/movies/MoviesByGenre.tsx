@@ -87,8 +87,8 @@ const MoviesByGenre = (props) => {
   }
 
   const getGenre = (genre_id) => {
-    if (movieGenres.find((item) => item.movieDB_id === genre_id)) {
-      return movieGenres.find((item) => item.movieDB_id === genre_id).genre;
+    if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
+      return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
     }
   }
 

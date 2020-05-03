@@ -35,6 +35,21 @@ const RecommendationsStack = createStackNavigator(
     RecommendationsFeed: {
       screen: RecommendationsFeed,
     },
+    EventDetails: {
+      screen: EventDetails
+    },
+    MovieDetails: {
+      screen: MovieDetails
+    },
+    SeriesDetails: {
+      screen: SeriesDetails
+    },
+    ActorDetails: {
+      screen: ActorDetails
+    },
+    CourseDetails: {
+      screen: CourseDetails
+    }
   },
   {
     headerMode: 'none'

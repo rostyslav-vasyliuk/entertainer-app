@@ -205,7 +205,7 @@ const Preferences = (props) => {
             />
           </View>
 
-          <Text style={{ color: TEXT_COLOR, margin: 30 }}>
+          <Text style={{ color: TEXT_COLOR, margin: 6, fontWeight: '600', letterSpacing: 1, fontSize: 18 }}>
             {'Personal preferences'}
           </Text>
 
@@ -216,7 +216,7 @@ const Preferences = (props) => {
             <View style={styles.profileCompleteWrapper}>
               <SectionedMultiSelect
                 items={movieGenres}
-                uniqueKey="genre"
+                uniqueKey="movieDB_id"
                 displayKey='genre'
                 selectText="Choose movies genres...  "
                 searchPlaceholderText={'Type here'}
@@ -224,6 +224,7 @@ const Preferences = (props) => {
                 colors={colors}
                 styles={stylesMulti}
                 onSelectedItemsChange={onSelectedMoviesChange}
+                // onSelectedItemObjectsChange={onSelectedMoviesChange}
                 selectedItems={selectedMovies}
                 onConfirm={() => onConfirm('moviesPreferences')}
               />

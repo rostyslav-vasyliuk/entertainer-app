@@ -81,8 +81,8 @@ const PopularSeries = (props) => {
   }
 
   const getGenre = (genre_id) => {
-    if (seriesGenres.find((item) => item.movieDB_id === genre_id)) {
-      return seriesGenres.find((item) => item.movieDB_id === genre_id).genre;
+    if (seriesGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
+      return seriesGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
     }
   }
 

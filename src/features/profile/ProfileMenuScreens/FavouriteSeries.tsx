@@ -38,9 +38,8 @@ const FavouriteSeries = (props) => {
   }, []);
 
   const getGenre = (genres: any[]) => {
-    console.log(genres[0])
-    if (seriesGenres.find((item) => item.movieDB_id === genres[0].id)) {
-      return seriesGenres.find((item) => item.movieDB_id === genres[0].id).genre;
+    if (seriesGenres.find((item) => Number(item.movieDB_id) === genres[0].id)) {
+      return seriesGenres.find((item) => Number(item.movieDB_id) === genres[0].id).genre;
     }
   }
 
