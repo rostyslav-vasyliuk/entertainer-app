@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, AsyncStorage } from 'react-native';
-import { screenHeight, screenWidth } from '../../../constants/screen-contants';
-import { Button, Text, Header, Left, Body, Title, Right } from 'native-base';
+import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, AsyncStorage, ActivityIndicator, Keyboard } from 'react-native';
+import { screenWidth } from '../../../constants/screen-contants';
+import { Button, Text } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../../constants/color-constants';
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onLogin = () => {
+    setIsLoading(true);
+    Keyboard.dismiss();
     const body = {
       email,
       password
@@ -23,7 +26,10 @@ const LoginScreen = (props) => {
       AsyncStorage.setItem('access-token', token);
       Object.assign(Axios.defaults, { headers: { 'access-token': token } });
       props.setUserData(response.data);
+      setIsLoading(false);
       props.navigation.navigate('App');
+    }).catch(() => {
+      setIsLoading(false);
     })
   }
 
@@ -87,9 +93,13 @@ const LoginScreen = (props) => {
         </View>
         <View style={styles.buttonsWrapper}>
           <Button full style={styles.button} onPress={onLogin}>
-            <Text>
-              {'Login'}
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator color={LOADER_COLOR} />
+            ) : (
+                <Text>
+                  {'Login'}
+                </Text>
+              )}
           </Button>
           <View style={styles.additionalLink}>
             <Text style={styles.basicText}>
