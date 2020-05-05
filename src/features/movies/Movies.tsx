@@ -3,13 +3,13 @@ import { View, Text, ScrollView, StyleSheet, RefreshControl } from 'react-native
 import MovieTile from './MovieTile';
 import { movieGenres } from './constants';
 import PopularMovies from './PopularMovies'
-import { Picker, Icon } from 'native-base';
+// import { Picker, Icon } from 'native-base';
 import { BACKGROUND, TEXT_COLOR, LOADER_COLOR } from '../../constants/color-constants';
 
-const data = [
-  "Most Relevant",
-  "Most Popular"
-]
+// const data = [
+//   "Most Relevant",
+//   "Most Popular"
+// ]
 
 const Movies = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -67,7 +67,7 @@ const Movies = (props: any) => {
           <Text style={styles.popularMoviesLabel}>
             {'Popular Movies'}
           </Text>
-          <Picker
+          {/* <Picker
             mode="dropdown"
             iosHeader="Sort by"
             iosIcon={<Icon name="arrow-down" style={{ marginLeft: 0, marginRight: 4, fontSize: 16, color: TEXT_COLOR }} />}
@@ -79,7 +79,7 @@ const Movies = (props: any) => {
             {data.map((item) => (
               <Picker.Item label={item} value={item} key={item} />
             ))}
-          </Picker>
+          </Picker> */}
         </View>
 
         <PopularMovies

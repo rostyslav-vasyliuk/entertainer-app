@@ -26,15 +26,15 @@ const categoryLabels = {
   },
   movies: {
     label: 'Movies',
-    description: 'Search for all movies in our database to get something interesting for you'
+    description: 'Search for all movies in our database and get something interesting for you'
   },
   tv_series: {
     label: 'TV Series',
-    description: 'Find your favourite TV series with our recommendations'
+    description: 'Find some amazing new series you haven\'t seen yet'
   },
   education: {
     label: 'Education',
-    description: 'Real Japan rolls? Or a huge Cheesburger? Order to door? Yeah, just click here!'
+    description: 'Want to learn something new? Find best free courses in this section'
   },
 }
 

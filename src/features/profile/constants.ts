@@ -1,7 +1,7 @@
 export const favouriteButtons = [
   {
     buttonLabel: 'Events',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'List of all your events that you have added to favourites',
     icon: 'event',
     fontFamily: 'MaterialIcons',
     gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
@@ -9,7 +9,7 @@ export const favouriteButtons = [
   },
   {
     buttonLabel: 'Movies',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'List of all your movies that you have added to favourites',
     icon: 'library-movie',
     fontFamily: 'MaterialCommunityIcons',
     gradientColors: ['#D94989', '#8F44CE'],
@@ -17,7 +17,7 @@ export const favouriteButtons = [
   },
   {
     buttonLabel: 'Series',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'List of all your series that you have added to favourites',
     icon: 'md-tv',
     fontFamily: 'Ionicons',
     gradientColors: ['#8F44CE', '#6B84CA'],
@@ -25,7 +25,7 @@ export const favouriteButtons = [
   },
   {
     buttonLabel: 'Education',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'List of all your courses that you have added to favourites',
     icon: 'university',
     fontFamily: 'FontAwesome5',
     gradientColors: ['#B446AB', '#fe4b66'],
@@ -44,7 +44,7 @@ export const accountButtons = [
   },
   {
     buttonLabel: 'Edit',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'Edit information of your profile like your name or birthdate',
     icon: 'account-edit',
     fontFamily: 'MaterialCommunityIcons',
     gradientColors: ['#D94989', '#8F44CE'],
@@ -52,7 +52,7 @@ export const accountButtons = [
   },
   {
     buttonLabel: 'Change password',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'Here you can change your password you use for accessing our app',
     icon: 'security',
     fontFamily: 'MaterialCommunityIcons',
     gradientColors: ['#8F44CE', '#6B84CA'],
@@ -60,7 +60,7 @@ export const accountButtons = [
   },
   {
     buttonLabel: 'Language',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'You can choose language from the list that are most common for you',
     icon: 'language',
     fontFamily: 'FontAwesome',
     gradientColors: ['#B446AB', '#fe4b66'],
@@ -68,7 +68,7 @@ export const accountButtons = [
   },
   {
     buttonLabel: 'Permissions',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'Control all your permissions you granted to this app',
     icon: 'ios-switch',
     fontFamily: 'Ionicons',
     gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
@@ -76,7 +76,7 @@ export const accountButtons = [
   },
   {
     buttonLabel: 'Support',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'If you want to request some support of just leave a feedback - tap here',
     icon: 'chat-processing',
     fontFamily: 'MaterialCommunityIcons',
     gradientColors: ['#B446AB', '#fe4b66'],
@@ -84,7 +84,7 @@ export const accountButtons = [
   },
   {
     buttonLabel: 'Logout',
-    buttonDescription: 'Control your preferences and orders of categories',
+    buttonDescription: 'If you want to logout - tap here!',
     icon: 'ios-exit',
     fontFamily: 'Ionicons',
     gradientColors: ['#B446AB', '#fe4b66'],
