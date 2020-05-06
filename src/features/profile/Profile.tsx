@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
-import { Avatar, Divider } from 'react-native-elements';
+import React from 'react';
+import { View, ScrollView, Text, StyleSheet, RefreshControl } from 'react-native';
+import { Divider } from 'react-native-elements';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
-import * as Progress from 'react-native-progress';
 import { screenWidth } from '../../constants/screen-contants';
 import AvatarComponent from './AvatarComponent.container';
 import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -11,11 +10,14 @@ import { favouriteButtons, accountButtons } from './constants';
 import LogoutModal from '../modals/LogoutModal.container';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT, BACKGROUND, LOADER_COLOR } from '../../constants/color-constants';
 import HeaderCustom from '../../ui-components/Header/Header';
+import { useTranslation, withTranslation } from 'react-i18next';
 
 const BASE_SIZE = 16;
 const COLOR_WHITE = '#FFFFFF';
 
 const Profile = (props) => {
+  const { t } = useTranslation();
+
   const onProfileNavigate = (component: string) => {
     if (!component) {
       return;
@@ -98,7 +100,7 @@ const Profile = (props) => {
 
   return (
     <>
-      <HeaderCustom label={'Profile'} />
+      <HeaderCustom label={t('Profile')} />
       <ScrollView style={{ backgroundColor: BACKGROUND }} refreshControl={RefreshController}>
         <View style={styles.wrapper}>
 
@@ -112,7 +114,7 @@ const Profile = (props) => {
           </Text>
 
           <Text style={styles.profileHeader}>
-            {'Favourites'}
+            {t('Favourites')}
           </Text>
           <View style={styles.profileCompleteWrapper}>
             {favouriteButtons.map((button, index) => (
@@ -121,7 +123,7 @@ const Profile = (props) => {
           </View>
 
           <Text style={styles.profileHeader}>
-            {'Settings'}
+            {t('Settings')}
           </Text>
           <View style={styles.profileCompleteWrapper}>
             {accountButtons.map((button, index) => (
@@ -131,12 +133,12 @@ const Profile = (props) => {
         </View>
       </ScrollView>
 
-      <LogoutModal navigation={props.navigation}/>
+      <LogoutModal navigation={props.navigation} />
     </>
   )
 }
 
-export default Profile;
+export default withTranslation()(Profile);
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -155,7 +157,6 @@ const styles = StyleSheet.create({
   profileCompleteWrapper: {
     backgroundColor: BACKGROUND_LIGHT,
     width: '95%',
-    // margin: 50,
     marginTop: 15,
     marginBottom: 15,
     padding: 7,

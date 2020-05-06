@@ -8,6 +8,7 @@ import { Button } from 'native-base';
 import { screenWidth } from './constants/screen-contants';
 import LottieView from 'lottie-react-native';
 import { TEXT_COLOR, BACKGROUND_LIGHT, BUTTON_COLOR } from './constants/color-constants';
+import i18n from './i18n';
 
 const AppContainer = (props) => {
   const unsubscribe = NetInfo.addEventListener(state => {
@@ -18,6 +19,7 @@ const AppContainer = (props) => {
 
   useEffect(() => {
     console.disableYellowBox = true;
+    i18n.changeLanguage(props.language);
     return () => {
       unsubscribe();
     }
@@ -60,7 +62,8 @@ const AppContainer = (props) => {
 }
 
 const mapStateToProps: (state) => any = (state) => ({
-  isConnected: state.profile.isConnected
+  isConnected: state.profile.isConnected,
+  language: state.profile.language
 });
 
 const mapDispatchToProps = (dispatch) => ({

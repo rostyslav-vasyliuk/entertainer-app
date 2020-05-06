@@ -4,29 +4,33 @@ import { CheckBox } from 'native-base';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 import { Divider } from 'react-native-elements';
+import i18n from '../../../i18n';
+import { useTranslation, withTranslation } from 'react-i18next';
 
 const ChangeLanguage = (props) => {
+  const { t } = useTranslation();
   const goBack = () => {
     props.navigation.goBack();
   }
 
   const onLanguageChange = (language) => {
+    i18n.changeLanguage(language);
     props.changeLanguage(language);
   }
 
   return (
     <>
-      <HeaderCustom label={'Language'} back={goBack} />
+      <HeaderCustom label={t('language')} back={goBack} />
 
       <ScrollView style={styles.wrapper}>
 
         <Text style={styles.title}>
-          {'Choose language from list'}
+          {t('chooseLanguage')}
         </Text>
 
-        <TouchableOpacity onPress={() => onLanguageChange('english')}>
+        <TouchableOpacity onPress={() => onLanguageChange('en')}>
           <View style={styles.checkboxItem}>
-            <CheckBox checked={props.language === 'english'} color={'#fe4b66'} />
+            <CheckBox checked={props.language === 'en'} color={'#fe4b66'} />
             <View>
               <Text style={styles.languageText}>
                 {'English'}
@@ -40,9 +44,9 @@ const ChangeLanguage = (props) => {
 
         <Divider style={{ backgroundColor: '#2d3138', margin: 12, height: 1 }} />
 
-        <TouchableOpacity onPress={() => onLanguageChange('ukrainian')}>
+        <TouchableOpacity onPress={() => onLanguageChange('ua')}>
           <View style={styles.checkboxItem}>
-            <CheckBox checked={props.language === 'ukrainian'} color={'#fe4b66'} />
+            <CheckBox checked={props.language === 'ua'} color={'#fe4b66'} />
             <View>
               <Text style={styles.languageText}>
                 {'Ukrainian'}
@@ -58,7 +62,7 @@ const ChangeLanguage = (props) => {
   )
 }
 
-export default ChangeLanguage;
+export default withTranslation()(ChangeLanguage);
 
 const styles = StyleSheet.create({
   wrapper: {

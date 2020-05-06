@@ -11,7 +11,7 @@ export const initialState: AuthReducer = {
   userData: null,
   theme: 'dark',
   isConnected: true,
-  language: 'english'
+  language: 'en'
 };
 
 // tslint:disable-next-line:no-any

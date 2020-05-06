@@ -5,6 +5,7 @@
     "lib": ["dom", "esnext"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true
