@@ -61,7 +61,8 @@ export const coursesAssets = [
 export const otherImages = [
   require('../assets/female.png'),
   require('../assets/male.png'),
-  require('../assets/youtube-play.png')
+  require('../assets/youtube-play.png'),
+  require('../../assets/dark-logo.png')
 ];
 
 export const assets = [...moviesAssets, ...seriesAssets, ...eventsAssets, ...coursesAssets, ...otherImages];
