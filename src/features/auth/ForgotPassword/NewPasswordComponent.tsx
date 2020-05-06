@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView, Keyboard } from 'react-native';
 import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
@@ -17,6 +17,7 @@ const NewPasswordComponent = (props) => {
   }
 
   const toNextScreen = () => {
+    Keyboard.dismiss();
     const token = props.navigation.getParam('reset-password-token', null);
     const email = props.navigation.getParam('email', null);
     Axios.post('/auth/reset-password', { email, password: newPassword }, { headers: { 'reset-password-token': token } })

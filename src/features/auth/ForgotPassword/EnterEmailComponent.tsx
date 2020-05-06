@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Platform, KeyboardAvoidingView, ActivityIndicator, Keyboard } from 'react-native';
 import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../api/instance';
@@ -17,6 +17,7 @@ const EnterEmail = (props) => {
 
   const toNextScreen = () => {
     setIsLoading(true);
+    Keyboard.dismiss();
     Axios.post('/auth/forgot-password-pending', { email })
       .then((response: AxiosResponse) => {
         props.navigation.push('VerificationComponent', {
