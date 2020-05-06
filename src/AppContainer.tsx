@@ -17,6 +17,7 @@ const AppContainer = (props) => {
   });
 
   useEffect(() => {
+    console.disableYellowBox = true;
     return () => {
       unsubscribe();
     }

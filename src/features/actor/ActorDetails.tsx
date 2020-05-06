@@ -56,14 +56,15 @@ const ActorDetails = (props) => {
   }
 
   const renderFilmography = () => (
-    actorsData.credits.cast.map((movie) => {
+    actorsData.credits.cast.map((actor_details) => {
       return (
-        <TouchableOpacity onPress={() => onMovieNavigate(movie.id)}>
+        <TouchableOpacity onPress={() => onMovieNavigate(actor_details.id)}>
           <View style={styles.filmBlock}>
-            {movie.backdrop_path ?
+            {actor_details.backdrop_path ?
               <Image
-                source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
+                source={{ uri: `https://image.tmdb.org/t/p/w1280/${actor_details.backdrop_path}` }}
                 style={{ width: 130, height: 70, borderRadius: 5 }}
+                borderRadius={8}
                 placeholderStyle={{ backgroundColor: BACKGROUND }}
                 PlaceholderContent={<ActivityIndicator size='small' color={LOADER_COLOR} />}
               />
@@ -75,13 +76,13 @@ const ActorDetails = (props) => {
             }
             <View style={styles.filmographyBlock}>
               <Text style={styles.filmographyTextLabel}>
-                {movie.title}
+                {actor_details.title}
               </Text>
               <Text style={styles.filmographyReleaseYear}>
-                {getYear(movie.release_date)}
+                {getYear(actor_details.release_date)}
               </Text>
               <Text style={styles.filmographyCharacter}>
-                {`as ${movie.character}`}
+                {`as ${actor_details.character}`}
               </Text>
             </View>
           </View>
@@ -91,15 +92,16 @@ const ActorDetails = (props) => {
   )
 
   const renderSeriesCast = () => (
-    actorsData.tv_credits.cast.map((movie) => {
+    actorsData.tv_credits.cast.map((actor_details) => {
       return (
-        <TouchableOpacity onPress={() => onSeriesNavigate(movie.id)}>
+        <TouchableOpacity onPress={() => onSeriesNavigate(actor_details.id)}>
           <View style={styles.filmBlock}>
-            {movie.backdrop_path ?
+            {actor_details.backdrop_path ?
               <Image
-                source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
+                source={{ uri: `https://image.tmdb.org/t/p/w1280/${actor_details.backdrop_path}` }}
                 style={{ width: 130, height: 70, borderRadius: 5 }}
                 placeholderStyle={{ backgroundColor: BACKGROUND }}
+                borderRadius={8}
                 PlaceholderContent={<ActivityIndicator size='small' color={LOADER_COLOR} />}
               />
               : (
@@ -110,13 +112,13 @@ const ActorDetails = (props) => {
             }
             <View style={styles.filmographyBlock}>
               <Text style={styles.filmographyTextLabel}>
-                {movie.name}
+                {actor_details.name}
               </Text>
               <Text style={styles.filmographyReleaseYear}>
-                {getYear(movie.first_air_date)}
+                {getYear(actor_details.first_air_date)}
               </Text>
               <Text style={styles.filmographyCharacter}>
-                {`as ${movie.character}`}
+                {`as ${actor_details.character}`}
               </Text>
             </View>
           </View>
@@ -128,7 +130,7 @@ const ActorDetails = (props) => {
   const renderCarouselItem = ({ item }) => {
     return (
       <View>
-        <Image source={{ uri: `https://image.tmdb.org/t/p/w1280/${item.file_path}` }} style={styles.carouselleItemImage} />
+        <Image source={{ uri: `https://image.tmdb.org/t/p/w1280/${item.file_path}` }} style={styles.carouselleItemImage} borderRadius={8} />
       </View>
     )
   }
@@ -170,10 +172,18 @@ const ActorDetails = (props) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w1280/${actorsData.profile_path}` }}
-        style={styles.image}
-      />
+      {actorsData.profile_path ? (
+        <Image
+          source={{ uri: `https://image.tmdb.org/t/p/w1280/${actorsData.profile_path}` }}
+          style={styles.image}
+          PlaceholderContent={<ActivityIndicator color={LOADER_COLOR} />}
+          placeholderStyle={{ backgroundColor: BACKGROUND }}
+        />
+      ) : (
+          <View style={{ height: 400, width: '100%', borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: HEADER_BACKGROUND }}>
+            <Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 40 }} />
+          </View>
+        )}
       <View style={styles.blockWrapper}>
         <Text style={styles.actorsName}>
           {actorsData.name}
@@ -273,7 +283,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 400,
     width: '100%',
-    borderRadius: 8
   },
   actorsName: {
     color: '#fff',

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView, TouchableOpacity, StatusBar } from 'react-native';
 import { Button, Header, Left, Body, Right, Text } from 'native-base';
-// import { AntDesign } from 'react-native-vector-icons';
 import { TextField } from 'react-native-material-textfield';
 import BackArrow from '../../../ui-components/BackArrow/BackArrow';
-import { BACKGROUND_LIGHT, HEADER_BACKGROUND, BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
-// import Stepper from '../../../ui-components/stepper/Stepper';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const EmailScreen = (props) => {
   const [email, setEmail] = useState('');
@@ -77,9 +75,8 @@ const EmailScreen = (props) => {
                 />
               </View>
               <Button
-                // disabled={isButtonDisabled}
                 full
-                style={[styles.button, isButtonDisabled && styles.buttonDisabled]}
+                style={[styles.button]}
                 onPress={toNextScreen}
               >
                 <Text>

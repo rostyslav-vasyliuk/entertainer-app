@@ -203,7 +203,7 @@ const BottomTabNavigator = createBottomTabNavigator({
   DiscoverStack,
   ProfileStack
 }, {
-  initialRouteName: 'ProfileStack'
+  initialRouteName: 'RecommendationsStack'
 });
 
 export default BottomTabNavigator;

@@ -28,7 +28,7 @@ export const permissionsListItems = [
 export const editProfileListItems = [
   {
     buttonLabel: 'Edit Name',
-    buttonDescription: 'Access to your camera for capturing in-app photos',
+    buttonDescription: 'Edit yor firstname and lastname in this section',
     icon: 'account-edit',
     fontFamily: 'MaterialCommunityIcons',
     gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
@@ -36,7 +36,7 @@ export const editProfileListItems = [
   },
   {
     buttonLabel: 'Edit Email',
-    buttonDescription: 'Access to your camera roll for getting images from your gallery',
+    buttonDescription: 'Edit your email, but be attentive, that email is used for authorization',
     icon: 'email-outline',
     fontFamily: 'MaterialCommunityIcons',
     gradientColors: ['#B446AB', '#fe4b66'],
@@ -44,7 +44,7 @@ export const editProfileListItems = [
   },
   {
     buttonLabel: 'Edit Additional Information',
-    buttonDescription: 'For receiving of recomendations with push notifications',
+    buttonDescription: 'Edit additional information like country or birhtdate',
     icon: 'edit',
     fontFamily: 'MaterialIcons',
     gradientColors: ['#fe4b66', '#B446AB'],

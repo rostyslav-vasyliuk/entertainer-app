@@ -36,13 +36,6 @@ const RecommendationsFeed = (props) => {
     })
   }, []);
 
-  const click = () => {
-    Axios.get('/recommendations/list').then((response: AxiosResponse) => {
-      setIsLoading(false);
-      setResponseData(response.data.result);
-    })
-  }
-
   const renderReccomendedItem = (data, index) => {
     if (data.type === 'actor_movies') {
       return <ActorWithMovies data={data} navigation={props.navigation} />;

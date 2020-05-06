@@ -31,7 +31,7 @@ const NavigationController = (props) => {
         // if user has seen Intro it means that he is logged out - if not so its brand new user
         const hasUserSeenIntro = await AsyncStorage.getItem('hasUserSeenIntro');
         if (hasUserSeenIntro) {
-          props.navigation.navigate('GreetingsScreen');
+          props.navigation.navigate('Intro');
         } else {
           if (Platform.OS !== 'ios') {
             props.navigation.navigate('GreetingsScreen');

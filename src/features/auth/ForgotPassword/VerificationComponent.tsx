@@ -1,4 +1,4 @@
-import { Animated, Image, SafeAreaView, Text, View } from 'react-native';
+import { Animated, SafeAreaView, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Button } from 'native-base';
 import LottieView from 'lottie-react-native';
@@ -128,7 +128,7 @@ const AnimatedExample = (props) => {
               height: '100%',
               backgroundColor: 'transparent',
             }}
-            source={require('../../../assets/lottie/timer.json')}
+            source={require('../../../assets/lottie/timer_white.json')}
             autoPlay
             loop={true}
           />

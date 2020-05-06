@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, Image, ImageBackground, Linking } from 'react-native';
+import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, ImageBackground, Linking } from 'react-native';
+import { Image } from 'react-native-elements';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
@@ -9,7 +10,7 @@ import { movieGenres } from '../constants';
 import { Toast } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import { screenHeight } from '../../../constants/screen-contants';
-import { BACKGROUND, TEXT_COLOR } from '../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../../constants/color-constants';
 
 const MovieDetails = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -130,15 +131,14 @@ const MovieDetails = (props) => {
 					<Image
 						source={{ uri: `https://image.tmdb.org/t/p/w1280/${movieData.backdrop_path}` }}
 						style={styles.image}
-						PlaceholderStyle={{ backgroundColor: '#000000' }}
+						placeholderStyle={{ backgroundColor: '#000000' }}
 						PlaceholderContent={<ActivityIndicator size='large' color="#fff" />}
 					/>
-					:
-					<Image
-						PlaceholderContent={<Entypo name='image' size={60} color='#8c939e' />}
-						placeholderStyle={{ backgroundColor: '#000000' }}
-						style={styles.image}
-					/>
+					: (
+						<View style={{ height: 280, width: '100%', borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: HEADER_BACKGROUND }}>
+							<Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 40 }} />
+						</View>
+					)
 				}
 				<Text style={styles.title}>{movieData.title}</Text>
 				<View style={styles.infoMovieMain}>
@@ -203,7 +203,13 @@ const MovieDetails = (props) => {
 								return (
 									<TouchableOpacity onPress={() => onActorNavigate(elem.id)}>
 										<View style={styles.castBlock} key={elem.id}>
-											<Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} style={styles.imageCast} />
+											<Image
+												source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }}
+												style={styles.imageCast}
+												borderRadius={8}
+												placeholderStyle={{ backgroundColor: '#000000' }}
+												PlaceholderContent={<ActivityIndicator size='large' color="#fff" />}
+											/>
 											<Text style={styles.realName}>{elem.name}</Text>
 											<Text style={styles.characterName}>{elem.character}</Text>
 										</View>
@@ -223,7 +229,7 @@ const MovieDetails = (props) => {
 					<TouchableOpacity onPress={onTrailerClick}>
 						<View style={styles.trailerBlock}>
 							<ImageBackground source={{ uri: getVideoBackground() }} style={{ height: 170, width: 320, display: 'flex', justifyContent: 'center', alignItems: 'center' }} imageStyle={{ height: 170, width: 320, borderRadius: 2 }}>
-								<Image source={require('../../../assets/youtube-play.png')} style={styles.playButton} />
+								<Image source={require('../../../assets/youtube-play.png')} style={styles.playButton} borderRadius={8}/>
 							</ImageBackground>
 						</View>
 					</TouchableOpacity>
@@ -277,7 +283,7 @@ const styles = StyleSheet.create({
 	image: {
 		flex: 1,
 		height: 280,
-		backgroundColor: '#030405'
+		// backgroundColor: '#030405'
 	},
 	country: {
 		color: TEXT_COLOR,
