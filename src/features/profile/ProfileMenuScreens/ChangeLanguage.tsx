@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'native-base';
 import HeaderCustom from '../../../ui-components/Header/Header';
-import { TEXT_COLOR, BACKGROUND_LIGHT, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 import { Divider } from 'react-native-elements';
 
 const ChangeLanguage = (props) => {
@@ -12,7 +12,6 @@ const ChangeLanguage = (props) => {
 
   const onLanguageChange = (language) => {
     props.changeLanguage(language);
-    console.log(language);
   }
 
   return (

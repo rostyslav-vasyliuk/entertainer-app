@@ -30,7 +30,6 @@ const PopularMovies = (props) => {
   useEffect(() => {
     setPaginationLoading(true);
     if (props.endReached) {
-      console.log(currentPage)
       Axios.get(`/movies/get-top-ten?page=${currentPage + 1}`).then(res => {
         const moviesData = res.data.results;
         let newarr = [];

@@ -32,7 +32,6 @@ const RecommendationsFeed = (props) => {
     Axios.get('/recommendations/list').then((response: AxiosResponse) => {
       setIsLoading(false);
       setResponseData(response.data.result);
-      // console.log(response);
     })
   }, []);
 
@@ -57,7 +56,6 @@ const RecommendationsFeed = (props) => {
       return <ListSeriesOfTheWeek data={data.data} navigation={props.navigation} />
     }
     if (data.type === 'movies_preferences') {
-      console.log(data)
       return <MoviesGrid data={data.data} navigation={props.navigation} label={'Based on your preferences'}/>
     }
     

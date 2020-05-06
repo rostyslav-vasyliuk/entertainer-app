@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Header, Body, Left, Right } from 'native-base';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
-import { eventLabels } from '../../events/constants';
-import { monthLabel, dayConstants } from '../../../constants/date-constants';
-import { screenWidth, screenHeight } from '../../../constants/screen-contants';
-import { Divider } from 'react-native-elements';
+import { screenHeight } from '../../../constants/screen-contants';
 import { seriesGenres } from '../../series/constants';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { LOADER_COLOR, BACKGROUND, TEXT_COLOR } from '../../../constants/color-constants';
@@ -64,7 +60,6 @@ const FavouriteSeries = (props) => {
                 {getYear(movie.first_air_date)}
               </Text>
               <Text style={styles.filmographyCharacter}>
-                {console.log(movie.genres)}
                 {getGenre(movie.genres)}
               </Text>
             </View>

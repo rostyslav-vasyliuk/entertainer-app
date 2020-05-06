@@ -21,7 +21,6 @@ const EventDetails = (props) => {
     Axios.get(`/events/details/${event_id}`).then((response: AxiosResponse) => {
       setEventData(response.data.event);
       setRecommendations(response.data.recommendations);
-      console.log(response.data.isFavourite)
       setIsFavourite(response.data.isFavourite)
       setIsLoading(false);
     });
@@ -39,7 +38,6 @@ const EventDetails = (props) => {
   const getCategoriesString = (categories: string[] = []) => {
     let finalString = '';
     categories.forEach((category: string, index: number) => {
-      console.log(category)
       finalString += eventLabels[category]
 
       if (index !== categories.length - 1) {
@@ -69,7 +67,6 @@ const EventDetails = (props) => {
     }).catch(() => {
 
     })
-    console.log(eventData._id);
   }
 
   const onLinkOpen = (url: string) => {
@@ -83,7 +80,7 @@ const EventDetails = (props) => {
       </View>
     )
   }
-  console.log(eventData)
+
   return (
     <>
       <StatusBar barStyle='light-content' />

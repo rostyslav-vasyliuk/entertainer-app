@@ -15,7 +15,6 @@ const GreetingsScreen = (props) => {
   }
 
   useEffect(() => {
-    console.log(props);
     const { firstname, lastname, email, password, gender, birthdate, country } = props;
 
     const body = {

@@ -49,7 +49,6 @@ const CourseDetails = (props) => {
     }).catch(() => {
 
     })
-    console.log(courseData._id);
   }
 
   const onLinkOpen = (url: string) => {
@@ -63,7 +62,7 @@ const CourseDetails = (props) => {
       </View>
     )
   }
-  console.log(courseData)
+
   return (
     <>
       <StatusBar barStyle='light-content' />

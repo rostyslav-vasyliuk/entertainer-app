@@ -77,7 +77,6 @@ const Discover = ({ userData, navigation }) => {
   );
 
   const changeCategory = (category: string) => {
-    console.log(category);
     setActiveCategory(category);
     onClose();
   }
@@ -85,7 +84,7 @@ const Discover = ({ userData, navigation }) => {
   const renderCategories = () => {
     return category.map((category: string) => (
       <View key={category}>
-        <TouchableOpacity onPressIn={() => changeCategory(category)} style={modalStyles.touchable}>
+        <TouchableOpacity onPressIn={() => changeCategory(category)}>
           <View style={modalStyles.categoryWrapper}>
             <CheckBox checked={category === activeCategory} color={BUTTON_COLOR} />
             <View style={modalStyles.categoryDescription}>
@@ -190,9 +189,6 @@ const modalStyles = StyleSheet.create({
     color: TEXT_COLOR_SECONDARY,
     fontSize: 13,
     paddingRight: 25
-  },
-  touchable: {
-    // height: 80
   }
 })
 

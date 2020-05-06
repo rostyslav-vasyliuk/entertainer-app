@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
-import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
-// import { AntDesign } from 'react-native-vector-icons';
+import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse, AxiosError } from 'axios';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
-// import Stepper from '../../../ui-components/stepper/Stepper';
 
 const EnterEmail = (props) => {
   const [email, setEmail] = useState('');

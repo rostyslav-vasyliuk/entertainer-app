@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
-import { AntDesign } from 'react-native-vector-icons';
+import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { screenWidth } from '../../../constants/screen-contants';
-import Stepper from '../../../ui-components/stepper/Stepper';
 import { Axios } from '../../../api/instance';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY, BACKGROUND, BACKGROUND_LIGHT } from '../../../constants/color-constants';
@@ -131,7 +129,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 14,
     textAlign: 'center',
-    color: '#595959',
     color: TEXT_COLOR_SECONDARY
   }
 })

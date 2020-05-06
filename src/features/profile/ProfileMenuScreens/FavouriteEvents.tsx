@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Header, Body, Left, Right } from 'native-base';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import { eventLabels } from '../../events/constants';
 import { monthLabel, dayConstants } from '../../../constants/date-constants';
-import { screenWidth, screenHeight } from '../../../constants/screen-contants';
+import { screenHeight } from '../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
@@ -18,7 +17,6 @@ const FavouriteEvents = (props) => {
 
   useEffect(() => {
     Axios.get(`/events/favourite?page=${page}`).then((response: AxiosResponse) => {
-      console.log(response.data.events)
       setEvents(response.data.events);
       setIsLoading(false);
     })

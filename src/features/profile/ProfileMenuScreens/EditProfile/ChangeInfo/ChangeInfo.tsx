@@ -23,7 +23,6 @@ const ChangeInfo = (props) => {
   const onDateChange = (_event: any, selectedDate: any) => {
     const currentDate = selectedDate || birthdate;
 
-    console.log(currentDate)
     setBirthdate(currentDate);
     setShow(Platform.OS === 'ios' ? true : false);
   };
@@ -47,7 +46,6 @@ const ChangeInfo = (props) => {
 
   const onDataPickerConfirm = () => {
     const displayDate = birthdate.toLocaleString('en-US', options);
-    console.log(displayDate)
     setDisplayDate(displayDate);
     setShow(false);
   }

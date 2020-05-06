@@ -4,8 +4,7 @@ import { Button, Header, Left, Body, Right, Text } from 'native-base';
 import { screenHeight } from '../../../constants/screen-contants';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker, { Country, CountryCode, DARK_THEME } from 'react-native-country-picker-modal';
-import Stepper from '../../../ui-components/stepper/Stepper';
-import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, BUTTON_COLOR, BACKGROUND_LIGHT } from '../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, BUTTON_COLOR } from '../../../constants/color-constants';
 import BackArrow from '../../../ui-components/BackArrow/BackArrow';
 
 const ContryScreen = (props) => {
@@ -36,7 +35,6 @@ const ContryScreen = (props) => {
   };
 
   const onCountryPickerSelect = (country: Country) => {
-    console.log(country)
     setCountryName(country.name);
     setCountryCode(country.cca2);
   }

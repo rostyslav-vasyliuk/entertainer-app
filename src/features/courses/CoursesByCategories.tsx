@@ -7,7 +7,7 @@ import LottieView from 'lottie-react-native';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import HeaderCustom from '../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR } from '../../constants/color-constants';
 import NoResults from '../../ui-components/NoResults/NoResults';
 
 const CoursesByCategories = (props) => {
@@ -15,18 +15,15 @@ const CoursesByCategories = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [paginationLoading, setPaginationLoading] = useState(false);
-  const [pagination, setPagination] = useState({});
+  const [pagination, setPagination]: any = useState({});
   const [allDataFetched, setAllDataFetched] = useState(false);
 
 
   useEffect(() => {
     const type = props.navigation.getParam('type', null);
-    console.log(type);
     Axios.get(`/courses/list?page=${currentPage}&type=${type}`)
       .then((response: AxiosResponse) => {
         setCourses(response.data.courses);
-        console.log(response.data.courses.length)
-        console.log(response.data.pagination)
         setPagination(response.data.pagination);
         setLoading(false);
       })

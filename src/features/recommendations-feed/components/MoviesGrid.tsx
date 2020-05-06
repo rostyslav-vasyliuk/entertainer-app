@@ -97,7 +97,6 @@ const MoviesGrid = ({ data, navigation, label }) => {
           {gridData.map((element, index) => {
             if (GRID_AMOUNT / 2 > index) {
               if (index === 0) {
-                console.log('boom')
                 return getSmallGridItem(element);
               }
 
@@ -108,9 +107,7 @@ const MoviesGrid = ({ data, navigation, label }) => {
 
         <View>
           {gridData.map((element, index) => {
-            console.log('jjj')
             if ((GRID_AMOUNT / 2) <= index) {
-              console.log(index)
               if (index === GRID_AMOUNT - 1) {
                 return getSmallGridItem(element);
               }

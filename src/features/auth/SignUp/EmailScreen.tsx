@@ -51,7 +51,6 @@ const EmailScreen = (props) => {
         </Header>
         <View style={styles.contentWrapper}>
           <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-            {/* <Stepper amount={4} activeIndex={1} /> */}
             <View>
               <Text style={styles.viewHeader}>
                 {'Please provide your email!'}

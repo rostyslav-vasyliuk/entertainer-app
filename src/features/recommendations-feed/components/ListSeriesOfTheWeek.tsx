@@ -42,9 +42,7 @@ const ListSeriesOfTheWeek = ({ data, navigation }) => {
       <ScrollView horizontal>
         {data.map((elem, index) => {
           const animatedValue = new Animated.Value(1);
-          if (index === 0) {
-            console.log(elem)
-          }
+
           const onPressInAnimation = () => {
             Animated.timing(animatedValue, {
               toValue: 0.96, duration: 200, easing: Easing.ease

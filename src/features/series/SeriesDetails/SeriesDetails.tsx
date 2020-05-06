@@ -138,7 +138,6 @@ const SeriesDetails = (props) => {
   return (
     <>
       <ScrollView style={styles.container}>
-        {console.log(seriesData.poster_path)}
         {seriesData.poster_path ?
           <Image
             placeholderStyle={{ backgroundColor: '#000000' }}
