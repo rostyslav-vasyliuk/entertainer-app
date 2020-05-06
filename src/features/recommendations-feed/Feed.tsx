@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import HeaderCustom from '../../ui-components/Header/Header';
-import { ScrollView, StyleSheet, View, ActivityIndicator, RefreshControl, Text, Animated, Image, TouchableOpacity } from 'react-native';
-import { BACKGROUND, LOADER_COLOR, TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY, BUTTON_COLOR, LIGHT_IMAGE_PLACEHOLDER } from '../../constants/color-constants';
+import { ScrollView, StyleSheet, View, ActivityIndicator, RefreshControl } from 'react-native';
+import { BACKGROUND, LOADER_COLOR } from '../../constants/color-constants';
 import { screenHeight, BOTTOM_NAVIGATOR_HEIGHT, TOP_HEADER_HEIGHT } from '../../constants/screen-contants';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
-import { Button } from 'native-base';
 import MovieOfTheWeek from './components/MovieOfTheWeekComponent';
 import ActorWithMovies from './components/ActorWithMovies';
-import ListMoviesOfTheWeek from './components/ListMoviesOfTheWeek';
 import SerieOfTheWeek from './components/SerieOfTheWeek';
 import ListSeriesOfTheWeek from './components/ListSeriesOfTheWeek';
 import MoviesGrid from './components/MoviesGrid';
@@ -23,10 +21,11 @@ const RecommendationsFeed = (props) => {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
 
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 1000);
-
+    Axios.get('/recommendations/list').then((response: AxiosResponse) => {
+      setIsLoading(false);
+      setRefreshing(false);
+      setResponseData(response.data.result);
+    })
   }, [refreshing]);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const RecommendationsFeed = (props) => {
     }
 
     if (data.type === 'movies_of_the_week') {
-      return <MoviesGrid data={data.data} navigation={props.navigation} label={'People watching now'}/>
+      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Popolar movies this week'}/>
     }
 
     if (data.type === 'serie_of_the_week') {
@@ -83,7 +82,7 @@ const RecommendationsFeed = (props) => {
         </View>
       )}
 
-      <Button onPress={() => click()} />
+      {/* <Button onPress={() => click()} /> */}
       {!isLoading && (
         <ScrollView style={styles.scrollView} refreshControl={RefreshController}>
           {responseData.map(renderReccomendedItem)}

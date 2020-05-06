@@ -219,7 +219,7 @@ const SeriesDetails = (props) => {
                 return (
                   <TouchableOpacity onPress={() => onActorNavigate(elem.id)}>
                     <View style={styles.castBlock} key={elem.id}>
-                      <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} style={styles.imageCast} />
+                      <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} borderRadius={8} style={styles.imageCast} />
                       <Text style={styles.realName}>{elem.name}</Text>
                       <Text style={styles.characterName}>{elem.character}</Text>
                     </View>
@@ -253,7 +253,7 @@ const SeriesDetails = (props) => {
             {seriesData.seasons.map((season) => (
               <>
                 <View style={styles.seasonBlock}>
-                  <Image source={{ uri: 'https://image.tmdb.org/t/p/w500/' + season.poster_path }} style={styles.seasonImageStyle} />
+                  <Image source={{ uri: 'https://image.tmdb.org/t/p/w500/' + season.poster_path }} borderRadius={8} style={styles.seasonImageStyle} />
                   <View style={styles.seasonInfo}>
                     <Text style={styles.seasonName}>
                       {season.name}
@@ -293,7 +293,7 @@ const SeriesDetails = (props) => {
                       return (
                         <>
                           <View style={styles.episodeBlock}>
-                            <Image source={{ uri: 'https://image.tmdb.org/t/p/w500/' + episode.still_path }} style={styles.episodeImageStyle} />
+                            <Image source={{ uri: 'https://image.tmdb.org/t/p/w500/' + episode.still_path }} borderRadius={8} style={styles.episodeImageStyle} />
 
                             <View style={styles.episodeInfoWrapper}>
                               <Text style={styles.episodeTitle}>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Image } from 'react-native';
-import { TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY, LIGHT_IMAGE_PLACEHOLDER } from '../../../constants/color-constants';
+import { ScrollView, StyleSheet, View, Text, Image, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
+import { TEXT_COLOR, TEXT_COLOR_SECONDARY, LIGHT_IMAGE_PLACEHOLDER } from '../../../constants/color-constants';
 import { Entypo } from '@expo/vector-icons';
 import { movieGenres } from '../../movies/constants';
 import { getDateString, getAge } from '../../../constants/date-constants';
@@ -12,6 +12,12 @@ const ActorWithMovies = ({ data, navigation }) => {
       return '';
     }
     return releaseDate.slice(0, 4);
+  }
+
+  const navigate = (current_id) => {
+    navigation.push('SeriesDetails', {
+      series_id: current_id
+    })
   }
 
   const getGenre = (genre_id) => {
@@ -68,32 +74,54 @@ const ActorWithMovies = ({ data, navigation }) => {
           {'Best known for:'}
         </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {data.data.map((element, index) => (
-            index < 10 &&
-            (
-              <View style={{ minHeight: 180, width: 120, marginLeft: 8, marginRight: 4, marginTop: 5, borderRadius: 8, marginBottom: 6 }}>
-                {element.backdrop_path ? (
-                  <Image
-                    source={{ uri: `https://image.tmdb.org/t/p/w1280/${element.backdrop_path}` }}
-                    style={{ height: 150, width: 120, borderRadius: 8 }}
-                  />
-                ) : (
-                    <View style={{ height: 150, width: 120, borderRadius: 8, backgroundColor: LIGHT_IMAGE_PLACEHOLDER, justifyContent: 'center', alignItems: 'center' }}>
-                      <Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 36 }} />
+          {data.data.map((element, index) => {
+            const animatedValue = new Animated.Value(1);
+            const onPressInAnimation = () => {
+              Animated.timing(animatedValue, {
+                toValue: 0.96, duration: 200, easing: Easing.ease
+              }).start();
+            }
+
+            const onPressOutAnimation = () => {
+              Animated.timing(animatedValue, {
+                toValue: 1, duration: 200
+              }).start();
+            }
+
+            if (index < 10) {
+              return (
+                <TouchableWithoutFeedback
+                  onPressIn={() => onPressInAnimation()}
+                  onPressOut={() => onPressOutAnimation()}
+                  onPress={() => navigate(element.id)}
+                >
+                  <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
+                    <View style={{ minHeight: 180, width: 120, marginLeft: 8, marginRight: 4, marginTop: 5, borderRadius: 8, marginBottom: 6 }}>
+                      {element.backdrop_path ? (
+                        <Image
+                          source={{ uri: `https://image.tmdb.org/t/p/w1280/${element.backdrop_path}` }}
+                          style={{ height: 150, width: 120, borderRadius: 8 }}
+                        />
+                      ) : (
+                          <View style={{ height: 150, width: 120, borderRadius: 8, backgroundColor: LIGHT_IMAGE_PLACEHOLDER, justifyContent: 'center', alignItems: 'center' }}>
+                            <Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 36 }} />
+                          </View>
+                        )
+                      }
+
+                      <Text style={{ color: TEXT_COLOR, fontSize: 12, marginTop: 3, fontWeight: '400' }}>
+                        {element.title}
+                      </Text>
+
+                      <Text style={{ color: TEXT_COLOR, fontSize: 11, marginTop: 3, fontWeight: '300' }}>
+                        {`${getYear(element.release_date)}, ${getGenre(element.genre_ids[0])}`}
+                      </Text>
                     </View>
-                  )
-                }
-
-                <Text style={{ color: TEXT_COLOR, fontSize: 12, marginTop: 3, fontWeight: '400' }}>
-                  {element.title}
-                </Text>
-
-                <Text style={{ color: TEXT_COLOR, fontSize: 11, marginTop: 3, fontWeight: '300' }}>
-                  {`${getYear(element.release_date)}, ${getGenre(element.genre_ids[0])}`}
-                </Text>
-              </View>
-            )
-          ))}
+                  </Animated.View>
+                </TouchableWithoutFeedback>
+              )
+            }
+          })}
         </ScrollView>
       </View>
     </View>
@@ -108,7 +136,7 @@ const actorMoviesStyles = StyleSheet.create({
     // paddingRight: 2,
     borderRadius: 16,
     width: '94%',
-    backgroundColor: BACKGROUND_LIGHT,
+    backgroundColor: '#181821',
     marginLeft: '3%',
     marginRight: '3%'
   }

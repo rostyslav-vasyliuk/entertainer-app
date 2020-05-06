@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { ScrollView, StyleSheet, View, ActivityIndicator, RefreshControl, Text, TouchableOpacity, Animated, Easing, Image, ImageBackground, TouchableWithoutFeedback } from 'react-native';
-import { BACKGROUND, LOADER_COLOR, TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY, BUTTON_COLOR } from '../../../constants/color-constants';
-import { screenHeight, BOTTOM_NAVIGATOR_HEIGHT, screenWidth } from '../../../constants/screen-contants';
+import React from 'react';
+import { StyleSheet, View, Text, Animated, Easing, ImageBackground, TouchableWithoutFeedback } from 'react-native';
+import { TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { screenWidth } from '../../../constants/screen-contants';
 import { seriesGenres } from '../../series/constants';
+import { movieGenres } from '../../movies/constants';
 
 
 const SerieOfTheWeek = ({ data, navigation }) => {
@@ -30,6 +30,17 @@ const SerieOfTheWeek = ({ data, navigation }) => {
     if (seriesGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
       return seriesGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
     }
+
+    if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
+      return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
+    }
+  }
+
+  const getYear = (releaseDate) => {
+    if (!releaseDate) {
+      return '';
+    }
+    return releaseDate.slice(0, 4);
   }
 
   return (
@@ -50,18 +61,26 @@ const SerieOfTheWeek = ({ data, navigation }) => {
               source={{ uri: `https://image.tmdb.org/t/p/w1280/${data.backdrop_path}` }}
               imageStyle={{ borderRadius: 16 }}
             >
-              <View style={{ height: 80, backgroundColor: 'rgba(35, 35, 48, 0.7)', borderBottomLeftRadius: 16, borderBottomRightRadius: 16 }}>
-                <Text style={{ color: TEXT_COLOR, opacity: 1 }}>
+              {/* <View style={{ height: 80, backgroundColor: 'rgba(35, 35, 48, 0.7)', borderBottomLeftRadius: 16, borderBottomRightRadius: 16, alignItems: 'flex-end', paddingRight: 10, justifyContent: 'center' }}>
+                <Text style={{ color: TEXT_COLOR, opacity: 1, fontWeight: '600', fontSize: 20, letterSpacing: 1 }}>
                   {data.name}
                 </Text>
-                <Text style={{ color: TEXT_COLOR, opacity: 1 }}>
-                  {data.first_air_date}
+                <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 13, paddingTop: 1 }}>
+                  {getYear(data.first_air_date)}
                 </Text>
-                <Text style={{ color: TEXT_COLOR, opacity: 1 }}>
+                <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 14, paddingTop: 1 }}>
                   {getGenre(data.genre_ids[0])}
                 </Text>
-              </View>
+              </View> */}
             </ImageBackground>
+          </View>
+          <View style={{ borderBottomLeftRadius: 16, borderBottomRightRadius: 16, alignItems: 'flex-end', paddingRight: 10, justifyContent: 'center' }}>
+            <Text style={{ color: TEXT_COLOR, opacity: 1, fontWeight: '600', fontSize: 20, letterSpacing: 1 }}>
+              {data.name}
+            </Text>
+            <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 13, paddingTop: 1 }}>
+              {`${getYear(data.first_air_date)}, ${getGenre(data.genre_ids[0])}`}
+            </Text>
           </View>
         </Animated.View>
       </TouchableWithoutFeedback>

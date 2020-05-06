@@ -5,6 +5,7 @@ import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
 import { screenHeight } from '../../constants/screen-contants';
 import { BACKGROUND, LOADER_COLOR, TEXT_COLOR } from '../../constants/color-constants';
+import { movieGenres } from '../movies/constants';
 
 const PopularSeries = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -83,6 +84,9 @@ const PopularSeries = (props) => {
   const getGenre = (genre_id) => {
     if (seriesGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
       return seriesGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
+    }
+    if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
+      return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
     }
   }
 

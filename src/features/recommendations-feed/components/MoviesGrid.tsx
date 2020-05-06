@@ -37,10 +37,10 @@ const MoviesGrid = ({ data, navigation, label }) => {
         onPress={() => navigate(element.id)}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
-          <View style={{ width: (screenWidth / 2) - 8, borderRadius: 6, margin: 3, height: 220 }}>
+          <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 220 }}>
             <Image
               source={{ uri: 'https://image.tmdb.org/t/p/w500/' + element.poster_path }}
-              style={{ width: (screenWidth / 2) - 8, borderRadius: 6, height: 220 }}
+              style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 220 }}
               PlaceholderContent={<ActivityIndicator color={LOADER_COLOR} />}
               borderRadius={6}
             />
@@ -72,10 +72,10 @@ const MoviesGrid = ({ data, navigation, label }) => {
         onPress={() => navigate(element.id)}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
-          <View style={{ width: (screenWidth / 2) - 8, borderRadius: 6, margin: 3, height: 300 }}>
+          <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 300 }}>
             <Image
               source={{ uri: 'https://image.tmdb.org/t/p/w500/' + element.poster_path }}
-              style={{ width: (screenWidth / 2) - 8, borderRadius: 6, height: 300, justifyContent: 'flex-end' }}
+              style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 300, justifyContent: 'flex-end' }}
               PlaceholderContent={<ActivityIndicator color={LOADER_COLOR} />}
               borderRadius={6}
             />
@@ -88,7 +88,7 @@ const MoviesGrid = ({ data, navigation, label }) => {
 
   return (
     <View>
-      <Text style={{ color: TEXT_COLOR_SECONDARY, paddingBottom: 6, paddingTop: 10, paddingLeft: '2%', textTransform: 'uppercase', fontSize: 16, fontWeight: '600', letterSpacing: 1 }}>
+      <Text style={{ color: TEXT_COLOR_SECONDARY, paddingBottom: 6, paddingTop: 10, paddingLeft: 14, textTransform: 'uppercase', fontSize: 16, fontWeight: '600', letterSpacing: 1 }}>
         {label}
       </Text>
 

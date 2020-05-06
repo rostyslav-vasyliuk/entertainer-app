@@ -31,6 +31,13 @@ const MovieOfTheWeek = ({ data, navigation }) => {
     }
   }
 
+  const getYear = (releaseDate) => {
+    if (!releaseDate) {
+      return '';
+    }
+    return releaseDate.slice(0, 4);
+  }
+
   return (
     <View>
       <Text style={{ color: TEXT_COLOR_SECONDARY, paddingBottom: 8, paddingTop: 16, paddingLeft: '4%', textTransform: 'uppercase', fontSize: 16, fontWeight: '600', letterSpacing: 1 }}>
@@ -49,20 +56,29 @@ const MovieOfTheWeek = ({ data, navigation }) => {
               source={{ uri: `https://image.tmdb.org/t/p/w1280/${data.poster_path}` }}
               imageStyle={{ borderRadius: 16 }}
             >
-              <View style={{ height: 80, backgroundColor: 'rgba(35, 35, 48, 0.7)', borderBottomLeftRadius: 16, borderBottomRightRadius: 16 }}>
-                <Text style={{ color: TEXT_COLOR, opacity: 1 }}>
+              {/* <View style={{ height: 80, backgroundColor: 'rgba(35, 35, 48, 0.7)', borderBottomLeftRadius: 16, borderBottomRightRadius: 16, alignItems: 'flex-end', paddingRight: 10, justifyContent: 'center' }}>
+                <Text style={{ color: TEXT_COLOR, opacity: 1, fontWeight: '600', fontSize: 20, letterSpacing: 1 }}>
                   {data.title}
                 </Text>
-                <Text style={{ color: TEXT_COLOR, opacity: 1 }}>
-                  {data.release_date}
+                <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 13, paddingTop: 1 }}>
+                  {getYear(data.release_date)}
                 </Text>
-                <Text style={{ color: TEXT_COLOR, opacity: 1 }}>
+                <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 14, paddingTop: 1 }}>
                   {getGenre(data.genre_ids[0])}
                 </Text>
-              </View>
+              </View> */}
             </ImageBackground>
           </View>
+          <View style={{ borderBottomLeftRadius: 16, borderBottomRightRadius: 16, alignItems: 'flex-end', paddingRight: 10, justifyContent: 'center' }}>
+            <Text style={{ color: TEXT_COLOR, opacity: 1, fontWeight: '600', fontSize: 18, letterSpacing: 1 }}>
+              {data.title}
+            </Text>
+            <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 13, paddingTop: 1 }}>
+              {`${getYear(data.release_date)}, ${getGenre(data.genre_ids[0])}`}
+            </Text>
+          </View>
         </Animated.View>
+
       </TouchableWithoutFeedback>
     </View>
   );
@@ -72,7 +88,6 @@ export default MovieOfTheWeek;
 
 const movieOfTheWeekStyles = StyleSheet.create({
   wrapper: {
-    // marginTop: 10,
     borderRadius: 16,
     width: '94%',
     backgroundColor: BACKGROUND_LIGHT,

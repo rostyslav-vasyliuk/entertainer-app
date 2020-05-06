@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, TouchableOpacity, ImageBackground, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 import { seriesGenres } from '../../series/constants';
+import { movieGenres } from '../../movies/constants';
 
 const ListSeriesOfTheWeek = ({ data, navigation }) => {
   const getGenre = (genre_id) => {
@@ -13,6 +14,9 @@ const ListSeriesOfTheWeek = ({ data, navigation }) => {
       } else {
         return '';
       }
+    }
+    if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
+      return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
     }
   }
 
@@ -36,9 +40,11 @@ const ListSeriesOfTheWeek = ({ data, navigation }) => {
       </Text>
 
       <ScrollView horizontal>
-        {data.map((elem) => {
+        {data.map((elem, index) => {
           const animatedValue = new Animated.Value(1);
-
+          if (index === 0) {
+            console.log(elem)
+          }
           const onPressInAnimation = () => {
             Animated.timing(animatedValue, {
               toValue: 0.96, duration: 200, easing: Easing.ease

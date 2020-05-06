@@ -83,9 +83,11 @@ const styles = StyleSheet.create({
   },
   popularMoviesLabel: {
     paddingTop: 15,
-    textAlign: 'center',
     fontSize: 16,
-    paddingBottom: 15,
+    paddingLeft: 12,
+    paddingBottom: 10,
+    fontWeight: '600',
+    letterSpacing: 1.1,
     color: TEXT_COLOR
   },
   movieTilesWrapper: {

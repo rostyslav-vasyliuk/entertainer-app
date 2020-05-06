@@ -4,11 +4,11 @@ import { Image } from 'react-native-elements';
 import { seriesGenres } from './constants';
 import { Axios } from '../../api/instance';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Header, Left, Body, Right } from 'native-base';
 import HeaderCustom from '../../ui-components/Header/Header';
 import { screenHeight } from '../../constants/screen-contants';
 import { BACKGROUND, LOADER_COLOR, TEXT_COLOR } from '../../constants/color-constants';
 import NoResults from '../../ui-components/NoResults/NoResults';
+import { movieGenres } from '../movies/constants';
 
 const SeriesByGenre = (props) => {
   const [dividedArray, setDividedArray] = useState(null);
@@ -90,6 +90,9 @@ const SeriesByGenre = (props) => {
   const getGenre = (genre_id) => {
     if (seriesGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
       return seriesGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
+    }
+    if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
+      return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
     }
   }
 
