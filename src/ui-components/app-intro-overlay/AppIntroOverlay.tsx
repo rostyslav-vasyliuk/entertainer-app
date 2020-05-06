@@ -6,7 +6,7 @@ import LottieView from "lottie-react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { Button, Icon } from 'native-base';
-import { BACKGROUND_LIGHT, TEXT_COLOR, TEXT_COLOR_SECONDARY, BUTTON_COLOR, BACKGROUND } from '../../constants/color-constants';
+import { TEXT_COLOR, BUTTON_COLOR, BACKGROUND, LOADER_COLOR } from '../../constants/color-constants';
 
 type Props = {
   navigation: any;
@@ -43,7 +43,7 @@ const AppIntroOverlay = (props: Props) => {
           />
           <Text style={styles.slideHeader}>Welcome!</Text>
           <Text style={styles.slideDescription}>
-            We are so excited you are joining our community! There are only few steps to start using our app
+            We are so excited you are joining our community! There are only few steps to start using our app.
             </Text>
         </View>
 
@@ -54,13 +54,13 @@ const AppIntroOverlay = (props: Props) => {
               height: 250,
               backgroundColor: 'transparent',
             }}
-            source={require('../../assets/lottie/world.json')}
+            source={require('../../assets/lottie/develop.json')}
             autoPlay
             loop={true}
           />
-          <Text style={styles.slideHeader}>Choose language!</Text>
+          <Text style={styles.slideHeader}>Develop yourself!</Text>
           <Text style={styles.slideDescription}>
-            Easily find people from all around the world and improve your language skills together
+            With us you can find many interesting and totally free courses based on your preferences!
             </Text>
         </View>
 
@@ -73,11 +73,11 @@ const AppIntroOverlay = (props: Props) => {
             }}
             source={require('../../assets/lottie/town.json')}
             autoPlay
-            loop={false}
+            loop={true}
           />
           <Text style={styles.slideHeader}>Explore your town!</Text>
           <Text style={styles.slideDescription}>
-            We will help you to not miss the most exciting entertaiments in your town
+            We will help you to not miss the most exciting entertaiments in your town!
             </Text>
         </View>
 
@@ -111,7 +111,7 @@ const AppIntroOverlay = (props: Props) => {
           />
           <Text style={styles.slideHeader}>Discover now!</Text>
           <Text style={styles.slideDescription}>
-            With our app you may forget about books. Prefer conversations with real people!
+            We are continue developing ourselves and we are so exciting you are part of our big start!
             </Text>
           <Button iconLeft style={{ padding: 15, marginTop: 55, borderRadius: 10, backgroundColor: BUTTON_COLOR }} onPress={_onContinue}>
             <Text style={{ color: '#fff', fontSize: 18 }}>
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 0,
     fontSize: 24,
+    letterSpacing: 1,
     fontWeight: '600',
     textAlign: 'center',
     color: TEXT_COLOR
@@ -163,9 +164,9 @@ const styles = StyleSheet.create({
     padding: 35,
     paddingTop: 20,
     paddingBottom: 0,
-    fontSize: 16,
+    fontSize: 15,
     textAlign: 'center',
-    color: TEXT_COLOR_SECONDARY
+    color: LOADER_COLOR
   },
 });
 

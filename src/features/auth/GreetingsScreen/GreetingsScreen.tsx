@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Button, Text } from 'native-base';
 import { screenWidth } from '../../../constants/screen-contants';
-import { BACKGROUND, BACKGROUND_LIGHT, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const GreetingsScreen = (props) => {
   const toLoginPage = () => {
@@ -18,14 +18,13 @@ const GreetingsScreen = (props) => {
     <>
       <StatusBar barStyle="light-content" />
       <View style={styles.wrapper}>
-        <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
+        <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60, width: screenWidth }}>
           <LottieView
             style={{
-              width: '100%',
-              height: '100%',
+              marginTop: 30,
               backgroundColor: 'transparent',
             }}
-            source={require('../../../assets/lottie/car.json')}
+            source={require('../../../assets/lottie/launch.json')}
             autoPlay
             loop={true}
           />
@@ -35,7 +34,7 @@ const GreetingsScreen = (props) => {
             Getting started!
           </Text>
           <Text style={styles.labelDescription}>
-            Create an account to access thousand of cool people who are waiting for you right now!
+            Create an account to access system and get the best recommendations created personally for you!
           </Text>
           <View style={styles.buttonsWrapper}>
             <Button full style={styles.button} onPress={toSignUpPage}>
