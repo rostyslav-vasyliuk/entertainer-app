@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Axios } from '../../../api/instance';
+import { Axios } from '../../../../api/instance';
 import { AxiosResponse } from 'axios';
-import { coursesLabels, getBiggerImage } from '../../courses/constants';
-import { monthLabel, dayConstants } from '../../../constants/date-constants';
-import { screenWidth, screenHeight } from '../../../constants/screen-contants';
-import { Divider } from 'react-native-elements';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
-import NoResults from '../../../ui-components/NoResults/NoResults';
+import { coursesLabels, getBiggerImage } from '../../../courses/constants';
+import { screenHeight } from '../../../../constants/screen-contants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, LOADER_COLOR } from '../../../../constants/color-constants';
+import NoResults from '../../../../ui-components/NoResults/NoResults';
 
 const FavouriteCourses = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,15 +20,6 @@ const FavouriteCourses = (props) => {
       setIsLoading(false);
     })
   }, []);
-
-  const getDateString = (releaseDate: string) => {
-    if (!releaseDate) {
-      return '';
-    }
-    const date = new Date(releaseDate);
-    const dateString = `${monthLabel[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-    return dateString;
-  }
 
   const getCategory = (type: string) => {
     if (!type) {

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Preferences from './Preferences';
-import { setUserData } from '../actions';
+import { setUserData } from '../../actions';
 
 const mapStateToProps: (state) => any = (state) => ({
   userData: state.profile.userData,

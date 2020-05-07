@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AvatarComponent from './AvatarComponent';
-import { setUserData } from './actions';
+import { setUserData } from '../actions';
 
 const mapStateToProps: (state) => any = (state) => ({
   userData: state.profile.userData,

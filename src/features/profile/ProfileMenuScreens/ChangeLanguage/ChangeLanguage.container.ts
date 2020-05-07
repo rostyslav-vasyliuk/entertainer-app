@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ChangeLanguage from './ChangeLanguage';
-import { changeLanguage } from '../actions';
+import { changeLanguage } from '../../actions';
 const mapStateToProps: (state) => any = (state) => ({
   language: state.profile.language,
 });

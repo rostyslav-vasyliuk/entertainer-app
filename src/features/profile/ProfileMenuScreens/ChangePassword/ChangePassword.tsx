@@ -3,10 +3,10 @@ import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 're
 import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
-import { Axios } from '../../../api/instance';
-import { screenWidth } from '../../../constants/screen-contants';
-import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT } from '../../../constants/color-constants';
-import HeaderCustom from '../../../ui-components/Header/Header';
+import { Axios } from '../../../../api/instance';
+import { screenWidth } from '../../../../constants/screen-contants';
+import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT } from '../../../../constants/color-constants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
 
 const ChangePassword = (props) => {
   const [oldPassword, setOldPassword] = useState('');

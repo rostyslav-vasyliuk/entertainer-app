@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'native-base';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../../constants/color-constants';
 import { Divider } from 'react-native-elements';
-import i18n from '../../../i18n';
+import i18n from '../../../../i18n';
 import { useTranslation, withTranslation } from 'react-i18next';
 
 const ChangeLanguage = (props) => {

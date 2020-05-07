@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Feedback from './Feedback';
-import { setIsFeedbackModalVisible } from '../../modals/actions';
+import { setIsFeedbackModalVisible } from '../../../modals/actions';
 
 const mapDispatchToProps = (dispatch) => ({
   setIsFeedbackModalVisible: (isVisible: boolean) => {

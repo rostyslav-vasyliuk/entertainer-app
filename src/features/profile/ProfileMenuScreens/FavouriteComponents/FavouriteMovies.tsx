@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Axios } from '../../../api/instance';
+import { Axios } from '../../../../api/instance';
 import { AxiosResponse } from 'axios';
-import { screenHeight } from '../../../constants/screen-contants';
-import { seriesGenres } from '../../series/constants';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { LOADER_COLOR, BACKGROUND, TEXT_COLOR } from '../../../constants/color-constants';
-import NoResults from '../../../ui-components/NoResults/NoResults';
+import { screenHeight } from '../../../../constants/screen-contants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, LOADER_COLOR } from '../../../../constants/color-constants';
+import NoResults from '../../../../ui-components/NoResults/NoResults';
 
-const FavouriteSeries = (props) => {
+const FavouriteMovies = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [series, setSeries] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-  const onSeriesNavigate = (id) => {
-    props.navigation.push('SeriesDetails', {
-      series_id: id
+  const onMovieNavigate = (id) => {
+    props.navigation.push('MovieDetails', {
+      movie_id: id
     })
   }
+
+
+  const getGenres = (genres) => {
+    let finalString = '';
+    genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
+    finalString = finalString.slice(0, finalString.length - 2);
+    return finalString;
+  }
+
+  const onBack = () => {
+    props.navigation.goBack();
+  }
+
 
   const getYear = (releaseDate) => {
     if (!releaseDate) {
@@ -27,26 +39,16 @@ const FavouriteSeries = (props) => {
   }
 
   useEffect(() => {
-    Axios.get(`/tv-series/favourite`).then((response: AxiosResponse) => {
-      setSeries(response.data.favouriteSeries);
+    Axios.get(`/movies/favourite`).then((response: AxiosResponse) => {
+      setMovies(response.data.favouriteMovies);
       setIsLoading(false);
     })
   }, []);
 
-  const getGenre = (genres: any[]) => {
-    if (seriesGenres.find((item) => Number(item.movieDB_id) === genres[0].id)) {
-      return seriesGenres.find((item) => Number(item.movieDB_id) === genres[0].id).genre;
-    }
-  }
-
-  const goBack = () => {
-    props.navigation.goBack();
-  }
-
-  const renderSeriesCast = () => (
-    series.map((movie) => {
+  const renderFilmography = () => (
+    movies.map((movie) => {
       return (
-        <TouchableOpacity onPress={() => onSeriesNavigate(movie.id)}>
+        <TouchableOpacity onPress={() => onMovieNavigate(movie.id)}>
           <View style={styles.filmBlock}>
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
@@ -54,13 +56,13 @@ const FavouriteSeries = (props) => {
             />
             <View style={styles.filmographyBlock}>
               <Text style={styles.filmographyTextLabel}>
-                {movie.name}
+                {movie.title}
               </Text>
               <Text style={styles.filmographyReleaseYear}>
-                {getYear(movie.first_air_date)}
+                {getYear(movie.release_date)}
               </Text>
               <Text style={styles.filmographyCharacter}>
-                {getGenre(movie.genres)}
+                {getGenres(movie.genres)}
               </Text>
             </View>
           </View>
@@ -71,7 +73,7 @@ const FavouriteSeries = (props) => {
 
   return (
     <>
-      <HeaderCustom label={'Favourite Series'} back={goBack} />
+      <HeaderCustom label={'Favourite Movies'} back={onBack} />
       {isLoading && (
         <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center', backgroundColor: BACKGROUND }}>
           <ActivityIndicator color={LOADER_COLOR} />
@@ -79,16 +81,16 @@ const FavouriteSeries = (props) => {
       )}
       <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={{ padding: 10 }}>
-          {!isLoading && renderSeriesCast()}
+          {!isLoading && renderFilmography()}
         </View>
 
-        {series.length === 0 && !isLoading && <NoResults />}
+        {movies.length === 0 && !isLoading && <NoResults />}
       </ScrollView>
     </>
   )
 }
 
-export default FavouriteSeries;
+export default FavouriteMovies;
 
 
 const styles = StyleSheet.create({
@@ -107,11 +109,12 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   filmographyReleaseYear: {
-    fontSize: 12,
+    fontSize: 13,
     color: TEXT_COLOR,
   },
   filmographyCharacter: {
     fontSize: 12,
+    paddingTop: 3,
     color: TEXT_COLOR,
   }
 });

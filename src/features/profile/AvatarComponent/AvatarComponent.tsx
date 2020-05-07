@@ -4,15 +4,16 @@ import { Image } from 'react-native-elements';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { ActionSheet } from 'native-base'
-import { Axios } from '../../api/instance';
-import { LOADER_COLOR, BACKGROUND_LIGHT } from '../../constants/color-constants';
+import { Axios } from '../../../api/instance';
+import { LOADER_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const BASE_URL = 'http://192.168.0.13:3030';
 
 var BUTTONS = ["Take a Photo", "Choose from Gallery", "Delete", "Cancel"];
 class AvatarComponent extends React.Component<any> {
   state = {
-    image: `${BASE_URL}/uploads/${this.props.userData.image}` || null,
+    image: this.props.userData.image ? `${BASE_URL}/uploads/${this.props.userData.image}` : null,
     clicked: null,
   };
 
@@ -30,7 +31,7 @@ class AvatarComponent extends React.Component<any> {
 
   render() {
     let { image } = this.state;
-
+    console.log(image)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity onPress={() =>
@@ -46,13 +47,19 @@ class AvatarComponent extends React.Component<any> {
             }
           )}>
 
-          <Image
-            style={{ width: 180, height: 180, borderRadius: 100 }}
-            source={{ uri: image }}
-            PlaceholderContent={<ActivityIndicator size='small' color={LOADER_COLOR} />}
-            placeholderStyle={{ backgroundColor: BACKGROUND_LIGHT }}
-            borderRadius={100}
-          />
+          {image ? (
+            <Image
+              style={{ width: 180, height: 180, borderRadius: 100 }}
+              source={{ uri: image }}
+              PlaceholderContent={<ActivityIndicator size='small' color={LOADER_COLOR} />}
+              placeholderStyle={{ backgroundColor: BACKGROUND_LIGHT }}
+              borderRadius={100}
+            />
+          ) : (
+              <View style={{ width: 180, height: 180, borderRadius: 100, backgroundColor: BACKGROUND_LIGHT, justifyContent: 'center', alignItems: 'center' }}>
+                <MaterialCommunityIcons name='image-plus' color={TEXT_COLOR_SECONDARY} size={46}/>
+              </View>
+            )}
 
         </TouchableOpacity>
       </View>

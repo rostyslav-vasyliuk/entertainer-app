@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Textarea, Button, CheckBox } from 'native-base';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
-import { screenWidth } from '../../../constants/screen-contants';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../../constants/color-constants';
 import * as Device from 'expo-device';
-import { Axios } from '../../../api/instance';
-import FeedbackSuccessModal from '../../modals/FeedbackSuccessModal.container';
+import { Axios } from '../../../../api/instance';
+import FeedbackSuccessModal from '../../../modals/FeedbackSuccessModal.container';
 
 const Feedback = (props) => {
   const [feedbackText, setFeedbackText] = useState('');

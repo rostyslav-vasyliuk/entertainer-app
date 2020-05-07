@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Axios } from '../../../api/instance';
+import { Axios } from '../../../../api/instance';
 import { AxiosResponse } from 'axios';
-import { eventLabels } from '../../events/constants';
-import { monthLabel, dayConstants } from '../../../constants/date-constants';
-import { screenHeight } from '../../../constants/screen-contants';
+import { eventLabels } from '../../../events/constants';
+import { monthLabel, dayConstants } from '../../../../constants/date-constants';
+import { screenHeight } from '../../../../constants/screen-contants';
 import { Divider } from 'react-native-elements';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
-import NoResults from '../../../ui-components/NoResults/NoResults';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../../../constants/color-constants';
+import NoResults from '../../../../ui-components/NoResults/NoResults';
 
 const FavouriteEvents = (props) => {
   const [isLoading, setIsLoading] = useState(true);

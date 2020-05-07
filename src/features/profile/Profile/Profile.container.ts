@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { setIsLogoutModalVisible } from '../modals/actions';
+import { setIsLogoutModalVisible } from '../../modals/actions';
 
 const mapStateToProps: (state) => any = (state) => ({
   isLogoutModalVisible: state.modals.isLogoutModalVisible,

@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import DraggableFlatList from "react-native-draggable-flatlist";
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import { movieGenres } from '../../movies/constants';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { TEXT_COLOR, BACKGROUND_LIGHT, BUTTON_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { movieGenres } from '../../../movies/constants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { TEXT_COLOR, BACKGROUND_LIGHT, BUTTON_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY } from '../../../../constants/color-constants';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-import { screenWidth } from '../../../constants/screen-contants';
-import { eventTypeArray } from '../../events/constants';
-import { Axios } from '../../../api/instance';
+import { screenWidth } from '../../../../constants/screen-contants';
+import { eventTypeArray } from '../../../events/constants';
+import { Axios } from '../../../../api/instance';
 import { AxiosResponse } from 'axios';
-import { seriesGenres } from '../../series/constants';
-import { coursesTypesArray } from '../../courses/constants';
+import { seriesGenres } from '../../../series/constants';
+import { coursesTypesArray } from '../../../courses/constants';
 import { defaultDragData } from './preferences-data';
 
 const BASE_SIZE = 16;
@@ -131,7 +131,7 @@ const Preferences = (props) => {
     )
   }
 
-  const renderItem = ({ item, index, drag, isActive }) => {
+  const renderItem = ({ item }) => {
     const iconProps: any = {
       size: BASE_SIZE + 6,
       name: item.icon,
@@ -397,7 +397,7 @@ const colors = {
   chipColor: BUTTON_COLOR,
 };
 
-const stylesMulti = {
+const stylesMulti: any = {
   container: {
     backgroundColor: BACKGROUND_LIGHT
   },

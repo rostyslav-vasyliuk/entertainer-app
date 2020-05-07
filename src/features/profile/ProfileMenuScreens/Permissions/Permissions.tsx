@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Header, Body, Left, Right, Switch } from 'native-base';
+import { Switch } from 'native-base';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient as Gradient } from 'expo-linear-gradient';
 import { MaterialIcons, Ionicons, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-import { screenWidth } from '../../../constants/screen-contants';
-import { permissionsListItems } from './constants';
+import { screenWidth } from '../../../../constants/screen-contants';
+import { permissionsListItems } from '../constants';
 import { Divider } from 'react-native-elements';
 import { CAMERA, CAMERA_ROLL, NOTIFICATIONS } from 'expo-permissions';
 import * as Permissions from 'expo-permissions';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../../constants/color-constants';
 
 const BASE_SIZE = 16;
 const GRADIENT_BLUE = ['#6B84CA', '#8F44CE'];

@@ -1,39 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Header, Body, Left, Right } from 'native-base';
-import { Axios } from '../../../api/instance';
+import { Axios } from '../../../../api/instance';
 import { AxiosResponse } from 'axios';
-import { eventLabels } from '../../events/constants';
-import { monthLabel, dayConstants } from '../../../constants/date-constants';
-import { screenWidth, screenHeight } from '../../../constants/screen-contants';
-import { Divider } from 'react-native-elements';
-import HeaderCustom from '../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, LOADER_COLOR } from '../../../constants/color-constants';
-import NoResults from '../../../ui-components/NoResults/NoResults';
+import { screenHeight } from '../../../../constants/screen-contants';
+import { seriesGenres } from '../../../series/constants';
+import HeaderCustom from '../../../../ui-components/Header/Header';
+import { LOADER_COLOR, BACKGROUND, TEXT_COLOR } from '../../../../constants/color-constants';
+import NoResults from '../../../../ui-components/NoResults/NoResults';
 
-const FavouriteMovies = (props) => {
+const FavouriteSeries = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [movies, setMovies] = useState([]);
+  const [series, setSeries] = useState([]);
 
-  const onMovieNavigate = (id) => {
-    props.navigation.push('MovieDetails', {
-      movie_id: id
+  const onSeriesNavigate = (id) => {
+    props.navigation.push('SeriesDetails', {
+      series_id: id
     })
   }
-
-
-  const getGenres = (genres) => {
-    let finalString = '';
-    genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
-    finalString = finalString.slice(0, finalString.length - 2);
-    return finalString;
-  }
-
-  const onBack = () => {
-    props.navigation.goBack();
-  }
-
 
   const getYear = (releaseDate) => {
     if (!releaseDate) {
@@ -43,16 +27,26 @@ const FavouriteMovies = (props) => {
   }
 
   useEffect(() => {
-    Axios.get(`/movies/favourite`).then((response: AxiosResponse) => {
-      setMovies(response.data.favouriteMovies);
+    Axios.get(`/tv-series/favourite`).then((response: AxiosResponse) => {
+      setSeries(response.data.favouriteSeries);
       setIsLoading(false);
     })
   }, []);
 
-  const renderFilmography = () => (
-    movies.map((movie) => {
+  const getGenre = (genres: any[]) => {
+    if (seriesGenres.find((item) => Number(item.movieDB_id) === genres[0].id)) {
+      return seriesGenres.find((item) => Number(item.movieDB_id) === genres[0].id).genre;
+    }
+  }
+
+  const goBack = () => {
+    props.navigation.goBack();
+  }
+
+  const renderSeriesCast = () => (
+    series.map((movie) => {
       return (
-        <TouchableOpacity onPress={() => onMovieNavigate(movie.id)}>
+        <TouchableOpacity onPress={() => onSeriesNavigate(movie.id)}>
           <View style={styles.filmBlock}>
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}` }}
@@ -60,13 +54,13 @@ const FavouriteMovies = (props) => {
             />
             <View style={styles.filmographyBlock}>
               <Text style={styles.filmographyTextLabel}>
-                {movie.title}
+                {movie.name}
               </Text>
               <Text style={styles.filmographyReleaseYear}>
-                {getYear(movie.release_date)}
+                {getYear(movie.first_air_date)}
               </Text>
               <Text style={styles.filmographyCharacter}>
-                {getGenres(movie.genres)}
+                {getGenre(movie.genres)}
               </Text>
             </View>
           </View>
@@ -77,7 +71,7 @@ const FavouriteMovies = (props) => {
 
   return (
     <>
-      <HeaderCustom label={'Favourite Movies'} back={onBack} />
+      <HeaderCustom label={'Favourite Series'} back={goBack} />
       {isLoading && (
         <View style={{ height: screenHeight - 100, alignItems: 'center', justifyContent: 'center', backgroundColor: BACKGROUND }}>
           <ActivityIndicator color={LOADER_COLOR} />
@@ -85,16 +79,16 @@ const FavouriteMovies = (props) => {
       )}
       <ScrollView style={{ backgroundColor: BACKGROUND }}>
         <View style={{ padding: 10 }}>
-          {!isLoading && renderFilmography()}
+          {!isLoading && renderSeriesCast()}
         </View>
 
-        {movies.length === 0 && !isLoading && <NoResults />}
+        {series.length === 0 && !isLoading && <NoResults />}
       </ScrollView>
     </>
   )
 }
 
-export default FavouriteMovies;
+export default FavouriteSeries;
 
 
 const styles = StyleSheet.create({
@@ -113,12 +107,11 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   filmographyReleaseYear: {
-    fontSize: 13,
+    fontSize: 12,
     color: TEXT_COLOR,
   },
   filmographyCharacter: {
     fontSize: 12,
-    paddingTop: 3,
     color: TEXT_COLOR,
   }
 });
