@@ -6,6 +6,7 @@ type AuthReducer = {
   lastname: string;
   gender: string;
   country: string;
+  countryCode: string;
   birthdate: string;
   password: string;
 }
@@ -18,6 +19,7 @@ export const initialState: AuthReducer = {
   country: null,
   birthdate: null,
   password: null,
+  countryCode: null
 };
 
 // tslint:disable-next-line:no-any
@@ -49,6 +51,7 @@ export default function (state: AuthReducer = initialState, action) {
       return {
         ...state,
         country: action.payload.country,
+        countryCode: action.payload.countryCode,
         birthdate: action.payload.birth,
         gender: action.payload.gender
       };

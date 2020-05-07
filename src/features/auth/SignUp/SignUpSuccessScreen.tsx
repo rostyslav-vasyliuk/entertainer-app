@@ -15,7 +15,7 @@ const GreetingsScreen = (props) => {
   }
 
   useEffect(() => {
-    const { firstname, lastname, email, password, gender, birthdate, country } = props;
+    const { firstname, lastname, email, password, gender, birthdate, country, countryCode } = props;
 
     const body = {
       firstname,
@@ -24,7 +24,8 @@ const GreetingsScreen = (props) => {
       password,
       gender,
       birthdate,
-      country
+      country,
+      countryCode
     }
 
     Axios.post('/auth/sign-up', body).then((response: AxiosResponse) => {

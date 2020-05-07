@@ -15,12 +15,13 @@ export const setFirstLastName = (firstname: string, lastname: string) => ({
   }
 });
 
-export const setCountryBirthGender = (country: string, birth: string, gender: string) => ({
+export const setCountryBirthGender = (country: string, birth: string, gender: string, countryCode: string) => ({
   type: actionKeys.SET_COUNTRY_BIRTH_GENDER_SIGN_UP,
   payload: {
     country,
     birth,
-    gender
+    gender,
+    countryCode
   }
 });
 

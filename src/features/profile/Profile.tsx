@@ -37,6 +37,16 @@ const Profile = (props) => {
 
   const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR} />;
 
+  // const hasUserPreferences = () => {
+  //   const { moviesPreferences, seriesPreferences, eventsPreferences, coursesPreferences } = props.userData;
+
+  //   if (moviesPreferences.length || seriesPreferences || eventsPreferences || coursesPreferences) {
+  //     return true;
+  //   }
+
+  //   return false;
+  // }
+
   const renderMenuButton = (button, isLastButton) => {
     const iconProps: any = {
       size: BASE_SIZE + 12,
@@ -79,13 +89,16 @@ const Profile = (props) => {
               >
                 {icon}
               </Gradient>
+              {/* {button.buttonLabel === 'Preferences' && !hasUserPreferences() && <FontAwesome name='circle' style={{ marginLeft: -25, marginTop: -5, fontSize: 18 }} color={'#ffb854'} />} */}
             </View>
             <View style={styles.menuText}>
-              <Text style={styles.menuTextLabel}>
-                {button.buttonLabel}
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={styles.menuTextLabel}>
+                  {t(button.buttonLabel)}
+                </Text>
+              </View>
               <Text style={styles.menuTextDesc}>
-                {button.buttonDescription}
+                {t(button.buttonDescription)}
               </Text>
             </View>
             <View style={styles.menuArrow}>
@@ -191,7 +204,8 @@ const styles = StyleSheet.create({
   },
   menuIcon: {
     paddingLeft: 5,
-    width: 65
+    width: 65,
+    flexDirection: 'row'
   },
   menuText: {
     width: screenWidth - 65 - 60,

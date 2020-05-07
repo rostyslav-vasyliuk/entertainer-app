@@ -20,7 +20,7 @@ const ContryScreen = (props) => {
   }
 
   const toNextScreen = () => {
-    props.setCountryBirthGender(countryName, date, gender);
+    props.setCountryBirthGender(countryName, date, gender, countryCode);
     props.navigation.push('PasswordScreen')
   }
 

@@ -15,7 +15,7 @@ const ActorWithMovies = ({ data, navigation }) => {
   }
 
   const navigate = (current_id) => {
-    navigation.push('SeriesDetails', {
+    navigation.push('MoviesDetails', {
       series_id: current_id
     })
   }
@@ -94,6 +94,7 @@ const ActorWithMovies = ({ data, navigation }) => {
                   onPressIn={() => onPressInAnimation()}
                   onPressOut={() => onPressOutAnimation()}
                   onPress={() => navigate(element.id)}
+                  key={`${index} ${element.id}`}
                 >
                   <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
                     <View style={{ minHeight: 180, width: 120, marginLeft: 8, marginRight: 4, marginTop: 5, borderRadius: 8, marginBottom: 6 }}>

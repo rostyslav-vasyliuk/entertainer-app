@@ -19,6 +19,7 @@ const mapStateToProps: (state) => StateProps = (state) => ({
   lastname: state.auth.lastname,
   gender: state.auth.gender,
   country: state.auth.country,
+  countryCode: state.auth.countryCode,
   birthdate: state.auth.birthdate,
   password: state.auth.password,
 });
