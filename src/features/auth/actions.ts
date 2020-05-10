@@ -31,15 +31,3 @@ export const setPassword = (password: string) => ({
     password
   }
 });
-
-// export function openActionModal(actionModalMode: string, shouldChangeTransition: boolean = false, isEditLink?: boolean):
-// ActionOpenModal {
-//   return {
-//     type: OPEN_ACTION_MODAL,
-//     payload: {
-//       actionModalMode,
-//       shouldChangeTransition,
-//       isEditLink
-//     }
-//   };
-// }
