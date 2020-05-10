@@ -19,6 +19,6 @@ export const getAge = (dateString: string) => {
   const date1 = new Date(dateString);
   let date2 = new Date();
   let yearsDiff =  date2.getFullYear() - date1.getFullYear();
-  // const dateString = `${monthLabel[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+
   return yearsDiff;
 }

@@ -11,6 +11,3 @@ export const BUTTON_COLOR = '#fe4b66';
 export const DARK_TEXT_COLOR = '#fff';
 export const LIGHT_TEXT_COLOR = '#000';
 export const LOADER_COLOR = '#f2f2f2';
-export const getTheme = (theme) => {
-  return theme === 'light';
-}

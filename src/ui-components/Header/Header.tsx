@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header, Body, Left, Right, Title } from 'native-base';
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { HEADER_BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../constants/color-constants';
+import { HEADER_BACKGROUND, TEXT_COLOR } from '../../constants/color-constants';
 
 const HeaderCustom = (props) => {
   return (
