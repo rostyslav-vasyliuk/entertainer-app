@@ -29,6 +29,18 @@
     "android": {
       "package": "com.entertainer.entertainer",
       "versionCode": 1
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "entertainer",
+            "project": "entertainer",
+            "authToken": "8fca13cbbd434f2e9aa2fa04602caa3849f9ac71efc7457cb43570a3564825ea"
+          }
+        }
+      ]
     }
   }
 }

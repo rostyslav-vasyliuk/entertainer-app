@@ -9,6 +9,7 @@ import * as Font from 'expo-font';
 import { Root } from 'native-base';
 import { Asset } from 'expo-asset';
 import { assets } from './constants/images-assets';
+import * as Sentry from 'sentry-expo';
 
 const App = () => {
   const [isAppReady, setIsAppReady] = useState(false)
@@ -54,6 +55,12 @@ const App = () => {
 }
 
 export default App;
+
+Sentry.init({
+  dsn: 'https://1b26ecdb38894b6a91e1bbbaf1c37b05@o390539.ingest.sentry.io/5234006',
+  enableInExpoDevelopment: true,
+  debug: true,
+});
 
 const styles = StyleSheet.create({
   container: {
