@@ -8,40 +8,13 @@ import { Divider } from 'react-native-elements';
 import Events from '../events/Events';
 import Movies from '../movies/Movies';
 import Series from '../series/Series';
-import Modal from 'react-native-modal';
-import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND, BUTTON_COLOR } from '../../constants/color-constants';
 import Courses from '../courses/Courses';
-
-const defaultCategories = ['events', 'movies', 'tv_series', 'education'];
-
-const categoryLabels = {
-  events: {
-    label: 'Events',
-    description: 'Different types of events (like concerts, festivals etc.)'
-  },
-  cinema: {
-    label: 'Cinema',
-    description: 'Search for new moview to watch it in cinema in your town'
-  },
-  movies: {
-    label: 'Movies',
-    description: 'Search for all movies in our database and get something interesting for you'
-  },
-  tv_series: {
-    label: 'TV Series',
-    description: 'Find some amazing new series you haven\'t seen yet'
-  },
-  education: {
-    label: 'Education',
-    description: 'Want to learn something new? Find best free courses in this section'
-  },
-}
+import { categoryLabels, defaultCategories } from './constants';
 
 const Discover = ({ userData, navigation }) => {
   const category = (userData.order && userData.order.length) ? userData.order.map(elem => elem.key) : defaultCategories;
   const [activeCategory, setActiveCategory] = React.useState(category[0]);
-  const [isEventCityModalVisible, setIsEventCityModalVisible] = React.useState(false);
 
   const modalRef = useRef(null);
 
@@ -114,9 +87,7 @@ const Discover = ({ userData, navigation }) => {
             />
           </TouchableOpacity>
         </Body>
-        <Right>
-          {/* <Text onPress={() => setIsEventCityModalVisible(true)}>s</Text> */}
-        </Right>
+        <Right />
       </Header>
 
       <Modalize
@@ -135,18 +106,6 @@ const Discover = ({ userData, navigation }) => {
       {activeCategory === 'movies' && <Movies navigation={navigation} />}
       {activeCategory === 'tv_series' && <Series navigation={navigation} />}
       {activeCategory === 'education' && <Courses navigation={navigation} />}
-
-
-      <Modal
-        deviceWidth={screenWidth}
-        deviceHeight={screenHeight}
-        isVisible={isEventCityModalVisible}
-        backdropOpacity={0.3}
-      >
-        <View style={{ height: 100, width: 100, backgroundColor: 'white' }}>
-          <Text onPress={() => setIsEventCityModalVisible(false)}>Hello!</Text>
-        </View>
-      </Modal>
     </>
   )
 }
