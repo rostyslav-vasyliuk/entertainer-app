@@ -1,4 +1,4 @@
-import { Animated, SafeAreaView, Text, View } from 'react-native';
+import { Animated, SafeAreaView, Text, View, ActivityIndicator } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Button } from 'native-base';
 import LottieView from 'lottie-react-native';
@@ -20,6 +20,7 @@ import styles, {
 import { screenWidth } from '../../../constants/screen-contants';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
+import { LOADER_COLOR } from '../../../constants/color-constants';
 
 const { Value, Text: AnimatedText } = Animated;
 
@@ -44,6 +45,7 @@ const animateCell = ({ hasValue, index, isFocused }) => {
 
 const AnimatedExample = (props) => {
   const [value, setValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [properties, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -62,15 +64,18 @@ const AnimatedExample = (props) => {
   const toNextScreen = () => {
     const token = props.navigation.getParam('forgot-password-token', null);
     const email = props.navigation.getParam('email', null);
+    setIsLoading(true);
+
     Axios.post('/auth/confirm-code', { email, code: value }, { headers: { 'forgot-password-token': token } })
       .then((response: AxiosResponse) => {
         const resetToken = response.headers['reset-password-token']
+        setIsLoading(false);
         props.navigation.push('NewPasswordComponent', {
           email,
           'reset-password-token': resetToken
         });
       }).catch(() => {
-
+        setIsLoading(false);
       })
   }
 
@@ -199,9 +204,13 @@ const AnimatedExample = (props) => {
         onPress={toNextScreen}
       // onPress={() => setValue('')}
       >
-        <Text style={styles.buttonsLabel}>
-          {'Continue'}
-        </Text>
+        {!isLoading ? (
+          <Text style={styles.buttonsLabel}>
+            {'Continue'}
+          </Text>
+        ) : (
+            <ActivityIndicator color={LOADER_COLOR} />
+          )}
       </Button>
     </SafeAreaView>
   );

@@ -5,7 +5,6 @@ import HeaderCustom from '../../../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR } from '../../../../../constants/color-constants';
 import { Button, Text } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
-import { screenHeight } from '../../../../../constants/screen-contants';
 import { Axios } from '../../../../../api/instance';
 import { AxiosResponse } from 'axios';
 
@@ -22,6 +21,7 @@ const ChangeEmail = (props) => {
     }
 
     Axios.post('/profile/update-profile', body).then((response: AxiosResponse) => {
+      console.log(response)
       props.setUserData(response.data);
     })
   }

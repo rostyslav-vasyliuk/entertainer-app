@@ -7,7 +7,6 @@ import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import HeaderCustom from '../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../../constants/color-constants';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState('');
@@ -50,8 +49,8 @@ const LoginScreen = (props) => {
 
   return (
     <View style={{ backgroundColor: BACKGROUND, height: '100%' }}>
-      <HeaderCustom label={'Login'} back={onBack} />
       <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
+      <HeaderCustom label={'Login'} back={onBack} />
         <View>
           <View style={{ height: '45%', alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
             <Image

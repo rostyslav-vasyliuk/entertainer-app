@@ -37,28 +37,28 @@ const RecommendationsFeed = (props) => {
 
   const renderReccomendedItem = (data, index) => {
     if (data.type === 'actor_movies') {
-      return <ActorWithMovies data={data} navigation={props.navigation} />;
+      return <ActorWithMovies data={data} navigation={props.navigation} key={index * Math.random() * 10} />;
     }
 
     if (data.type === 'movie_of_the_week') {
-      return <MovieOfTheWeek data={data.data} navigation={props.navigation} />
+      return <MovieOfTheWeek data={data.data} navigation={props.navigation} key={index * Math.random() * 10} />
     }
 
     if (data.type === 'movies_of_the_week') {
-      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Popolar movies this week'}/>
+      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Popolar movies this week'} key={index * Math.random() * 10} />
     }
 
     if (data.type === 'serie_of_the_week') {
-      return <SerieOfTheWeek data={data.data} navigation={props.navigation} />
+      return <SerieOfTheWeek data={data.data} navigation={props.navigation} key={index * Math.random() * 10} />
     }
 
     if (data.type === 'series_of_the_week') {
-      return <ListSeriesOfTheWeek data={data.data} navigation={props.navigation} />
+      return <ListSeriesOfTheWeek data={data.data} navigation={props.navigation} key={index * Math.random() * 10} />
     }
     if (data.type === 'movies_preferences') {
-      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Based on your preferences'}/>
+      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Based on your preferences'} key={index * Math.random() * 10} />
     }
-    
+
   }
 
   const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR} />;
