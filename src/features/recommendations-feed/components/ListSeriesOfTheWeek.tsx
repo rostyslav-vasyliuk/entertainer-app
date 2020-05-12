@@ -40,7 +40,7 @@ const ListSeriesOfTheWeek = ({ data, navigation }) => {
       </Text>
 
       <ScrollView horizontal>
-        {data.map((elem, index) => {
+        {data.map((elem) => {
           const animatedValue = new Animated.Value(1);
 
           const onPressInAnimation = () => {
@@ -56,7 +56,7 @@ const ListSeriesOfTheWeek = ({ data, navigation }) => {
           }
 
           return (
-            <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
+            <Animated.View style={{ transform: [{ scale: animatedValue }] }} key={elem.id}>
 
               <TouchableOpacity
                 style={styles.similarMovieContainer}

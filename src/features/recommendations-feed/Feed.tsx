@@ -73,7 +73,6 @@ const RecommendationsFeed = (props) => {
         </View>
       )}
 
-      {/* <Button onPress={() => click()} /> */}
       {!isLoading && (
         <ScrollView style={styles.scrollView} refreshControl={RefreshController}>
           {responseData.map(renderReccomendedItem)}

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Animated, Easing, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native-elements';
 import { screenWidth } from '../../../constants/screen-contants';
-import { TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../../constants/color-constants';
+import { TEXT_COLOR_SECONDARY, LOADER_COLOR, BACKGROUND_LIGHT } from '../../../constants/color-constants';
 
 const GRID_AMOUNT = 6;
 
@@ -35,6 +35,7 @@ const MoviesGrid = ({ data, navigation, label }) => {
         onPressIn={() => onPressInAnimation()}
         onPressOut={() => onPressOutAnimation()}
         onPress={() => navigate(element.id)}
+        key={element.id}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
           <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 220 }}>
@@ -42,6 +43,7 @@ const MoviesGrid = ({ data, navigation, label }) => {
               source={{ uri: 'https://image.tmdb.org/t/p/w500/' + element.poster_path }}
               style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 220 }}
               PlaceholderContent={<ActivityIndicator color={LOADER_COLOR} />}
+              placeholderStyle={{ backgroundColor: BACKGROUND_LIGHT }}
               borderRadius={6}
             />
           </View>
@@ -70,6 +72,7 @@ const MoviesGrid = ({ data, navigation, label }) => {
         onPressIn={() => onPressInAnimation()}
         onPressOut={() => onPressOutAnimation()}
         onPress={() => navigate(element.id)}
+        key={element.id}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
           <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 300 }}>
@@ -77,6 +80,7 @@ const MoviesGrid = ({ data, navigation, label }) => {
               source={{ uri: 'https://image.tmdb.org/t/p/w500/' + element.poster_path }}
               style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 300, justifyContent: 'flex-end' }}
               PlaceholderContent={<ActivityIndicator color={LOADER_COLOR} />}
+              placeholderStyle={{ backgroundColor: BACKGROUND_LIGHT }}
               borderRadius={6}
             />
           </View>
