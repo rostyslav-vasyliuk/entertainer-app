@@ -88,7 +88,7 @@ const GreetingsScreen = (props) => {
             {`Congratulations, ${props.firstname}!`}
           </Text>
           <Text style={styles.labelDescription}>
-            {'You\'ve succesfully created an account in Linguameet. Click button below to explore our world!'}
+            {'You\'ve succesfully created an account in Entertainer. Click button below to explore our world!'}
           </Text>
           <View style={styles.buttonsWrapper}>
             <Button full style={styles.button} onPress={goToApp}>
