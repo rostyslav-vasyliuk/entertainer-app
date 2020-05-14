@@ -8,6 +8,11 @@ describe('<NoResults />', () => {
     expect(tree.children.length).toBe(3);
   });
 
+  it('has 1 child', () => {
+    const tree = renderer.create(<NoResults />).toJSON();
+    expect(tree.children.length).toBeGreaterThanOrEqual(3);
+  });
+
   it('rendered', () => {
     const tree = renderer.create(<NoResults />).toJSON();
     expect(tree.children).toBeTruthy();

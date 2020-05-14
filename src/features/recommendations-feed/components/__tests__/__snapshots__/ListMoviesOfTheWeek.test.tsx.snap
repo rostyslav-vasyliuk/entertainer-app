@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppIntroOverlay /> match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "marginTop": 10,
+      "paddingBottom": 5,
+      "paddingLeft": 15,
+      "paddingRight": 15,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#c0c1c2",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "letterSpacing": 1,
+        "paddingBottom": 8,
+        "paddingTop": 16,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    People watching now
+  </Text>
+  <RCTScrollView
+    horizontal={true}
+  >
+    <View />
+  </RCTScrollView>
+</View>
+`;

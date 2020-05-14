@@ -8,6 +8,16 @@ describe('<TabHeader />', () => {
     expect(tree.children.length).toBe(2);
   });
 
+  it('has 1 child', () => {
+    const tree = renderer.create(<TabHeader />).toJSON();
+    expect(tree.children.length).toBeGreaterThanOrEqual(0);
+  });
+
+  it('has 1 child', () => {
+    const tree = renderer.create(<TabHeader />).toJSON();
+    expect(tree.children.length).toBeGreaterThanOrEqual(1);
+  });
+
   it('rendered', () => {
     const tree = renderer.create(<TabHeader />).toJSON();
     expect(tree.children).toBeTruthy();

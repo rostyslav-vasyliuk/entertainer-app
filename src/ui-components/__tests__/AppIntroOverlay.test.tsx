@@ -12,4 +12,9 @@ describe('<AppIntroOverlay />', () => {
     const tree = renderer.create(<AppIntroOverlay navigation={{ navigate: () => { } }} />).toJSON();
     expect(tree.children.length).toBe(1);
   });
+
+  it('has 1 child', () => {
+    const tree = renderer.create(<AppIntroOverlay navigation={{ navigate: () => { } }} />).toJSON();
+    expect(tree.children.length).toBeGreaterThanOrEqual(0);
+  });
 });

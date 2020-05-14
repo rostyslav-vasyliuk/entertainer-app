@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppIntroOverlay /> match snapshot 1`] = `
+<View>
+  <Text
+    style={
+      Object {
+        "color": "#c0c1c2",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "letterSpacing": 1,
+        "paddingBottom": 6,
+        "paddingLeft": "4%",
+        "paddingTop": 10,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    Actor you may like
+  </Text>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#181821",
+        "borderRadius": 16,
+        "marginLeft": "3%",
+        "marginRight": "3%",
+        "width": "94%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "padding": 10,
+          "paddingBottom": 12,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": "https://image.tmdb.org/t/p/w1280/undefined",
+          }
+        }
+        style={
+          Object {
+            "borderRadius": 16,
+            "height": 140,
+            "width": 100,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "justifyContent": "space-between",
+            "padding": 12,
+            "paddingBottom": 2,
+            "paddingTop": 2,
+          }
+        }
+      >
+        <View>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "letterSpacing": 1.1,
+                "paddingBottom": 4,
+                "paddingTop": 3,
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "overflow": "hidden",
+                "paddingTop": 3,
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "overflow": "hidden",
+                "paddingTop": 3,
+              }
+            }
+          >
+            Born:  ( y.o.)
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "overflow": "hidden",
+                "paddingTop": 3,
+              }
+            }
+          >
+            Movies: 0
+          </Text>
+        </View>
+      </View>
+    </View>
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+          "fontSize": 14,
+          "fontWeight": "600",
+          "letterSpacing": 0.9,
+          "marginLeft": 10,
+        }
+      }
+    >
+      Best known for:
+    </Text>
+    <RCTScrollView
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+    >
+      <View />
+    </RCTScrollView>
+  </View>
+</View>
+`;
+
+exports[`<AppIntroOverlay /> match snapshot 2`] = `
+<View>
+  <Text
+    style={
+      Object {
+        "color": "#c0c1c2",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "letterSpacing": 1,
+        "paddingBottom": 6,
+        "paddingLeft": "4%",
+        "paddingTop": 10,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    Actor you may like
+  </Text>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#181821",
+        "borderRadius": 16,
+        "marginLeft": "3%",
+        "marginRight": "3%",
+        "width": "94%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "padding": 10,
+          "paddingBottom": 12,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": "https://image.tmdb.org/t/p/w1280/undefined",
+          }
+        }
+        style={
+          Object {
+            "borderRadius": 16,
+            "height": 140,
+            "width": 100,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "justifyContent": "space-between",
+            "padding": 12,
+            "paddingBottom": 2,
+            "paddingTop": 2,
+          }
+        }
+      >
+        <View>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 16,
+                "fontWeight": "600",
+                "letterSpacing": 1.1,
+                "paddingBottom": 4,
+                "paddingTop": 3,
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "overflow": "hidden",
+                "paddingTop": 3,
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "overflow": "hidden",
+                "paddingTop": 3,
+              }
+            }
+          >
+            Born:  ( y.o.)
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 12,
+                "fontWeight": "400",
+                "overflow": "hidden",
+                "paddingTop": 3,
+              }
+            }
+          >
+            Movies: 0
+          </Text>
+        </View>
+      </View>
+    </View>
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+          "fontSize": 14,
+          "fontWeight": "600",
+          "letterSpacing": 0.9,
+          "marginLeft": 10,
+        }
+      }
+    >
+      Best known for:
+    </Text>
+    <RCTScrollView
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+    >
+      <View />
+    </RCTScrollView>
+  </View>
+</View>
+`;

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppIntroOverlay /> match snapshot 1`] = `
+<View>
+  <Text
+    style={
+      Object {
+        "color": "#c0c1c2",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "letterSpacing": 1,
+        "paddingBottom": 6,
+        "paddingLeft": 14,
+        "paddingTop": 10,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "paddingBottom": 10,
+      }
+    }
+  >
+    <View />
+    <View />
+  </View>
+</View>
+`;
