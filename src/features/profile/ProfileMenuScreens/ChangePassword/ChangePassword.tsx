@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { Axios } from '../../../../api/instance';
 import { screenWidth } from '../../../../constants/screen-contants';
-import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT } from '../../../../constants/color-constants';
+import { TEXT_COLOR, BACKGROUND, TEXT_COLOR_SECONDARY, BACKGROUND_LIGHT, LOADER_COLOR } from '../../../../constants/color-constants';
 import HeaderCustom from '../../../../ui-components/Header/Header';
 
 const ChangePassword = (props) => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const goBack = () => {
     props.navigation.goBack();
   }
 
   const toNextScreen = () => {
+    setIsLoading(true);
     Axios.post('/profile/password', { oldPassword, newPassword })
       .then(() => {
         props.navigation.navigate('Profile');
+        setIsLoading(false);
         Toast.show({
           text: 'Password was succesfully changed',
           buttonText: 'Okay'
         })
       }).catch(() => {
-
+        setIsLoading(false);
       })
   }
 
@@ -95,9 +98,13 @@ const ChangePassword = (props) => {
               />
             </View>
             <Button full style={styles.button} onPress={toNextScreen}>
-              <Text>
-                {'Next'}
-              </Text>
+              {isLoading ? (
+                <ActivityIndicator color={LOADER_COLOR} size='small' />
+              ) : (
+                  <Text>
+                    {'Submit'}
+                  </Text>
+                )}
             </Button>
           </View>
         </KeyboardAvoidingView>

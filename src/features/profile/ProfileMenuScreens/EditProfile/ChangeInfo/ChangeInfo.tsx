@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Platform, ActivityIndicator } from 'react-native';
 import HeaderCustom from '../../../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR } from '../../../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR, LOADER_COLOR } from '../../../../../constants/color-constants';
 import { Button, Text } from 'native-base';
 import { screenHeight } from '../../../../../constants/screen-contants';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -16,8 +16,9 @@ const ChangeInfo = (props) => {
   const [countryCode, setCountryCode] = useState<CountryCode>(props.userData.countryCode);
   const [birthdate, setBirthdate] = useState(props.userData.birthdate.toLocaleString('en-US', options));
   const [gender, setGender] = useState(props.userData.gender);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [displayDate, setDisplayDate] = useState(new Date (props.userData.birthdate).toLocaleString('en-US', options));
+  const [displayDate, setDisplayDate] = useState(new Date(props.userData.birthdate).toLocaleString('en-US', options));
   const [show, setShow] = useState(false);
 
   const onDateChange = (_event: any, selectedDate: any) => {
@@ -61,9 +62,13 @@ const ChangeInfo = (props) => {
       birthdate,
       gender
     }
+    setIsLoading(true);
 
     Axios.post('/profile/update-profile', body).then((response: AxiosResponse) => {
       props.setUserData(response.data);
+      setIsLoading(false);
+    }).catch(() => {
+      setIsLoading(false);
     })
   }
 
@@ -147,9 +152,13 @@ const ChangeInfo = (props) => {
 
 
           <Button full style={styles.button} onPress={onSubmit}>
-            <Text style={styles.buttonLabel}>
-              {'Update profile'}
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator color={LOADER_COLOR} size='small' />
+            ) : (
+                <Text style={styles.buttonLabel}>
+                  {'Update profile'}
+                </Text>
+              )}
           </Button>
         </View>
       </ScrollView>

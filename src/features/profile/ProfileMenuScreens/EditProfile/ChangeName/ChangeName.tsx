@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import HeaderCustom from '../../../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR } from '../../../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR, LOADER_COLOR } from '../../../../../constants/color-constants';
 import { Button, Text } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { screenHeight } from '../../../../../constants/screen-contants';
@@ -11,6 +11,7 @@ import { AxiosResponse } from 'axios';
 const ChangeName = (props) => {
   const [firstname, setFirstname] = useState(props.userData.firstname);
   const [lastname, setLastname] = useState(props.userData.lastname);
+  const [isLoading, setIsLoading] = useState(false);
 
   const goBack = () => {
     props.navigation.goBack();
@@ -21,9 +22,13 @@ const ChangeName = (props) => {
       firstname,
       lastname
     }
+    setIsLoading(true);
 
     Axios.post('/profile/update-profile', body).then((response: AxiosResponse) => {
       props.setUserData(response.data);
+      setIsLoading(false);
+    }).catch(() => {
+      setIsLoading(false);
     })
   }
 
@@ -61,9 +66,13 @@ const ChangeName = (props) => {
           </View>
 
           <Button full style={styles.button} onPress={onSubmit}>
-            <Text style={styles.buttonLabel}>
-              {'Update'}
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator color={LOADER_COLOR} size='small' />
+            ) : (
+                <Text style={styles.buttonLabel}>
+                  {'Update'}
+                </Text>
+              )}
           </Button>
         </View>
       </ScrollView>

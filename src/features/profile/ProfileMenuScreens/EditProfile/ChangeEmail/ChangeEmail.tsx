@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import HeaderCustom from '../../../../../ui-components/Header/Header';
-import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR } from '../../../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR, LOADER_COLOR } from '../../../../../constants/color-constants';
 import { Button, Text } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../../../api/instance';
@@ -10,6 +10,7 @@ import { AxiosResponse } from 'axios';
 
 const ChangeEmail = (props) => {
   const [email, setEmail] = useState(props.userData.email);
+  const [isLoading, setIsLoading] = useState(false);
 
   const goBack = () => {
     props.navigation.goBack();
@@ -20,9 +21,13 @@ const ChangeEmail = (props) => {
       email
     }
 
+    setIsLoading(true);
+
     Axios.post('/profile/update-profile', body).then((response: AxiosResponse) => {
-      console.log(response)
+      setIsLoading(false);
       props.setUserData(response.data);
+    }).catch(() => {
+      setIsLoading(false);
     })
   }
 
@@ -47,9 +52,13 @@ const ChangeEmail = (props) => {
           </View>
 
           <Button full style={styles.button} onPress={onSubmit}>
-            <Text style={styles.buttonLabel}>
-              {'Update'}
-            </Text>
+            {isLoading ? (
+              <ActivityIndicator color={LOADER_COLOR} size='small' />
+            ) : (
+                <Text style={styles.buttonLabel}>
+                  {'Update'}
+                </Text>
+              )}
           </Button>
         </View>
       </ScrollView>
@@ -61,7 +70,7 @@ export default ChangeEmail;
 
 const styles = StyleSheet.create({
   wrapper: {
-    
+
   },
   button: {
     backgroundColor: BUTTON_COLOR,
