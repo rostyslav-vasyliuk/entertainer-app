@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import HeaderCustom from '../../../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR, LOADER_COLOR } from '../../../../../constants/color-constants';
-import { Button, Text } from 'native-base';
+import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { screenHeight } from '../../../../../constants/screen-contants';
 import { Axios } from '../../../../../api/instance';
@@ -27,6 +27,10 @@ const ChangeName = (props) => {
     Axios.post('/profile/update-profile', body).then((response: AxiosResponse) => {
       props.setUserData(response.data);
       setIsLoading(false);
+      Toast.show({
+        text: 'Your changes was saved',
+        buttonText: 'Okay'
+      })
     }).catch(() => {
       setIsLoading(false);
     })

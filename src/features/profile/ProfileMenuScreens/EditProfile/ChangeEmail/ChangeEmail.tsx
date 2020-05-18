@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import HeaderCustom from '../../../../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR, BUTTON_COLOR, LOADER_COLOR } from '../../../../../constants/color-constants';
-import { Button, Text } from 'native-base';
+import { Button, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { Axios } from '../../../../../api/instance';
 import { AxiosResponse } from 'axios';
@@ -26,6 +26,10 @@ const ChangeEmail = (props) => {
     Axios.post('/profile/update-profile', body).then((response: AxiosResponse) => {
       setIsLoading(false);
       props.setUserData(response.data);
+      Toast.show({
+        text: 'Your changes was saved',
+        buttonText: 'Okay'
+      })
     }).catch(() => {
       setIsLoading(false);
     })
