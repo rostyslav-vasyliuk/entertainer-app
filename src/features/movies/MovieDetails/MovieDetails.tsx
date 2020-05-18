@@ -129,13 +129,13 @@ const MovieDetails = (props) => {
 			<ScrollView style={styles.container}>
 				{movieData.backdrop_path ?
 					<Image
-						source={{ uri: `https://image.tmdb.org/t/p/w1280/${movieData.backdrop_path}` }}
+						source={{ uri: `https://image.tmdb.org/t/p/w1280/${movieData.poster_path}` }}
 						style={styles.image}
 						placeholderStyle={{ backgroundColor: '#000000' }}
-						PlaceholderContent={<ActivityIndicator size='large' color="#fff" />}
+						PlaceholderContent={<ActivityIndicator size='small' color="#fff" />}
 					/>
 					: (
-						<View style={{ height: 280, width: '100%', borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: HEADER_BACKGROUND }}>
+						<View style={{ height: 430, width: '100%', borderRadius: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: HEADER_BACKGROUND }}>
 							<Entypo name='image' style={{ color: TEXT_COLOR_SECONDARY, fontSize: 40 }} />
 						</View>
 					)
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		flex: 1,
-		height: 280,
+		height: 430,
 		// backgroundColor: '#030405'
 	},
 	country: {
