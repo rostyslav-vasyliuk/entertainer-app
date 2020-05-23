@@ -1,21 +1,45 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, KeyboardAvoidingView, TouchableOpacity, StatusBar } from 'react-native';
-import { Button, Header, Left, Body, Right, Text } from 'native-base';
+import { View, StyleSheet, Platform, KeyboardAvoidingView, TouchableOpacity, StatusBar, ActivityIndicator, Keyboard } from 'react-native';
+import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import BackArrow from '../../../ui-components/BackArrow/BackArrow';
-import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
+import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../../constants/color-constants';
+import { Axios } from '../../../api/instance';
 
 const EmailScreen = (props) => {
   const [email, setEmail] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const goBack = () => {
     props.navigation.goBack();
   }
 
   const toNextScreen = () => {
-    props.setEmail(email);
-    props.navigation.push('FirstLastNameScreen');
+    Keyboard.dismiss();
+    if (!validateEmail(email)) {
+      Toast.show({
+        text: 'Please, check if your email is correct!',
+        type: 'warning',
+        buttonText: 'Okay'
+      })
+      return;
+    }
+
+    setIsLoading(true);
+    Axios.post('/auth/validate-email', { email })
+      .then(() => {
+        setIsLoading(false);
+        props.navigation.push('FirstLastNameScreen');
+        props.setEmail(email);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        Toast.show({
+          text: 'User with this email already exist!',
+          type: 'warning',
+          buttonText: 'Okay'
+        })
+      })
   }
 
   const validateEmail = (email) => {
@@ -27,13 +51,8 @@ const EmailScreen = (props) => {
 
   const onChange = (email: string) => {
     setEmail(email);
-
-    if (validateEmail(email)) {
-      setIsButtonDisabled(false)
-    } else {
-      setIsButtonDisabled(true);
-    }
   }
+
   return (
     <>
       <StatusBar barStyle='light-content' />
@@ -78,9 +97,13 @@ const EmailScreen = (props) => {
                 style={[styles.button]}
                 onPress={toNextScreen}
               >
-                <Text>
-                  {'Next'}
-                </Text>
+                {isLoading ? (
+                  <ActivityIndicator color={LOADER_COLOR} />
+                ) : (
+                    <Text>
+                      {'Next'}
+                    </Text>
+                  )}
               </Button>
             </View>
           </KeyboardAvoidingView>
