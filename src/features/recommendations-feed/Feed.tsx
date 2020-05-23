@@ -10,6 +10,8 @@ import ActorWithMovies from './components/ActorWithMovies';
 import SerieOfTheWeek from './components/SerieOfTheWeek';
 import ListSeriesOfTheWeek from './components/ListSeriesOfTheWeek';
 import MoviesGrid from './components/MoviesGrid';
+import CoursesPreferences from './components/CoursesPreferences';
+import EventsPreferences from './components/EventsPreferences';
 
 const RecommendationsFeed = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +60,13 @@ const RecommendationsFeed = (props) => {
       return <MoviesGrid data={data.data} navigation={props.navigation} label={'Based on your preferences'} key={index * Math.random() * 10} />
     }
 
+    if (data.type === 'courses_preferences_content_filtering') {
+      return <CoursesPreferences data={data.data} navigation={props.navigation} key={index * Math.random() * 10} />
+    }
+
+    if (data.type === 'events_preferences_content_filtering') {
+      return <EventsPreferences data={data.data} navigation={props.navigation} key={index * Math.random() * 10} />
+    }
   }
 
   const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR} />;

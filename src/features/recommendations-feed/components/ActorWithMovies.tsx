@@ -15,8 +15,8 @@ const ActorWithMovies = ({ data, navigation }) => {
   }
 
   const navigate = (current_id) => {
-    navigation.push('MoviesDetails', {
-      series_id: current_id
+    navigation.push('MovieDetails', {
+      movie_id: current_id
     })
   }
 
