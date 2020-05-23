@@ -42,7 +42,7 @@ const NavigationController = (props) => {
         }
       }
     } catch (e) {
-      console.log(e)
+      props.navigation.navigate('GreetingsScreen');
     }
   }
 
