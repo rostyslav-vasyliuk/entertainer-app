@@ -10,11 +10,13 @@ import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { FontAwesome } from '@expo/vector-icons';
 import { BACKGROUND, HEADER_BACKGROUND, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../constants/color-constants';
 import { Entypo } from '@expo/vector-icons'
+import { Linking } from 'expo';
 
 const ActorDetails = (props) => {
   const [actorsData, setActorsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
+
   useEffect(() => {
     const actor_id = props.navigation.getParam('actor_id', null);
     Axios.get(`/actor/details/${actor_id}`).then((response: AxiosResponse) => {
@@ -24,7 +26,8 @@ const ActorDetails = (props) => {
   }, []);
 
   const getGender = (gender: number) => {
-    return gender ? 'Male' : 'Female';
+    console.log(gender);
+    return gender !== 1 ? 'Male' : 'Female';
   }
 
   const getDateString = (releaseDate: string) => {
@@ -137,21 +140,16 @@ const ActorDetails = (props) => {
 
   const renderSocialBlock = () => {
     const external_ids = actorsData.external_ids;
-    if (external_ids.instagram_id || external_ids.twitter_id || external_ids.facebook_id) {
+    if (external_ids.instagram_id || external_ids.twitter_id) {
       return (
         <View style={styles.socialsBlock}>
           {external_ids.instagram_id && (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL(`https://instagram.com/${external_ids.instagram_id}`)}>
               <FontAwesome name='instagram' style={styles.socialIcon} />
             </TouchableOpacity>
           )}
-          {external_ids.facebook_id && (
-            <TouchableOpacity>
-              <FontAwesome name='facebook' style={styles.socialIcon} />
-            </TouchableOpacity>
-          )}
           {external_ids.twitter_id && (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL(`https://twitter.com/${external_ids.twitter_id}`)}>
               <FontAwesome name='twitter' style={styles.socialIcon} />
             </TouchableOpacity>
           )}
@@ -315,10 +313,11 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: 'white',
     padding: 5,
-    paddingRight: 20
+    paddingRight: 25
   },
   socialsBlock: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingLeft: 0
   },
   filmBlock: {
     flexDirection: 'row',
