@@ -9,9 +9,15 @@ import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants
 
 const GreetingsScreen = (props) => {
   const [isUserRegistered, setIsUserRegistered] = useState(false);
+  const [isErrorWhileSignUp, setIsErrorWhileSignUp] = useState(false);
 
   const goToApp = () => {
     props.navigation.navigate('App');
+  }
+
+  const trySignUpAgain = () => {
+    setIsErrorWhileSignUp(false);
+    props.navigation.navigate('GreetingsScreen');
   }
 
   useEffect(() => {
@@ -28,13 +34,17 @@ const GreetingsScreen = (props) => {
       countryCode
     }
 
-    Axios.post('/auth/sign-up', body).then((response: AxiosResponse) => {
-      setIsUserRegistered(true);
-      const token = response.headers['access-token'];
-      props.setUserData(response.data);
-      AsyncStorage.setItem('access-token', token);
-      Object.assign(Axios.defaults, { headers: { 'access-token': token } });
-    })
+    Axios.post('/auth/sign-up', body)
+      .then((response: AxiosResponse) => {
+        setIsUserRegistered(true);
+        const token = response.headers['access-token'];
+        props.setUserData(response.data);
+        AsyncStorage.setItem('access-token', token);
+        Object.assign(Axios.defaults, { headers: { 'access-token': token } });
+      })
+      .catch(() => {
+        setIsErrorWhileSignUp(true);
+      })
   }, [])
 
   if (!isUserRegistered) {
@@ -61,6 +71,43 @@ const GreetingsScreen = (props) => {
             <Text style={styles.labelDescription}>
               {'Please wait until we configure your account and setup everything for you!'}
             </Text>
+          </View>
+        </View>
+      </>
+    )
+  }
+
+  if (isErrorWhileSignUp) {
+    return (
+      <>
+        <StatusBar barStyle="light-content" />
+        <View style={styles.wrapper}>
+          <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 120 }}>
+            <LottieView
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'transparent',
+              }}
+              source={require('../../../assets/lottie/error.json')}
+              autoPlay
+              loop={true}
+            />
+          </View>
+          <View style={{ height: '50%', display: 'flex', justifyContent: 'center' }}>
+            <Text style={styles.labelHeader}>
+              {`Oops...`}
+            </Text>
+            <Text style={styles.labelDescription}>
+              {'We cant handle your request at the moment. Please try again later.'}
+            </Text>
+            <View style={styles.buttonsWrapper}>
+              <Button full style={styles.button} onPress={trySignUpAgain}>
+                <Text>
+                  Try again
+              </Text>
+              </Button>
+            </View>
           </View>
         </View>
       </>
