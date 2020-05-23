@@ -16,7 +16,6 @@ const RecommendationsFeed = (props) => {
   const [responseData, setResponseData] = useState([]);
 
   const [refreshing, setRefreshing] = React.useState(false);
-  const [endReached, setEndReached] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -45,7 +44,7 @@ const RecommendationsFeed = (props) => {
     }
 
     if (data.type === 'movies_of_the_week') {
-      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Popolar movies this week'} key={index * Math.random() * 10} />
+      return <MoviesGrid data={data.data} navigation={props.navigation} label={'Popular movies this week'} key={index * Math.random() * 10} />
     }
 
     if (data.type === 'serie_of_the_week') {
