@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingLeft: 80,
+    width:200
   },
   icon: {
     fontSize: 20,

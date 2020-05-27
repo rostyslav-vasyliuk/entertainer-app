@@ -33,7 +33,7 @@ const MovieDetails = (props) => {
 
 	if (isLoading) {
 		return (
-			<View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+			<View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
 				<ActivityIndicator size="small" color="#fff" />
 			</View>
 		)
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		flex: 1,
-		height: 430,
+		height: 630,
 		// backgroundColor: '#030405'
 	},
 	country: {

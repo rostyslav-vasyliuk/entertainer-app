@@ -19,6 +19,11 @@ const App = () => {
       [FontAwesome.font, Entypo.font, AntDesign.font, Ionicons.font, MaterialIcons.font, MaterialCommunityIcons.font]
     );
 
+    await Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf')
+    });
+
     const imagesAssets = cacheImages([...assets]);
 
     await Promise.all([...fontAssets, ...imagesAssets]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar, Text, AsyncStorage } from 'react-native';
+import { View, StyleSheet, StatusBar, Text, AsyncStorage, Platform } from 'react-native';
 import { screenHeight, screenWidth } from '../../constants/screen-contants';
 import Swiper from 'react-native-swiper';
 import LottieView from "lottie-react-native";
@@ -16,6 +16,10 @@ const AppIntroOverlay = (props: Props) => {
   const _onContinue = async () => {
     await AsyncStorage.setItem('hasUserSeenIntro', 'true');
     props.navigation.navigate('GreetingsScreen');
+  }
+
+  if (Platform.OS === 'android') {
+    // return null;
   }
 
   return (

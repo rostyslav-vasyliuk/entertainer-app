@@ -108,7 +108,7 @@ const SeriesByGenre = (props) => {
 
   if (loading) {
     return (
-      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+      <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
         <ActivityIndicator size="small" color="#fff" />
       </View>
     )

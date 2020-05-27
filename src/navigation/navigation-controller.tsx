@@ -21,7 +21,7 @@ const NavigationController = (props) => {
       if (token) {
         response = await Axios.post('/auth/validate-user', {}, { headers: { 'access-token': token } });
       }
-
+      console.log('response');
       if (token !== null && response && response.status === 200) {
         console.log('Token setted')
         Object.assign(Axios.defaults, { headers: { 'access-token': token } });
@@ -30,18 +30,21 @@ const NavigationController = (props) => {
       } else {
         // if user has seen Intro it means that he is logged out - if not so its brand new user
         const hasUserSeenIntro = await AsyncStorage.getItem('hasUserSeenIntro');
+
         if (hasUserSeenIntro) {
-          props.navigation.navigate('Intro');
+          props.navigation.navigate('GreetingsScreen');
         } else {
           if (Platform.OS !== 'ios') {
             props.navigation.navigate('GreetingsScreen');
             AsyncStorage.setItem('hasUserSeenIntro', 'true');
           } else {
+            console.log('hhh');
             props.navigation.navigate('Intro');
           }
         }
       }
     } catch (e) {
+      console.log(e);
       props.navigation.navigate('GreetingsScreen');
     }
   }

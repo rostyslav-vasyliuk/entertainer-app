@@ -78,7 +78,7 @@ const Discover = ({ userData, navigation }) => {
   return (
     <>
       <Header transparent style={{ backgroundColor: HEADER_BACKGROUND }} iosBarStyle='light-content'>
-        <Left />
+        <Left></Left>
         <Body>
           <TouchableOpacity onPress={onOpen}>
             <TabHeaderLabel
