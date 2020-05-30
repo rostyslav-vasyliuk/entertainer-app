@@ -36,7 +36,7 @@ const ListSeriesOfTheWeek = ({ data, navigation }) => {
   return (
     <View style={styles.overviewBlock}>
       <Text style={styles.overviewTitle}>
-        {'Best TV series of the week'}
+        {'You may like these series'}
       </Text>
 
       <ScrollView horizontal>

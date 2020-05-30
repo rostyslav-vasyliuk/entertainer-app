@@ -4,16 +4,15 @@ import { Image } from 'react-native-elements';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { ActionSheet } from 'native-base'
-import { Axios } from '../../../api/instance';
+import Axios from 'axios';
+import { BASE_URL } from '../../../api/instance';
 import { LOADER_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-const BASE_URL = 'http://192.168.0.13:3030';
 
 var BUTTONS = ["Take a Photo", "Choose from Gallery", "Delete", "Cancel"];
 class AvatarComponent extends React.Component<any> {
   state = {
-    image: this.props.userData.image ? `${BASE_URL}/uploads/${this.props.userData.image}` : null,
+    image: this.props.userData.image ? `${BASE_URL.replace('/api', '')}/uploads/${this.props.userData.image}` : null,
     clicked: null,
   };
 
@@ -98,7 +97,7 @@ class AvatarComponent extends React.Component<any> {
 
     Axios({
       method: 'post',
-      url: `${BASE_URL}/api/profile/avatar-upload`,
+      url: `${BASE_URL}/profile/avatar-upload`,
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' }
     })
@@ -141,7 +140,7 @@ class AvatarComponent extends React.Component<any> {
 
     Axios({
       method: 'post',
-      url: `${BASE_URL}/api/profile/avatar-upload`,
+      url: `${BASE_URL}/profile/avatar-upload`,
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' }
     })
