@@ -4,7 +4,6 @@ import { ScrollView } from 'react-navigation';
 import CoursesTile from './CoursesTile';
 import CoursesList from './CoursesList';
 import { coursesLabels, coursesTypes } from './constants';
-import { Picker } from 'native-base';
 import { BACKGROUND, LOADER_COLOR } from '../../constants/color-constants';
 
 const Courses = (props: any) => {

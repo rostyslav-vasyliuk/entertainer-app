@@ -4,8 +4,6 @@ import { Image } from 'react-native-elements';
 import { movieGenres } from './constants';
 import { Axios } from '../../api/instance';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Header, Left, Body, Right } from 'native-base';
-import { screenHeight } from '../../constants/screen-contants';
 import { BACKGROUND, TEXT_COLOR } from '../../constants/color-constants';
 import HeaderCustom from '../../ui-components/Header/Header';
 
@@ -121,7 +119,7 @@ const MoviesByGenre = (props) => {
 
   if (loading) {
     return (
-      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+      <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
         <ActivityIndicator size="small" color="#fff" />
       </View>
     )

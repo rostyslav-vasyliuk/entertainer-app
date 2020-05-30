@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar, Platform } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Button, Text } from 'native-base';
 import { screenWidth } from '../../../constants/screen-contants';
@@ -19,7 +19,7 @@ const GreetingsScreen = (props) => {
       <StatusBar barStyle="light-content" />
       <View style={styles.wrapper}>
         <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60, width: screenWidth }}>
-          <LottieView
+          {Platform.OS === 'ios' && <LottieView
             style={{
               marginTop: 30,
               backgroundColor: 'transparent',
@@ -27,7 +27,7 @@ const GreetingsScreen = (props) => {
             source={require('../../../assets/lottie/launch.json')}
             autoPlay
             loop={true}
-          />
+          />}
         </View>
         <View style={{ height: '50%', display: 'flex', justifyContent: 'center' }}>
           <Text style={styles.labelHeader}>

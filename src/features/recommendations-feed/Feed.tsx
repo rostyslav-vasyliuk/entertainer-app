@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND
   },
   loaderStyle: {
-    height: screenHeight - BOTTOM_NAVIGATOR_HEIGHT - TOP_HEADER_HEIGHT,
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: BACKGROUND

@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { Divider } from 'react-native-elements';
-import { monthLabel, dayConstants } from '../../constants/date-constants';
+import { View, Image, Text, StyleSheet, ActivityIndicator, Platform } from 'react-native';
 import { coursesLabels, getBiggerImage } from './constants';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
 import LottieView from 'lottie-react-native';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { TEXT_COLOR_SECONDARY, TEXT_COLOR, LOADER_COLOR } from '../../constants/color-constants';
+import { TEXT_COLOR, LOADER_COLOR } from '../../constants/color-constants';
 
 const EventList = (props) => {
   const [courses, setEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsloading] = useState(true);
   const [paginationLoading, setPaginationLoading] = useState(false);
-  const [pagination, setPagination] = useState({});
+  const [pagination, setPagination]: any = useState({});
   const [allDataFetched, setAllDataFetched] = useState(false);
 
   useEffect(() => {
@@ -138,7 +136,7 @@ const EventList = (props) => {
 
       {allDataFetched && (
         <View style={styles.paginationEndReached}>
-          <LottieView
+          {Platform.OS === 'ios' && <LottieView
             style={{
               width: '100%',
               height: '100%',
@@ -147,7 +145,7 @@ const EventList = (props) => {
             source={require('../../assets/lottie/empty-box.json')}
             autoPlay
             loop={true}
-          />
+          />}
           <Text style={styles.dateText}>
             {'You\'ve reached the end!'}
           </Text>

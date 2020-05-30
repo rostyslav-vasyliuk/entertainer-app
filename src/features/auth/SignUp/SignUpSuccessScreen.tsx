@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, StatusBar, AsyncStorage } from 'react-native';
+import { View, StyleSheet, StatusBar, AsyncStorage, Platform } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Button, Text } from 'native-base';
 import { screenWidth } from '../../../constants/screen-contants';
@@ -53,7 +53,7 @@ const GreetingsScreen = (props) => {
         <StatusBar barStyle="light-content" />
         <View style={styles.wrapper}>
           <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
-            <LottieView
+            {Platform.OS === 'ios' && <LottieView
               style={{
                 width: '100%',
                 height: '100%',
@@ -62,7 +62,7 @@ const GreetingsScreen = (props) => {
               source={require('../../../assets/lottie/gears.json')}
               autoPlay
               loop={true}
-            />
+            />}
           </View>
           <View style={{ height: '50%', display: 'flex', justifyContent: 'center' }}>
             <Text style={styles.labelHeader}>
@@ -83,7 +83,7 @@ const GreetingsScreen = (props) => {
         <StatusBar barStyle="light-content" />
         <View style={styles.wrapper}>
           <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 120 }}>
-            <LottieView
+            {Platform.OS === 'ios' && <LottieView
               style={{
                 width: '100%',
                 height: '100%',
@@ -93,6 +93,7 @@ const GreetingsScreen = (props) => {
               autoPlay
               loop={true}
             />
+            }
           </View>
           <View style={{ height: '50%', display: 'flex', justifyContent: 'center' }}>
             <Text style={styles.labelHeader}>
@@ -119,7 +120,8 @@ const GreetingsScreen = (props) => {
       <StatusBar barStyle="light-content" />
       <View style={styles.wrapper}>
         <View style={{ height: '50%', display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
-          <LottieView
+          {Platform.OS === 'ios' && <LottieView
+
             style={{
               width: '100%',
               height: '100%',
@@ -128,7 +130,7 @@ const GreetingsScreen = (props) => {
             source={require('../../../assets/lottie/trophy.json')}
             autoPlay
             loop={false}
-          />
+          />}
         </View>
         <View style={{ height: '50%', display: 'flex', justifyContent: 'center' }}>
           <Text style={styles.labelHeader}>

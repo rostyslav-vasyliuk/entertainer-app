@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Image, Text, StyleSheet, ActivityIndicator, Platform } from 'react-native';
 import { coursesLabels, getBiggerImage } from './constants';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
 import LottieView from 'lottie-react-native';
-import { screenWidth, screenHeight } from '../../constants/screen-contants';
+import { screenWidth } from '../../constants/screen-contants';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import HeaderCustom from '../../ui-components/Header/Header';
 import { BACKGROUND, TEXT_COLOR } from '../../constants/color-constants';
@@ -71,7 +71,7 @@ const CoursesByCategories = (props) => {
 
   if (loading) {
     return (
-      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+      <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
         <ActivityIndicator size="small" color="#fff" />
       </View>
     );
@@ -151,7 +151,7 @@ const CoursesByCategories = (props) => {
 
           {allDataFetched && (
             <View style={styles.paginationEndReached}>
-              <LottieView
+              {Platform.OS === 'ios' && <LottieView
                 style={{
                   width: '100%',
                   height: '100%',
@@ -161,6 +161,7 @@ const CoursesByCategories = (props) => {
                 autoPlay
                 loop={true}
               />
+              }
               <Text style={styles.dateText}>
                 {'You\'ve reached the end!'}
               </Text>

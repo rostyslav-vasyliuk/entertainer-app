@@ -1,4 +1,4 @@
-import { Animated, SafeAreaView, Text, View, ActivityIndicator } from 'react-native';
+import { Animated, SafeAreaView, Text, View, ActivityIndicator, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Button } from 'native-base';
 import LottieView from 'lottie-react-native';
@@ -127,7 +127,7 @@ const AnimatedExample = (props) => {
     return (
       <View style={styles.root}>
         <View style={{ height: '20%', width: screenWidth, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 60 }}>
-          <LottieView
+          {Platform.OS === 'ios' && <LottieView
             style={{
               width: '100%',
               height: '100%',
@@ -137,6 +137,7 @@ const AnimatedExample = (props) => {
             autoPlay
             loop={true}
           />
+          }
         </View>
 
         <Text style={styles.subTitle}>
@@ -165,7 +166,7 @@ const AnimatedExample = (props) => {
   return (
     <SafeAreaView style={styles.root}>
       <View style={{ height: '20%', width: screenWidth, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 60 }}>
-        <LottieView
+        {Platform.OS === 'ios' && <LottieView
           style={{
             width: '100%',
             height: '100%',
@@ -175,6 +176,7 @@ const AnimatedExample = (props) => {
           autoPlay
           loop={true}
         />
+        }
       </View>
       <Text style={styles.subTitle}>
         {'Enter confirmation code'}

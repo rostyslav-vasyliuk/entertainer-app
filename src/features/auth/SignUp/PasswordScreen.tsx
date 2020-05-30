@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { Button, Header, Left, Body, Right, Text } from 'native-base';
+import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import { screenWidth } from '../../../constants/screen-contants';
@@ -16,6 +16,32 @@ const PasswordScreen = (props) => {
   }
 
   const toNextScreen = () => {
+    if (newPassword === '' || confirmedPassword === '') {
+      Toast.show({
+        text: 'Please, fill all fields!',
+        type: 'warning',
+        buttonText: 'Okay'
+      })
+      return;
+    }
+
+    if (newPassword !== confirmedPassword) {
+      Toast.show({
+        text: 'Your passwords doesnt match!',
+        type: 'warning',
+        buttonText: 'Okay'
+      })
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      Toast.show({
+        text: 'Password should contain at least 8 characters',
+        type: 'warning',
+        buttonText: 'Okay'
+      })
+      return;
+    }
     props.setPassword(newPassword);
     props.navigation.push('SignUpSuccessScreen');
   }

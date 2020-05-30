@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { View, StyleSheet, Text, AsyncStorage, Platform } from 'react-native';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import Modal from 'react-native-modal';
 import LottieView from 'lottie-react-native';
@@ -26,7 +26,7 @@ const LogoutModal = (props) => {
     >
       <View style={styles.wrapper}>
         <View style={styles.lottieWrapper}>
-          <LottieView
+          {Platform.OS === 'ios' && <LottieView
             style={{
               width: '100%',
               height: '100%',
@@ -35,7 +35,7 @@ const LogoutModal = (props) => {
             source={require('../../assets/lottie/logout-dark.json')}
             autoPlay
             loop={true}
-          />
+          />}
         </View>
         <Text style={styles.logoutLabel}>
           {'Are you sure you wish to logout?'}
@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
   confirmButton: {
     backgroundColor: BUTTON_COLOR,
     width: '40%',
-    borderRadius: 8 
+    borderRadius: 8
   }
 })

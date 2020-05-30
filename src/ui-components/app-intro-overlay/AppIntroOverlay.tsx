@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar, Text, AsyncStorage } from 'react-native';
+import { View, StyleSheet, StatusBar, Text, AsyncStorage, Platform } from 'react-native';
 import { screenHeight, screenWidth } from '../../constants/screen-contants';
 import Swiper from 'react-native-swiper';
 import LottieView from "lottie-react-native";
@@ -18,112 +18,119 @@ const AppIntroOverlay = (props: Props) => {
     props.navigation.navigate('GreetingsScreen');
   }
 
-  return (
-    <View style={styles.wrapper}>
-      <StatusBar barStyle='light-content' />
-      <Swiper
-        showsButtons={true}
-        nextButton={<NextButton />}
-        loop={false}
-        prevButton={<View />}
-        buttonWrapperStyle={styles.buttonWrapperStyle}
-        dot={<Dot />}
-        activeDot={<ActiveDot />}
-      >
-        <View style={styles.slideContainer}>
-          <LottieView
-            style={{
-              width: 400,
-              height: 250,
-              backgroundColor: 'transparent',
-            }}
-            source={require('../../assets/lottie/welcome-animation.json')}
-            autoPlay
-            loop={true}
-          />
-          <Text style={styles.slideHeader}>Welcome!</Text>
-          <Text style={styles.slideDescription}>
-            We are so excited you are joining our community! There are only few steps to start using our app.
-            </Text>
-        </View>
+  if (Platform.OS === 'android') {
+    _onContinue();
+    return null;
+  }
 
-        <View style={[styles.slideContainer]}>
-          <LottieView
-            style={{
-              width: 400,
-              height: 250,
-              backgroundColor: 'transparent',
-            }}
-            source={require('../../assets/lottie/develop.json')}
-            autoPlay
-            loop={true}
-          />
-          <Text style={styles.slideHeader}>Develop yourself!</Text>
-          <Text style={styles.slideDescription}>
-            With us you can find many interesting and totally free courses based on your preferences!
+  if (Platform.OS === 'ios') {
+    return (
+      <View style={styles.wrapper}>
+        <StatusBar barStyle='light-content' />
+        <Swiper
+          showsButtons={true}
+          nextButton={<NextButton />}
+          loop={false}
+          prevButton={<View />}
+          buttonWrapperStyle={styles.buttonWrapperStyle}
+          dot={<Dot />}
+          activeDot={<ActiveDot />}
+        >
+          <View style={styles.slideContainer}>
+            <LottieView
+              style={{
+                width: 400,
+                height: 250,
+                backgroundColor: 'transparent',
+              }}
+              source={require('../../assets/lottie/welcome-animation.json')}
+              autoPlay
+              loop={true}
+            />
+            <Text style={styles.slideHeader}>Welcome!</Text>
+            <Text style={styles.slideDescription}>
+              We are so excited you are joining our community! There are only few steps to start using our app.
             </Text>
-        </View>
+          </View>
 
-        <View style={[styles.slideContainer]}>
-          <LottieView
-            style={{
-              width: 400,
-              height: 250,
-              backgroundColor: 'transparent',
-            }}
-            source={require('../../assets/lottie/town.json')}
-            autoPlay
-            loop={true}
-          />
-          <Text style={styles.slideHeader}>Explore your town!</Text>
-          <Text style={styles.slideDescription}>
-            We will help you to not miss the most exciting entertaiments in your town!
+          <View style={[styles.slideContainer]}>
+            <LottieView
+              style={{
+                width: 400,
+                height: 250,
+                backgroundColor: 'transparent',
+              }}
+              source={require('../../assets/lottie/develop.json')}
+              autoPlay
+              loop={true}
+            />
+            <Text style={styles.slideHeader}>Develop yourself!</Text>
+            <Text style={styles.slideDescription}>
+              With us you can find many interesting and totally free courses based on your preferences!
             </Text>
-        </View>
+          </View>
 
-        <View style={[styles.slideContainer]}>
-          <LottieView
-            style={{
-              width: 400,
-              height: 250,
-              backgroundColor: 'transparent',
-            }}
-            source={require('../../assets/lottie/analysis.json')}
-            autoPlay
-            loop={true}
-          />
-          <Text style={styles.slideHeader}>Get best recomendations!</Text>
-          <Text style={styles.slideDescription}>
-            We will analyse your preferences so that you will recieve only the most belowed recomendations!
+          <View style={[styles.slideContainer]}>
+            <LottieView
+              style={{
+                width: 400,
+                height: 250,
+                backgroundColor: 'transparent',
+              }}
+              source={require('../../assets/lottie/town.json')}
+              autoPlay
+              loop={true}
+            />
+            <Text style={styles.slideHeader}>Explore your town!</Text>
+            <Text style={styles.slideDescription}>
+              We will help you to not miss the most exciting entertaiments in your town!
             </Text>
-        </View>
+          </View>
 
-        <View style={[styles.slideContainer]}>
-          <LottieView
-            style={{
-              width: 350,
-              height: 230,
-              backgroundColor: 'transparent',
-            }}
-            source={require('../../assets/lottie/mobile-app.json')}
-            autoPlay
-            loop={true}
-          />
-          <Text style={styles.slideHeader}>Discover now!</Text>
-          <Text style={styles.slideDescription}>
-            We are continue developing ourselves and we are so exciting you are part of our big start!
+          <View style={[styles.slideContainer]}>
+            <LottieView
+              style={{
+                width: 400,
+                height: 250,
+                backgroundColor: 'transparent',
+              }}
+              source={require('../../assets/lottie/analysis.json')}
+              autoPlay
+              loop={true}
+            />
+            <Text style={styles.slideHeader}>Get best recomendations!</Text>
+            <Text style={styles.slideDescription}>
+              We will analyse your preferences so that you will recieve only the most belowed recomendations!
             </Text>
-          <Button iconLeft style={{ padding: 15, marginTop: 55, borderRadius: 10, backgroundColor: BUTTON_COLOR }} onPress={_onContinue}>
-            <Text style={{ color: '#fff', fontSize: 18 }}>
-              LET'S START
+          </View>
+
+          <View style={[styles.slideContainer]}>
+            <LottieView
+              style={{
+                width: 350,
+                height: 230,
+                backgroundColor: 'transparent',
+              }}
+              source={require('../../assets/lottie/mobile-app.json')}
+              autoPlay
+              loop={true}
+            />
+            <Text style={styles.slideHeader}>Discover now!</Text>
+            <Text style={styles.slideDescription}>
+              We are continue developing ourselves and we are so exciting you are part of our big start!
+            </Text>
+            <Button iconLeft style={{ padding: 15, marginTop: 55, borderRadius: 10, backgroundColor: BUTTON_COLOR }} onPress={_onContinue}>
+              <Text style={{ color: '#fff', fontSize: 18 }}>
+                LET'S START
               </Text>
-            <Icon name='arrow-forward' />
-          </Button>
-        </View>
+              <Icon name='arrow-forward' />
+            </Button>
+          </View>
 
-      </Swiper>
-    </View>
-  )
+        </Swiper>
+      </View>
+    )
+  }
 }
 
 export default AppIntroOverlay;

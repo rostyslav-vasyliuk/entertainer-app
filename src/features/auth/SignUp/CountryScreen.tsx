@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, TouchableOpacity, Image } from 'react-native';
-import { Button, Header, Left, Body, Right, Text } from 'native-base';
+import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
 import { screenHeight } from '../../../constants/screen-contants';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import CountryPicker, { Country, CountryCode, DARK_THEME } from 'react-native-country-picker-modal';
@@ -20,14 +20,29 @@ const ContryScreen = (props) => {
   }
 
   const toNextScreen = () => {
+    if (countryName === '' || date.getTime() === 1598051730000 || !gender || !countryCode) {
+      Toast.show({
+        text: 'Please, fill all fields!',
+        type: 'warning',
+        buttonText: 'Okay'
+      })
+      return;
+    }
     props.setCountryBirthGender(countryName, date, gender, countryCode);
     props.navigation.push('PasswordScreen')
   }
 
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setDate(currentDate);
+    console.log(currentDate);
     setShow(Platform.OS === 'ios' ? true : false);
+    setDate(currentDate);
+
+    if (Platform.OS === 'android') {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const displayDate = date.toLocaleString('en-US', options);
+      setDisplayDate(displayDate);
+    }
   };
 
   const showDatepicker = () => {

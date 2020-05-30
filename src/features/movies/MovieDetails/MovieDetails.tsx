@@ -9,7 +9,6 @@ import { Divider } from 'react-native-elements';
 import { movieGenres } from '../constants';
 import { Toast } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
-import { screenHeight } from '../../../constants/screen-contants';
 import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../../constants/color-constants';
 
 const MovieDetails = (props) => {
@@ -33,7 +32,7 @@ const MovieDetails = (props) => {
 
 	if (isLoading) {
 		return (
-			<View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+			<View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
 				<ActivityIndicator size="small" color="#fff" />
 			</View>
 		)

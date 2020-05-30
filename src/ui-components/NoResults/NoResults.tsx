@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../constants/color-constants';
 import LottieView from 'lottie-react-native';
 
@@ -7,7 +7,7 @@ const NoResults = () => {
   return (
     <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
       <View style={{ height: '35%', display: 'flex', justifyContent: 'center' }}>
-        <LottieView
+        {Platform.OS === 'ios' && <LottieView
           style={{
             width: '100%',
             height: '100%',
@@ -17,6 +17,7 @@ const NoResults = () => {
           autoPlay
           loop={true}
         />
+        }
       </View>
       <Text style={{ color: TEXT_COLOR, fontSize: 18, fontWeight: '600' }}>
         {'No results found!'}

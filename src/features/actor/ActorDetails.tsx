@@ -6,7 +6,7 @@ import { AxiosResponse } from 'axios';
 import { monthLabel } from '../../constants/date-constants';
 import { Divider } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { screenWidth, screenHeight } from '../../constants/screen-contants';
+import { screenWidth } from '../../constants/screen-contants';
 import { FontAwesome } from '@expo/vector-icons';
 import { BACKGROUND, HEADER_BACKGROUND, TEXT_COLOR_SECONDARY, LOADER_COLOR } from '../../constants/color-constants';
 import { Entypo } from '@expo/vector-icons'
@@ -162,7 +162,7 @@ const ActorDetails = (props) => {
 
   if (loading) {
     return (
-      <View style={{ height: screenHeight, justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
+      <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: BACKGROUND }}>
         <ActivityIndicator size="small" color="#fff" />
       </View>
     )

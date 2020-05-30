@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { View, StyleSheet, Text, Platform } from 'react-native';
 import { screenWidth, screenHeight } from '../../constants/screen-contants';
 import Modal from 'react-native-modal';
 import LottieView from 'lottie-react-native';
@@ -21,7 +21,7 @@ const FeedbackSuccessModal = (props) => {
     >
       <View style={styles.wrapper}>
         <View style={styles.lottieWrapper}>
-          <LottieView
+          {Platform.OS === 'ios' && <LottieView
             style={{
               width: '100%',
               height: '100%',
@@ -30,7 +30,7 @@ const FeedbackSuccessModal = (props) => {
             source={require('../../assets/lottie/success.json')}
             autoPlay
             loop={false}
-          />
+          />}
         </View>
         <Text style={styles.logoutLabel}>
           {'Your feedback was succesfully sent!'}

@@ -3,7 +3,7 @@ import AppNavigator from './navigation';
 import NetInfo from '@react-native-community/netinfo';
 import { connect } from 'react-redux';
 import { changeNetworkState } from './features/profile/actions';
-import { Text, View } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import { Button } from 'native-base';
 import { screenWidth } from './constants/screen-contants';
 import LottieView from 'lottie-react-native';
@@ -28,7 +28,7 @@ const AppContainer = (props) => {
   const getNetworkMessage = () => {
     return (
       <View style={{ height: '100%', width: screenWidth, backgroundColor: BACKGROUND_LIGHT, position: 'absolute', zIndex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <LottieView
+        {Platform.OS === 'ios' && <LottieView
           style={{
             width: '100%',
             height: 220,
@@ -37,7 +37,7 @@ const AppContainer = (props) => {
           source={require('./assets/lottie/connection.json')}
           autoPlay
           loop={true}
-        />
+        />}
         <Text style={{ color: TEXT_COLOR, marginTop: 40, fontSize: 16, letterSpacing: 1.01, fontWeight: '500' }}>
           {'No internet connection found!'}
         </Text>

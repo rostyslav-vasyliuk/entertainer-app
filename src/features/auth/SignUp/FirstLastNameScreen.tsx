@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Platform, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { Button, Header, Left, Body, Right, Text } from 'native-base';
+import { Button, Header, Left, Body, Right, Text, Toast } from 'native-base';
 import { TextField } from 'react-native-material-textfield';
 import { screenWidth } from '../../../constants/screen-contants';
 import BackArrow from '../../../ui-components/BackArrow/BackArrow';
@@ -14,6 +14,14 @@ const FirstLastNameScreen = (props) => {
     props.navigation.goBack();
   }
   const toNextScreen = () => {
+    if (!firstname || !lastname) {
+      Toast.show({
+        text: 'Please, fill all fielsds!',
+        type: 'warning',
+        buttonText: 'Okay'
+      })
+      return;
+    }
     props.setFirstLastName(firstname, lastname);
     props.navigation.push('CountryScreen');
   }
