@@ -26,7 +26,6 @@ const ActorDetails = (props) => {
   }, []);
 
   const getGender = (gender: number) => {
-    console.log(gender);
     return gender !== 1 ? 'Male' : 'Female';
   }
 

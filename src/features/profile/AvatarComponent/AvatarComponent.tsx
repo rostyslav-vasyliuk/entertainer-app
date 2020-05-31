@@ -30,7 +30,7 @@ class AvatarComponent extends React.Component<any> {
 
   render() {
     let { image } = this.state;
-    console.log(image)
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity onPress={() =>

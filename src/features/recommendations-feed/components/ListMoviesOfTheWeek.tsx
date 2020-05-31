@@ -28,7 +28,7 @@ const ListMoviesOfTheWeek = ({ data, navigation, label }) => {
       <Text style={styles.overviewTitle}>
         {label}
       </Text>
-    {console.log(data)}
+
       <ScrollView horizontal>
         {data.map((elem) => {
           const animatedValue = new Animated.Value(1);

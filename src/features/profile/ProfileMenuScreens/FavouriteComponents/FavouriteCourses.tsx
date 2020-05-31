@@ -10,12 +10,10 @@ import NoResults from '../../../../ui-components/NoResults/NoResults';
 
 const FavouriteCourses = (props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    Axios.get(`/courses/favourite?page=${page}`).then((response: AxiosResponse) => {
-      console.log(response.data.courses)
+    Axios.get(`/courses/favourite?page=${1}`).then((response: AxiosResponse) => {
       setCourses(response.data.courses);
       setIsLoading(false);
     })

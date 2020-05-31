@@ -34,7 +34,6 @@ const ContryScreen = (props) => {
 
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    console.log(currentDate);
     setShow(Platform.OS === 'ios' ? true : false);
     setDate(currentDate);
 
