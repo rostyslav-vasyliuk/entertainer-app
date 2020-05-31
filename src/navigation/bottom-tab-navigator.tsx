@@ -181,6 +181,21 @@ const ProfileStack = createStackNavigator(
     ChangeName: {
       screen: ChangeName
     },
+    EventDetails: {
+      screen: EventDetails
+    },
+    MovieDetails: {
+      screen: MovieDetails
+    },
+    SeriesDetails: {
+      screen: SeriesDetails
+    },
+    ActorDetails: {
+      screen: ActorDetails
+    },
+    CourseDetails: {
+      screen: CourseDetails
+    }
   },
   {
     headerMode: 'none'

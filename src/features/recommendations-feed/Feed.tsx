@@ -69,7 +69,7 @@ const RecommendationsFeed = (props) => {
     }
 
     if (data.type === 'movies_collaborative_filtering') {
-      return <ListMoviesOfTheWeek data={data.data} navigation={props.navigation} label='collaborative'/>
+      return <ListMoviesOfTheWeek data={data.data} navigation={props.navigation} label='Other people like these'/>
     }
   }
 

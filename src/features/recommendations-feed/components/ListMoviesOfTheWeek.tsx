@@ -5,9 +5,11 @@ import { TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-const
 
 const ListMoviesOfTheWeek = ({ data, navigation, label }) => {
   const getGenre = (genre_id) => {
+    console.log(genre_id);
     if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
-      return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
+      return `, ${movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre}`;
     }
+    return '';
   }
 
   const navigate = (current_id) => {
@@ -61,7 +63,7 @@ const ListMoviesOfTheWeek = ({ data, navigation, label }) => {
                     {elem.title}
                   </Text>
                   <Text style={styles.info}>
-                    {`${getYear(elem.release_date)}, ${elem.genre_ids && getGenre(elem.genre_ids[0])}`}
+                    {`${getYear(elem.release_date)}`}
                   </Text>
                 </View>
               </TouchableOpacity>
