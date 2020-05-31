@@ -38,10 +38,10 @@ const MoviesGrid = ({ data, navigation, label }) => {
         key={element.id}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
-          <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 220 }}>
+          <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 240 }}>
             <Image
               source={{ uri: 'https://image.tmdb.org/t/p/w500/' + element.poster_path }}
-              style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 220 }}
+              style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 240 }}
               PlaceholderContent={<ActivityIndicator color={LOADER_COLOR} />}
               placeholderStyle={{ backgroundColor: BACKGROUND_LIGHT }}
               borderRadius={6}
@@ -75,10 +75,10 @@ const MoviesGrid = ({ data, navigation, label }) => {
         key={element.id}
       >
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
-          <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 300 }}>
+          <View style={{ width: (screenWidth / 2) - 16, borderRadius: 6, margin: 3, height: 320 }}>
             <Image
               source={{ uri: 'https://image.tmdb.org/t/p/w500/' + element.poster_path }}
-              style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 300, justifyContent: 'flex-end' }}
+              style={{ width: (screenWidth / 2) - 16, borderRadius: 6, height: 320, justifyContent: 'flex-end' }}
               PlaceholderContent={<ActivityIndicator color={LOADER_COLOR} />}
               placeholderStyle={{ backgroundColor: BACKGROUND_LIGHT }}
               borderRadius={6}

@@ -39,7 +39,7 @@ const ListSeriesOfTheWeek = ({ data, navigation }) => {
         {'You may like these series'}
       </Text>
 
-      <ScrollView horizontal>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {data.map((elem) => {
           const animatedValue = new Animated.Value(1);
 
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     color: TEXT_COLOR, fontSize: 12, marginTop: 2, fontWeight: '400'
   },
   overviewBlock: {
-    paddingLeft: 15,
+    // marginLeft: 15,
     paddingRight: 15,
     paddingBottom: 5,
     marginTop: 10
@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 1
+    letterSpacing: 1,
+    marginLeft: 10,
   },
   movieImageStyle: {
     width: 150,
@@ -115,6 +116,6 @@ const styles = StyleSheet.create({
   },
   similarMovieContainer: {
     width: 150,
-    marginRight: 10,
+    marginLeft: 10,
   },
 });

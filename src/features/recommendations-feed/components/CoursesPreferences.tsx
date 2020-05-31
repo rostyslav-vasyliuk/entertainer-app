@@ -16,7 +16,7 @@ const CoursesPreferences = ({ data, navigation }) => {
         {'Courses you maybe interested in'}
       </Text>
 
-      <ScrollView horizontal>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {data.map((elem) => {
           const animatedValue = new Animated.Value(1);
 

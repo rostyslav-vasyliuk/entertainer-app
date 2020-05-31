@@ -1,17 +1,8 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity, ImageBackground, Text, StyleSheet, Animated, Easing } from 'react-native';
-import { movieGenres } from '../../movies/constants';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
 const ListMoviesOfTheWeek = ({ data, navigation, label }) => {
-  const getGenre = (genre_id) => {
-    console.log(genre_id);
-    if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
-      return `, ${movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre}`;
-    }
-    return '';
-  }
-
   const navigate = (current_id) => {
     navigation.push('MovieDetails', {
       movie_id: current_id
@@ -87,7 +78,7 @@ const styles = StyleSheet.create({
     color: TEXT_COLOR, fontSize: 12, marginTop: 2, fontWeight: '400'
   },
   overviewBlock: {
-    paddingLeft: 15,
+    // paddingLeft: 15,
     paddingRight: 15,
     paddingBottom: 5,
     marginTop: 10
@@ -99,7 +90,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 1
+    letterSpacing: 1,
+    marginLeft: 10
   },
   movieImageStyle: {
     width: 150,
@@ -107,6 +99,6 @@ const styles = StyleSheet.create({
   },
   similarMovieContainer: {
     width: 150,
-    marginRight: 10,
+    marginLeft: 10,
   },
 });
