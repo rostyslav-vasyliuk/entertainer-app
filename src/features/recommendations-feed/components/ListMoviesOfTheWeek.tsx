@@ -63,7 +63,7 @@ const ListMoviesOfTheWeek = ({ data, navigation, label }) => {
                     {elem.title}
                   </Text>
                   <Text style={styles.info}>
-                    {`${getYear(elem.release_date)}`}
+                    {`${getYear(elem.release_date)}${elem.genres && elem.genres.length && `, ${elem.genres[0].name}`}`}
                   </Text>
                 </View>
               </TouchableOpacity>
