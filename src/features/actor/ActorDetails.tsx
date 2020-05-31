@@ -184,7 +184,7 @@ const ActorDetails = (props) => {
         )}
       <View style={styles.blockWrapper}>
         <Text style={styles.actorsName}>
-          {actorsData.name}
+          {`${actorsData.name}`}
         </Text>
         <Text style={styles.textLabel}>
           {`Born: ${getDateString(actorsData.birthday)}`}

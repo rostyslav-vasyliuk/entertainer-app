@@ -108,7 +108,7 @@ const MovieDetails = (props) => {
 	}
 
 	const addToFavourites = () => {
-		Axios.post('/movies/favourite', { id: movieData.id }).then((response: AxiosResponse) => {
+		Axios.post('/movies/favourite', { id: movieData.id, data: movieData }).then((response: AxiosResponse) => {
 			setIsFavourite(response.data.isFavourite);
 			if (response.data.isFavourite) {
 				Toast.show({

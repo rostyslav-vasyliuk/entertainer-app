@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import HeaderCustom from '../../ui-components/Header/Header';
 import { ScrollView, StyleSheet, View, ActivityIndicator, RefreshControl } from 'react-native';
 import { BACKGROUND, LOADER_COLOR } from '../../constants/color-constants';
-import { screenHeight, BOTTOM_NAVIGATOR_HEIGHT, TOP_HEADER_HEIGHT } from '../../constants/screen-contants';
 import { Axios } from '../../api/instance';
 import { AxiosResponse } from 'axios';
 import MovieOfTheWeek from './components/MovieOfTheWeekComponent';
@@ -12,6 +11,7 @@ import ListSeriesOfTheWeek from './components/ListSeriesOfTheWeek';
 import MoviesGrid from './components/MoviesGrid';
 import CoursesPreferences from './components/CoursesPreferences';
 import EventsPreferences from './components/EventsPreferences';
+import ListMoviesOfTheWeek from './components/ListMoviesOfTheWeek';
 
 const RecommendationsFeed = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +66,10 @@ const RecommendationsFeed = (props) => {
 
     if (data.type === 'events_preferences_content_filtering') {
       return <EventsPreferences data={data.data} navigation={props.navigation} key={index * Math.random() * 10} />
+    }
+
+    if (data.type === 'movies_collaborative_filtering') {
+      return <ListMoviesOfTheWeek data={data.data} navigation={props.navigation} label='collaborative'/>
     }
   }
 

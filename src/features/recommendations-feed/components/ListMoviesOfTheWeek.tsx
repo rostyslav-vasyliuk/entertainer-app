@@ -3,7 +3,7 @@ import { View, ScrollView, TouchableOpacity, ImageBackground, Text, StyleSheet, 
 import { movieGenres } from '../../movies/constants';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
 
-const ListMoviesOfTheWeek = ({ data, navigation }) => {
+const ListMoviesOfTheWeek = ({ data, navigation, label }) => {
   const getGenre = (genre_id) => {
     if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
       return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
@@ -26,9 +26,9 @@ const ListMoviesOfTheWeek = ({ data, navigation }) => {
   return (
     <View style={styles.overviewBlock}>
       <Text style={styles.overviewTitle}>
-        {'People watching now'}
+        {label}
       </Text>
-
+    {console.log(data)}
       <ScrollView horizontal>
         {data.map((elem) => {
           const animatedValue = new Animated.Value(1);
@@ -61,7 +61,7 @@ const ListMoviesOfTheWeek = ({ data, navigation }) => {
                     {elem.title}
                   </Text>
                   <Text style={styles.info}>
-                    {`${getYear(elem.release_date)}, ${getGenre(elem.genre_ids[0])}`}
+                    {`${getYear(elem.release_date)}, ${elem.genre_ids && getGenre(elem.genre_ids[0])}`}
                   </Text>
                 </View>
               </TouchableOpacity>

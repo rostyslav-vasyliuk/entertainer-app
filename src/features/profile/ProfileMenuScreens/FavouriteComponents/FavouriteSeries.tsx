@@ -28,7 +28,8 @@ const FavouriteSeries = (props) => {
 
   useEffect(() => {
     Axios.get(`/tv-series/favourite`).then((response: AxiosResponse) => {
-      setSeries(response.data.favouriteSeries);
+      const parserSeries = response.data.favouriteSeries.map(elem => JSON.parse(elem));
+      setSeries(parserSeries);
       setIsLoading(false);
     })
   }, []);

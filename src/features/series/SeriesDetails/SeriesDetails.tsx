@@ -118,7 +118,7 @@ const SeriesDetails = (props) => {
   }
 
   const addToFavourites = () => {
-    Axios.post('/tv-series/favourite', { id: seriesData.id }).then((response: AxiosResponse) => {
+    Axios.post('/tv-series/favourite', { id: seriesData.id, data: seriesData }).then((response: AxiosResponse) => {
       setIsFavourite(response.data.isFavourite);
       if (response.data.isFavourite) {
         Toast.show({

@@ -9,7 +9,6 @@ import NoResults from '../../../../ui-components/NoResults/NoResults';
 
 const FavouriteMovies = (props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
 
   const onMovieNavigate = (id) => {
@@ -40,7 +39,8 @@ const FavouriteMovies = (props) => {
 
   useEffect(() => {
     Axios.get(`/movies/favourite`).then((response: AxiosResponse) => {
-      setMovies(response.data.favouriteMovies);
+      const parsedMovies = response.data.favouriteMovies.map((elem) => JSON.parse(elem));
+      setMovies(parsedMovies);
       setIsLoading(false);
     })
   }, []);

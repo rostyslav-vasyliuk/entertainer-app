@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Animated, Easing, ImageBackground, TouchableWithoutFeedback } from 'react-native';
 import { TEXT_COLOR, BACKGROUND_LIGHT, TEXT_COLOR_SECONDARY } from '../../../constants/color-constants';
-import { screenWidth } from '../../../constants/screen-contants';
+import { screenWidth, screenHeight } from '../../../constants/screen-contants';
 import { movieGenres } from '../../movies/constants';
 
 
@@ -52,21 +52,10 @@ const MovieOfTheWeek = ({ data, navigation }) => {
         <Animated.View style={{ transform: [{ scale: animatedValue }] }}>
           <View style={movieOfTheWeekStyles.wrapper}>
             <ImageBackground
-              style={{ width: screenWidth - (screenWidth * 6) / 100, height: screenWidth - (screenWidth * 8) / 100, justifyContent: 'flex-end' }}
+              style={{ width: screenWidth - (screenWidth * 6) / 100, height: screenHeight - (screenHeight * 30) / 100, justifyContent: 'flex-end' }}
               source={{ uri: `https://image.tmdb.org/t/p/w1280/${data.poster_path}` }}
               imageStyle={{ borderRadius: 16 }}
             >
-              {/* <View style={{ height: 80, backgroundColor: 'rgba(35, 35, 48, 0.7)', borderBottomLeftRadius: 16, borderBottomRightRadius: 16, alignItems: 'flex-end', paddingRight: 10, justifyContent: 'center' }}>
-                <Text style={{ color: TEXT_COLOR, opacity: 1, fontWeight: '600', fontSize: 20, letterSpacing: 1 }}>
-                  {data.title}
-                </Text>
-                <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 13, paddingTop: 1 }}>
-                  {getYear(data.release_date)}
-                </Text>
-                <Text style={{ color: TEXT_COLOR, opacity: 1, fontSize: 14, paddingTop: 1 }}>
-                  {getGenre(data.genre_ids[0])}
-                </Text>
-              </View> */}
             </ImageBackground>
           </View>
           <View style={{ borderBottomLeftRadius: 16, borderBottomRightRadius: 16, alignItems: 'flex-end', paddingRight: 10, justifyContent: 'center' }}>
