@@ -45,7 +45,7 @@ const ActorWithMovies = ({ data, navigation }) => {
                 {data.actor.name}
               </Text>
 
-              <Text style={{ color: TEXT_COLOR, paddingTop: 3, fontWeight: '400', fontSize: 12, overflow: 'hidden' }}>
+              <Text style={{ color: TEXT_COLOR, paddingTop: 3, fontWeight: '400', fontSize: 12, overflow: 'hidden', width: '90%' }}>
                 {data.actor.place_of_birth}
               </Text>
 
