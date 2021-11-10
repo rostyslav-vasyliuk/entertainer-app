@@ -37,16 +37,6 @@ const Profile = (props) => {
 
   const RefreshController = <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={LOADER_COLOR} />;
 
-  // const hasUserPreferences = () => {
-  //   const { moviesPreferences, seriesPreferences, eventsPreferences, coursesPreferences } = props.userData;
-
-  //   if (moviesPreferences.length || seriesPreferences || eventsPreferences || coursesPreferences) {
-  //     return true;
-  //   }
-
-  //   return false;
-  // }
-
   const renderMenuButton = (button, isLastButton) => {
     const iconProps: any = {
       size: BASE_SIZE + 12,

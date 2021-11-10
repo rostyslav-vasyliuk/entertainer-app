@@ -32,7 +32,7 @@ const EmailScreen = (props) => {
         props.navigation.push('FirstLastNameScreen');
         props.setEmail(email);
       })
-      .catch(() => {
+      .catch((e) => {
         setIsLoading(false);
         Toast.show({
           text: 'User with this email already exist!',

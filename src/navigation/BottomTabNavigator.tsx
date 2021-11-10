@@ -9,22 +9,12 @@ import SeriesDetails from '../features/series/SeriesDetails/SeriesDetails';
 import ActorDetails from '../features/actor/ActorDetails';
 import SeriesByGenre from '../features/series/SeriesByGenre';
 import MoviesByGenre from '../features/movies/MoviesByGenre';
-import EventDetails from '../features/events/EventDetails/EventDetails';
-import EventByCategories from '../features/events/EventByCategories';
-import Permissions from '../features/profile/ProfileMenuScreens/Permissions/Permissions';
-import Feedback from '../features/profile/ProfileMenuScreens/Feedback/Feedback.container';
-import Preferences from '../features/profile/ProfileMenuScreens/Preferences/Preferences.container';
 import ChangePassword from '../features/profile/ProfileMenuScreens/ChangePassword/ChangePassword';
 import ChangeLanguage from '../features/profile/ProfileMenuScreens/ChangeLanguage/ChangeLanguage.container';
-import FavouriteEvents from '../features/profile/ProfileMenuScreens/FavouriteComponents/FavouriteEvents';
 import FavouriteSeries from '../features/profile/ProfileMenuScreens/FavouriteComponents/FavouriteSeries';
 import FavouriteMovies from '../features/profile/ProfileMenuScreens/FavouriteComponents/FavouriteMovies';
-import FavouriteCourses from '../features/profile/ProfileMenuScreens/FavouriteComponents/FavouriteCourses';
 import EditProfile from '../features/profile/ProfileMenuScreens/EditProfile/EditProfile.container';
 import { HEADER_BACKGROUND, BUTTON_COLOR } from '../constants/color-constants';
-import Courses from '../features/courses/Courses';
-import CoursesByCategories from '../features/courses/CoursesByCategories';
-import CourseDetails from '../features/courses/CourseDetails/CourseDetails';
 import ChangeEmail from '../features/profile/ProfileMenuScreens/EditProfile/ChangeEmail/ChangeEmail.container';
 import ChangeInfo from '../features/profile/ProfileMenuScreens/EditProfile/ChangeInfo/ChangeInfo.container';
 import ChangeName from '../features/profile/ProfileMenuScreens/EditProfile/ChangeName/ChangeName.container';
@@ -35,9 +25,6 @@ const RecommendationsStack = createStackNavigator(
     RecommendationsFeed: {
       screen: RecommendationsFeed,
     },
-    EventDetails: {
-      screen: EventDetails
-    },
     MovieDetails: {
       screen: MovieDetails
     },
@@ -47,9 +34,6 @@ const RecommendationsStack = createStackNavigator(
     ActorDetails: {
       screen: ActorDetails
     },
-    CourseDetails: {
-      screen: CourseDetails
-    }
   },
   {
     headerMode: 'none'
@@ -72,9 +56,6 @@ const DiscoverStack = createStackNavigator(
     Events: {
       screen: Discover
     },
-    EventDetails: {
-      screen: EventDetails
-    },
     MovieDetails: {
       screen: MovieDetails
     },
@@ -90,18 +71,6 @@ const DiscoverStack = createStackNavigator(
     MoviesByGenre: {
       screen: MoviesByGenre
     },
-    EventByCategories: {
-      screen: EventByCategories
-    },
-    Courses: {
-      screen: Courses
-    },
-    CoursesByCategories: {
-      screen: CoursesByCategories
-    },
-    CourseDetails: {
-      screen: CourseDetails
-    }
   },
   {
     headerMode: 'none'
@@ -132,42 +101,27 @@ const ExploreStack = createStackNavigator(
 );
 
 ExploreStack.navigationOptions = {
-  tabBarLabel: 'Events',
+  tabBarLabel: 'Discover',
   tabBarIcon: (props) => <MaterialCommunityIcons name="theater" size={20} color={props.focused ? 'white' : 'gray'} />
 };
 
 const ProfileStack = createStackNavigator(
-
   {
     Profile: {
       screen: Profile
     },
-    Permissions: {
-      screen: Permissions
-    },
-    Feedback: {
-      screen: Feedback
-    },
-    Preferences: {
-      screen: Preferences
-    },
+    
     ChangePassword: {
       screen: ChangePassword
     },
     ChangeLanguage: {
       screen: ChangeLanguage
     },
-    FavouriteEvents: {
-      screen: FavouriteEvents
-    },
     FavouriteSeries: {
       screen: FavouriteSeries
     },
     FavouriteMovies: {
       screen: FavouriteMovies
-    },
-    FavouriteCourses: {
-      screen: FavouriteCourses
     },
     EditProfile: {
       screen: EditProfile
@@ -181,9 +135,6 @@ const ProfileStack = createStackNavigator(
     ChangeName: {
       screen: ChangeName
     },
-    EventDetails: {
-      screen: EventDetails
-    },
     MovieDetails: {
       screen: MovieDetails
     },
@@ -193,9 +144,6 @@ const ProfileStack = createStackNavigator(
     ActorDetails: {
       screen: ActorDetails
     },
-    CourseDetails: {
-      screen: CourseDetails
-    }
   },
   {
     headerMode: 'none'

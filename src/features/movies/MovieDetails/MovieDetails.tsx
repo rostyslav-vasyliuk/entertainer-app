@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, ImageBackground, Linking } from 'react-native';
+import { ScrollView, ActivityIndicator, Text, TouchableOpacity, View, ImageBackground } from 'react-native';
 import { Image } from 'react-native-elements';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
 import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
-import { movieGenres } from '../constants';
+import { BACKGROUND, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../../constants/color-constants';
+import { getMoneyUserFriendly, getMovieGenre, getThreeGenres, getVideoBackground, getYear, onTrailerNavigate, percent2color } from '../../shared/details-utils';
+import { styles } from './styles';
+import Rating from '../../../ui-components/Rating/Rating';
 import { Toast } from 'native-base';
-import { AntDesign } from '@expo/vector-icons';
-import { BACKGROUND, TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../../constants/color-constants';
 
 const MovieDetails = (props) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [movieData, setMovieData]: any = useState({});
 	const [recommendations, setRecommendations] = useState([]);
-	const [isFavourite, setIsFavourite] = useState(null);
+	const [rating, setRating] = useState(null);
 
 	useEffect(() => {
 		const movie_id = props.navigation.getParam('movie_id', null);
 		Axios.get(`/movies/details/${movie_id}`).then((response: AxiosResponse) => {
 			setMovieData(response.data);
-			setIsFavourite(response.data.isFavourite);
 			setIsLoading(false);
+			setRating(response.data.userRating);
 		});
 
 		Axios.get(`/movies/recommendations?id=${movie_id}`).then((response: AxiosResponse) => {
@@ -38,91 +39,33 @@ const MovieDetails = (props) => {
 		)
 	}
 
-	const getYear = (releaseDate) => {
-		return releaseDate.slice(0, 4);
-	}
-
-	const getVideoBackground = () => {
-		if (movieData.videos.results.length === 0) {
-			return '';
-		}
-		return `https://i3.ytimg.com/vi/${movieData.videos.results[0].key}/hqdefault.jpg`;
-	}
-
-	const getGenres = (genres) => {
-		let finalString = '';
-		genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
-		finalString = finalString.slice(0, finalString.length - 2);
-		return finalString;
-	}
-
-	const getGenre = (genre_id) => {
-		if (movieGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
-			return movieGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
-		}
-	}
-
-	const getMoneyUserFriendly = (current) => {
-		let counter = 0;
-		if (current / 1000 > 1) counter++;
-		if (current / 1000000 > 1) counter++;
-		if (current / 1000000000 > 1) counter++;
-
-		if (counter === 0) return current;
-		if (counter === 1) return `$ ${(current / 1000).toFixed(2)}k`;
-		if (counter === 2) return `$ ${(current / 1000000).toFixed(2)}m`;
-		if (counter === 3) return `$ ${(current / 1000000000).toFixed(2)}b`;
-	}
-
-	const percent2color = (perc) => {
-		let r, g, b = 0;
-		if (perc < 50) {
-			r = 255;
-			g = Math.round(5.1 * perc);
-		}
-		else {
-			g = 255;
-			r = Math.round(510 - 5.10 * perc);
-		}
-		var h = r * 0x10000 + g * 0x100 + b * 0x1;
-		return '#' + ('000000' + h.toString(16)).slice(-6);
-	}
-
-	const onTrailerClick = () => {
-		if (movieData.videos.results.length === 0) {
-			return '';
-		}
-		Linking.openURL(`https://youtube.com/watch?v=${movieData.videos.results[0].key}`);
-	}
-
 	const navigate = (current_id) => {
 		props.navigation.push('MovieDetails', {
 			movie_id: current_id
-		})
-	}
+		});
+	};
 
 	const onActorNavigate = (current_id) => {
 		props.navigation.push('ActorDetails', {
 			actor_id: current_id
-		})
-	}
+		});
+	};
 
-	const addToFavourites = () => {
-		Axios.post('/movies/favourite', { id: movieData.id, data: movieData }).then((response: AxiosResponse) => {
-			setIsFavourite(response.data.isFavourite);
-			if (response.data.isFavourite) {
+	const onRatingComplete = (value) => {
+		setRating(value);
+		Axios.post(
+			`/movies/set-rating`,
+			{ movieRating: Number(value), genres: movieData.genres, movieID: movieData.id }
+		)
+			.then(() => {
 				Toast.show({
-					text: 'Added to favourites'
-				})
-			} else {
-				Toast.show({
-					text: 'Removed from favourites'
-				})
-			}
-		}).catch(() => {
+					text: "Thanks, your rate was saved!",
+					buttonText: "Okay",
+					position: "bottom"
+				});
+			});
+	};
 
-		})
-	}
 	return (
 		<>
 			<ScrollView style={styles.container}>
@@ -145,7 +88,7 @@ const MovieDetails = (props) => {
 						<Text style={styles.yearAndCountry}>
 							{`${getYear(movieData.release_date)}`}
 						</Text>
-						<Text style={styles.country}>{getGenres(movieData.genres)}</Text>
+						<Text style={styles.country}>{getThreeGenres(movieData.genres)}</Text>
 						{movieData.production_countries.length > 0 &&
 							<Text style={styles.country}>Country: {movieData.production_countries[0].name}</Text>
 						}
@@ -166,20 +109,11 @@ const MovieDetails = (props) => {
 							shadowColor="#999"
 							bgColor='#030405'
 						>
-							<Text style={{ fontSize: 12, color: '#fff' }}>{movieData.vote_average}</Text>
+							<Text style={{ fontSize: 12, color: '#fff' }}>{movieData.vote_average / 2}</Text>
 						</ProgressCircle>
-
-						<View style={{ paddingTop: 15 }}>
-							<TouchableOpacity onPress={() => addToFavourites()}>
-								{isFavourite ?
-									<AntDesign name={'star'} size={30} color={'#1ecaff'} />
-									:
-									<AntDesign name={'staro'} size={30} color={'#1ecaff'} />
-								}
-							</TouchableOpacity>
-						</View>
 					</View>
 				</View>
+
 				<Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
 
 				<View style={styles.overviewBlock}>
@@ -192,6 +126,24 @@ const MovieDetails = (props) => {
 					<Text style={styles.duration}>{movieData.overview}</Text>
 				</View>
 
+
+				<Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
+
+
+				<View style={styles.overviewBlock}>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 5 }}>
+						<Text style={styles.overviewTitle}>Rate the movie</Text>
+					</View>
+
+					<View>
+						<Rating
+							total={5}
+							active={rating}
+							onChange={onRatingComplete}
+						/>
+					</View>
+				</View>
+
 				<Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
 
 				<View style={styles.overviewBlock}>
@@ -200,12 +152,12 @@ const MovieDetails = (props) => {
 						{movieData.credits.cast.map((elem, index) => {
 							if (index <= 20) {
 								return (
-									<TouchableOpacity onPress={() => onActorNavigate(elem.id)}>
+									<TouchableOpacity onPress={() => onActorNavigate(elem.id)} key={`${elem.id}${index}`}>
 										<View style={styles.castBlock} key={elem.id}>
 											<Image
 												source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }}
 												style={styles.imageCast}
-												borderRadius={8}
+												borderRadius={100}
 												placeholderStyle={{ backgroundColor: '#000000' }}
 												PlaceholderContent={<ActivityIndicator size='large' color="#fff" />}
 											/>
@@ -225,10 +177,10 @@ const MovieDetails = (props) => {
 					<Text style={styles.overviewTitle}>
 						{'Trailer'}
 					</Text>
-					<TouchableOpacity onPress={onTrailerClick}>
+					<TouchableOpacity onPress={() => onTrailerNavigate(movieData)}>
 						<View style={styles.trailerBlock}>
-							<ImageBackground source={{ uri: getVideoBackground() }} style={{ height: 170, width: 320, display: 'flex', justifyContent: 'center', alignItems: 'center' }} imageStyle={{ height: 170, width: 320, borderRadius: 2 }}>
-								<Image source={require('../../../assets/youtube-play.png')} style={styles.playButton} borderRadius={8}/>
+							<ImageBackground source={{ uri: getVideoBackground(movieData) }} style={{ height: 170, width: 320, display: 'flex', justifyContent: 'center', alignItems: 'center' }} imageStyle={{ height: 170, width: 320, borderRadius: 2 }}>
+								<Image source={require('../../../assets/youtube-play.png')} style={styles.playButton} borderRadius={8} />
 							</ImageBackground>
 						</View>
 					</TouchableOpacity>
@@ -248,7 +200,7 @@ const MovieDetails = (props) => {
 											{elem.title}
 										</Text>
 										<Text style={styles.country}>
-											{`${getYear(elem.release_date)}, ${getGenre(elem.genre_ids[0])}`}
+											{`${getYear(elem.release_date)}, ${getMovieGenre(elem.genre_ids)}`}
 										</Text>
 									</View>
 								</TouchableOpacity>
@@ -262,96 +214,3 @@ const MovieDetails = (props) => {
 }
 
 export default MovieDetails;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#030405',
-		color: '#fff'
-	},
-	title: {
-		color: TEXT_COLOR,
-		fontWeight: '800',
-		fontSize: 24,
-		padding: 10,
-		paddingLeft: 15,
-	},
-	additionalButtons: {
-		flexDirection: 'row',
-	},
-	image: {
-		flex: 1,
-		height: 430,
-		// backgroundColor: '#030405'
-	},
-	country: {
-		color: TEXT_COLOR,
-		fontSize: 14,
-	},
-	duration: {
-		color: TEXT_COLOR,
-		fontSize: 14,
-	},
-	yearAndCountry: {
-		color: '#ffa',
-		fontSize: 14,
-	},
-	infoMovieMain: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		paddingLeft: 15,
-		paddingRight: 15,
-		fontSize: 14,
-	},
-	overviewBlock: {
-		paddingLeft: 15,
-		paddingRight: 15,
-		paddingBottom: 10,
-	},
-	overviewTitle: {
-		color: '#fff',
-		fontSize: 22,
-		fontWeight: '700',
-		paddingBottom: 5,
-	},
-	movieImageStyle: {
-		width: 150,
-		height: 225
-	},
-	similarMovieContainer: {
-		width: 150,
-		marginRight: 10,
-	},
-	castBlock: {
-		width: 150,
-		margin: 5,
-	},
-	imageCast: {
-		height: 180,
-		width: 150,
-		borderRadius: 5,
-	},
-	realName: {
-		color: '#fff',
-		fontWeight: '700',
-		fontSize: 15,
-		paddingTop: 5,
-	},
-	characterName: {
-		color: '#b2b2b2',
-		fontSize: 12,
-		paddingTop: 2,
-	},
-	playButton: {
-		width: 70,
-		height: 50,
-		opacity: 0.9
-	},
-	trailerBlock: {
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginTop: 10,
-		marginBottom: 10
-	},
-});

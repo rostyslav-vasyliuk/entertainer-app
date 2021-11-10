@@ -1,13 +1,5 @@
 export const favouriteButtons = [
   {
-    buttonLabel: 'Events',
-    buttonDescription: 'eventsListDesc',
-    icon: 'event',
-    fontFamily: 'MaterialIcons',
-    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
-    link: 'FavouriteEvents'
-  },
-  {
     buttonLabel: 'Movies',
     buttonDescription: 'moviesListDesc',
     icon: 'library-movie',
@@ -23,25 +15,13 @@ export const favouriteButtons = [
     gradientColors: ['#8F44CE', '#6B84CA'],
     link: 'FavouriteSeries'
   },
-  {
-    buttonLabel: 'Education',
-    buttonDescription: 'educationListDesc',
-    icon: 'university',
-    fontFamily: 'FontAwesome5',
-    gradientColors: ['#B446AB', '#fe4b66'],
-    link: 'FavouriteCourses'
-  },
 ]
-
+// TODO:
+// add here stats
+// 1. added to favourites
+// 2. rated movies
+// 3. searched movies
 export const accountButtons = [
-  {
-    buttonLabel: 'Preferences',
-    buttonDescription: 'PreferencesDesc',
-    icon: 'settings',
-    fontFamily: 'MaterialIcons',
-    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
-    link: 'Preferences'
-  },
   {
     buttonLabel: 'Edit',
     buttonDescription: 'EditDesc',
@@ -57,30 +37,6 @@ export const accountButtons = [
     fontFamily: 'MaterialCommunityIcons',
     gradientColors: ['#8F44CE', '#6B84CA'],
     link: 'ChangePassword'
-  },
-  {
-    buttonLabel: 'Language',
-    buttonDescription: 'LanguageDesc',
-    icon: 'language',
-    fontFamily: 'FontAwesome',
-    gradientColors: ['#B446AB', '#fe4b66'],
-    link: 'ChangeLanguage'
-  },
-  {
-    buttonLabel: 'Permissions',
-    buttonDescription: 'PermissionsDesc',
-    icon: 'ios-switch',
-    fontFamily: 'Ionicons',
-    gradientColors: ['#D442F8', '#B645F5', '#9B40F8', '#6B84CA'],
-    link: 'Permissions'
-  },
-  {
-    buttonLabel: 'Support',
-    buttonDescription: 'SupportDesc',
-    icon: 'chat-processing',
-    fontFamily: 'MaterialCommunityIcons',
-    gradientColors: ['#B446AB', '#fe4b66'],
-    link: 'Feedback'
   },
   {
     buttonLabel: 'Logout',

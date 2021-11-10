@@ -1,8 +1,8 @@
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import BottomTabNavigator from './bottom-tab-navigator';
+import BottomTabNavigator from './BottomTabNavigator';
 import AppIntroOverlay from '../ui-components/app-intro-overlay/AppIntroOverlay';
-import NavigationController from './navigation-controller';
+import NavigationController from './NavigationController';
 import AuthNavigator from './AuthNavigator';
 
 const app = createSwitchNavigator(

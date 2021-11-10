@@ -23,7 +23,6 @@ const NavigationController = (props) => {
       }
 
       if (token !== null && response && response.status === 200) {
-        console.log('Token setted')
         Object.assign(Axios.defaults, { headers: { 'access-token': token } });
         props.setUserData(response.data);
         props.navigation.navigate('App');
@@ -35,6 +34,7 @@ const NavigationController = (props) => {
         } else {
           if (Platform.OS !== 'ios') {
             props.navigation.navigate('GreetingsScreen');
+            // props.navigation.navigate('App');
             AsyncStorage.setItem('hasUserSeenIntro', 'true');
           } else {
             props.navigation.navigate('Intro');

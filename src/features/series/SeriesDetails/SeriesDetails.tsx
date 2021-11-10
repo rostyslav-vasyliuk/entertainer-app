@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, Text, TouchableOpacity, View, ImageBackground, Linking } from 'react-native';
+import { ScrollView, ActivityIndicator, Text, TouchableOpacity, View, ImageBackground } from 'react-native';
 import { Image } from 'react-native-elements';
 import { Axios } from '../../../api/instance';
 import { AxiosResponse } from 'axios';
 import ProgressCircle from 'react-native-progress-circle'
 import { Entypo } from '@expo/vector-icons';
 import { Divider } from 'react-native-elements';
-import { seriesGenres } from '../constants';
 import { monthLabel } from '../../../constants/date-constants';
-import { Toast } from 'native-base';
-import { AntDesign } from '@expo/vector-icons';
 import { BACKGROUND, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../../constants/color-constants';
+import { getTVGenre, getThreeGenres, getVideoBackground, onTrailerNavigate, percent2color, getYear } from '../../shared/details-utils';
+import { styles } from './styles';
 
 const SeriesDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,13 +40,6 @@ const SeriesDetails = (props) => {
     )
   }
 
-  const getYear = (releaseDate) => {
-    if (!releaseDate) {
-      return '';
-    }
-    return releaseDate.slice(0, 4);
-  }
-
   const getDateString = (releaseDate: string) => {
     if (!releaseDate) {
       return '';
@@ -55,44 +47,6 @@ const SeriesDetails = (props) => {
     const date = new Date(releaseDate);
     const dateString = `${monthLabel[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     return dateString;
-  }
-
-  const getVideoBackground = () => {
-    if (seriesData.videos.results.length === 0) {
-      return '';
-    }
-    return `https://i3.ytimg.com/vi/${seriesData.videos.results[0].key}/maxresdefault.jpg`;
-  }
-
-  const onTrailerClick = () => {
-    Linking.openURL(`https://youtube.com/watch?v=${seriesData.videos.results[0].key}`);
-  }
-
-  const getGenres = (genres) => {
-    let finalString = '';
-    genres.map((elem, index) => { if (index < 3) finalString += `${elem.name}, ` });
-    finalString = finalString.slice(0, finalString.length - 2);
-    return finalString;
-  }
-
-  const getGenre = (genre_id) => {
-    if (seriesGenres.find((item) => Number(item.movieDB_id) === genre_id)) {
-      return seriesGenres.find((item) => Number(item.movieDB_id) === genre_id).genre;
-    }
-  }
-
-  const percent2color = (perc) => {
-    let r, g, b = 0;
-    if (perc < 50) {
-      r = 255;
-      g = Math.round(5.1 * perc);
-    }
-    else {
-      g = 255;
-      r = Math.round(510 - 5.10 * perc);
-    }
-    var h = r * 0x10000 + g * 0x100 + b * 0x1;
-    return '#' + ('000000' + h.toString(16)).slice(-6);
   }
 
   const getSeasonInfo = (season_number: number) => {
@@ -114,23 +68,6 @@ const SeriesDetails = (props) => {
   const onActorNavigate = (current_id) => {
     props.navigation.push('ActorDetails', {
       actor_id: current_id
-    })
-  }
-
-  const addToFavourites = () => {
-    Axios.post('/tv-series/favourite', { id: seriesData.id, data: seriesData }).then((response: AxiosResponse) => {
-      setIsFavourite(response.data.isFavourite);
-      if (response.data.isFavourite) {
-        Toast.show({
-          text: 'Added to favourites'
-        })
-      } else {
-        Toast.show({
-          text: 'Removed from favourites'
-        })
-      }
-    }).catch(() => {
-
     })
   }
 
@@ -160,7 +97,7 @@ const SeriesDetails = (props) => {
             <Text style={styles.yearAndCountry}>
               {`${getYear(seriesData.first_air_date)}`}
             </Text>
-            <Text style={styles.country}>{getGenres(seriesData.genres)}</Text>
+            <Text style={styles.country}>{getThreeGenres(seriesData.genres)}</Text>
             <Text style={styles.duration}>
               {'Seasons: ' + seriesData.number_of_seasons}
             </Text>
@@ -178,18 +115,8 @@ const SeriesDetails = (props) => {
               shadowColor="#999"
               bgColor='#030405'
             >
-              <Text style={{ fontSize: 12, color: '#fff' }}>{seriesData.vote_average}</Text>
+              <Text style={{ fontSize: 12, color: '#fff' }}>{seriesData.vote_average / 2}</Text>
             </ProgressCircle>
-
-            <View style={{ paddingTop: 15 }}>
-              <TouchableOpacity onPress={() => addToFavourites()}>
-                {isFavourite ?
-                  <AntDesign name={'star'} size={30} color={'#1ecaff'} />
-                  :
-                  <AntDesign name={'staro'} size={30} color={'#1ecaff'} />
-                }
-              </TouchableOpacity>
-            </View>
           </View>
         </View>
         <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
@@ -234,9 +161,9 @@ const SeriesDetails = (props) => {
           <Text style={styles.overviewTitle}>
             {'Trailer'}
           </Text>
-          <TouchableOpacity onPress={onTrailerClick}>
+          <TouchableOpacity onPress={() => onTrailerNavigate(seriesData)}>
             <View style={styles.trailerBlock}>
-              <ImageBackground source={{ uri: getVideoBackground() }} style={{ height: 170, width: 320, display: 'flex', justifyContent: 'center', alignItems: 'center' }} imageStyle={{ height: 170, width: 320, borderRadius: 2 }}>
+              <ImageBackground source={{ uri: getVideoBackground(seriesData) }} style={{ height: 170, width: 320, display: 'flex', justifyContent: 'center', alignItems: 'center' }} imageStyle={{ height: 170, width: 320, borderRadius: 2 }}>
                 <Image source={require('../../../assets/youtube-play.png')} style={styles.playButton} />
               </ImageBackground>
             </View>
@@ -330,7 +257,6 @@ const SeriesDetails = (props) => {
                   </View>
                 )}
                 <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
-
               </>
             ))}
           </View>
@@ -348,7 +274,7 @@ const SeriesDetails = (props) => {
                       {elem.name}
                     </Text>
                     <Text style={styles.country}>
-                      {`${getYear(elem.first_air_date)}, ${getGenre(elem.genre_ids[0])}`}
+                      {`${getYear(elem.first_air_date)}, ${getTVGenre(elem.genre_ids)}`}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -362,183 +288,3 @@ const SeriesDetails = (props) => {
 }
 
 export default SeriesDetails;
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#030405',
-    color: '#fff'
-  },
-  title: {
-    color: '#fff',
-    fontWeight: '800',
-    fontSize: 24,
-    padding: 10,
-    paddingLeft: 15,
-  },
-  additionalButtons: {
-    flexDirection: 'row',
-  },
-  image: {
-    flex: 1,
-    width: '100%',
-    height: 450
-  },
-  country: {
-    color: '#fff',
-    fontSize: 14,
-  },
-  duration: {
-    color: '#fff',
-    fontSize: 14,
-  },
-  yearAndCountry: {
-    color: '#ffa',
-    fontSize: 14,
-  },
-  infoMovieMain: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 15,
-    paddingRight: 15,
-    fontSize: 14,
-  },
-  overviewBlock: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 10,
-  },
-  overviewTitle: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: '700',
-    paddingBottom: 5,
-  },
-  movieImageStyle: {
-    width: 150,
-    height: 225
-  },
-  similarMovieContainer: {
-    width: 150,
-    marginRight: 10,
-    paddingBottom: 15
-  },
-  castBlock: {
-    width: 150,
-    margin: 5,
-  },
-  imageCast: {
-    height: 180,
-    width: 150,
-    borderRadius: 5,
-  },
-  realName: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 15,
-    paddingTop: 5,
-  },
-  characterName: {
-    color: '#b2b2b2',
-    fontSize: 12,
-    paddingTop: 2,
-  },
-  seasonImageStyle: {
-    width: 130,
-    height: 190,
-    borderRadius: 8
-  },
-  episodeImageStyle: {
-    width: 320,
-    height: 190,
-    borderRadius: 8
-  },
-  trailerBlock: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 10
-  },
-  seasonBlock: {
-    flexDirection: 'row',
-    paddingTop: 15
-  },
-  seasonInfo: {
-    marginLeft: 15,
-    width: '60%'
-  },
-  seasonName: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 20
-  },
-  seasonYear: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 14,
-    paddingTop: 5
-  },
-  seasonOverview: {
-    color: '#fff',
-    fontSize: 12,
-    paddingTop: 15,
-    textAlign: 'justify',
-    paddingRight: 3,
-    overflow: 'hidden',
-  },
-  expandBlock: {
-    paddingTop: 15,
-    alignItems: 'center',
-    height: 45
-  },
-  showMoreLabel: {
-    fontSize: 12,
-    color: 'white'
-  },
-  showMoreIcon: {
-    fontSize: 15,
-    color: '#fff'
-  },
-  allEpisodesWrapper: {
-    paddingTop: 30
-  },
-  episodeBlock: {
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  episodeInfoWrapper: {
-    flexDirection: 'column',
-    paddingLeft: 15,
-    paddingRight: 15,
-    width: '100%'
-  },
-  episodeTitle: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 17,
-    paddingTop: 10
-  },
-  episodeDate: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 14,
-    paddingTop: 5,
-    paddingBottom: 10
-  },
-  episodeOverview: {
-    color: '#fff',
-    fontSize: 13,
-    paddingTop: 5,
-    paddingBottom: 2,
-    textAlign: 'justify',
-    paddingRight: 3,
-    overflow: 'hidden',
-  },
-  playButton: {
-    width: 70,
-    height: 50,
-    opacity: 0.9
-  }
-})

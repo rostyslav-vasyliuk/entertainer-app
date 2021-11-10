@@ -1,19 +1,17 @@
 import React, { useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Header, Left, Body, Right, CheckBox } from 'native-base';
-import TabHeaderLabel from '../../ui-components/tab-header/TabHeader';
+import TabHeaderLabel from '../../ui-components/TabHeader/TabHeader';
 import { Modalize } from 'react-native-modalize';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-elements';
-import Events from '../events/Events';
 import Movies from '../movies/Movies';
 import Series from '../series/Series';
 import { TEXT_COLOR, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND, BUTTON_COLOR } from '../../constants/color-constants';
-import Courses from '../courses/Courses';
 import { categoryLabels, defaultCategories } from './constants';
 
-const Discover = ({ userData, navigation }) => {
-  const category = (userData.order && userData.order.length) ? userData.order.map(elem => elem.key) : defaultCategories;
+const Discover = ({ navigation }) => {
+  const category =  defaultCategories;
   const [activeCategory, setActiveCategory] = React.useState(category[0]);
 
   const modalRef = useRef(null);
@@ -102,10 +100,8 @@ const Discover = ({ userData, navigation }) => {
         {renderModalContent()}
       </Modalize>
 
-      {activeCategory === 'events' && <Events navigation={navigation} />}
       {activeCategory === 'movies' && <Movies navigation={navigation} />}
       {activeCategory === 'tv_series' && <Series navigation={navigation} />}
-      {activeCategory === 'education' && <Courses navigation={navigation} />}
     </>
   )
 }

@@ -36,28 +36,6 @@ export const seriesAssets = [
   require('../assets/images/series/western.jpg')
 ];
 
-export const eventsAssets = [
-  require('../assets/images/events/concert.jpg'),
-  require('../assets/images/events/theatre.jpg'),
-  require('../assets/images/events/for_child.jpg'),
-  require('../assets/images/events/festival.jpg'),
-  require('../assets/images/events/stand_up.jpg'),
-  require('../assets/images/events/seminar.jpg'),
-  require('../assets/images/events/exhibition.jpg'),
-  require('../assets/images/events/bussiness.jpg'),
-  require('../assets/images/events/quest.jpg'),
-  require('../assets/images/events/sport.jpg'),
-  require('../assets/images/events/poetry.jpg')
-];
-
-export const coursesAssets = [
-  require('../assets/images/courses/languages.jpg'),
-  require('../assets/images/courses/programming.jpg'),
-  require('../assets/images/courses/music.jpg'),
-  require('../assets/images/courses/economic.jpg'),
-  require('../assets/images/courses/marketing.jpg')
-];
-
 export const otherImages = [
   require('../assets/female.png'),
   require('../assets/male.png'),
@@ -65,4 +43,4 @@ export const otherImages = [
   require('../../assets/dark-logo.png')
 ];
 
-export const assets = [...moviesAssets, ...seriesAssets, ...eventsAssets, ...coursesAssets, ...otherImages];
+export const assets = [...moviesAssets, ...seriesAssets, ...otherImages];
