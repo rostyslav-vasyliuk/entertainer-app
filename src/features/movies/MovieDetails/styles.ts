@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
 	},
 	image: {
 		flex: 1,
-		height: 430,
+		height: 580,
 	},
 	country: {
 		color: TEXT_COLOR,

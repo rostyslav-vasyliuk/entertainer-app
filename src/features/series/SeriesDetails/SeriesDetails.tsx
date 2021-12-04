@@ -10,6 +10,8 @@ import { monthLabel } from '../../../constants/date-constants';
 import { BACKGROUND, TEXT_COLOR_SECONDARY, HEADER_BACKGROUND } from '../../../constants/color-constants';
 import { getTVGenre, getThreeGenres, getVideoBackground, onTrailerNavigate, percent2color, getYear } from '../../shared/details-utils';
 import { styles } from './styles';
+import { Toast } from 'native-base';
+import Rating from '../../../ui-components/Rating/Rating';
 
 const SeriesDetails = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,20 +19,35 @@ const SeriesDetails = (props) => {
   const [seasonsData, setSeasonsData]: any = useState({});
   const [seasonIsLoading, setSeasonIsLoading] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
-  const [isFavourite, setIsFavourite] = useState(null);
+  const [rating, setRating] = useState(null);
 
   useEffect(() => {
     const series_id = props.navigation.getParam('series_id', null);
     Axios.get(`/tv-series/details/${series_id}`).then((response: AxiosResponse) => {
       setseriesData(response.data);
-      setIsFavourite(response.data.isFavourite);
       setIsLoading(false);
+      setRating(response.data.userRating);
     });
 
     Axios.get(`/tv-series/recommendations?id=${series_id}`).then((response: AxiosResponse) => {
       setRecommendations(response.data.results);
     });
   }, []);
+
+  	const onRatingComplete = (value) => {
+		setRating(value);
+		Axios.post(
+			`/tv-series/set-rating`,
+			{ seriesRating: Number(value), genres: seriesData.genres, seriesID: seriesData.id }
+		)
+			.then(() => {
+				Toast.show({
+					text: "Thanks, your rate was saved!",
+					buttonText: "Okay",
+					position: "bottom"
+				});
+			});
+	};
 
   if (isLoading) {
     return (
@@ -136,6 +153,22 @@ const SeriesDetails = (props) => {
 
         <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
 
+				<View style={styles.overviewBlock}>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 5 }}>
+						<Text style={styles.overviewTitle}>Rate the series</Text>
+					</View>
+
+					<View>
+						<Rating
+							total={5}
+							active={rating}
+							onChange={onRatingComplete}
+						/>
+					</View>
+				</View>
+
+        <Divider style={{ backgroundColor: '#2d3138', margin: 10 }} />
+
         <View style={styles.overviewBlock}>
           <Text style={styles.overviewTitle}>Cast</Text>
           <ScrollView horizontal>
@@ -144,7 +177,7 @@ const SeriesDetails = (props) => {
                 return (
                   <TouchableOpacity onPress={() => onActorNavigate(elem.id)}>
                     <View style={styles.castBlock} key={elem.id}>
-                      <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} borderRadius={8} style={styles.imageCast} />
+                      <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${elem.profile_path}` }} borderRadius={100} style={styles.imageCast} />
                       <Text style={styles.realName}>{elem.name}</Text>
                       <Text style={styles.characterName}>{elem.character}</Text>
                     </View>

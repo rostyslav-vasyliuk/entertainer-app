@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: '100%',
-    height: 450
+    height: 600
   },
   country: {
     color: '#fff',
@@ -62,13 +62,15 @@ export const styles = StyleSheet.create({
     paddingBottom: 15
   },
   castBlock: {
-    width: 150,
-    margin: 5,
+		width: 150,
+		margin: 5,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems:'center'
   },
   imageCast: {
-    height: 180,
-    width: 150,
-    borderRadius: 5,
+		height: 130,
+		width: 130,
   },
   realName: {
     color: '#fff',
